@@ -15,7 +15,7 @@
     <section class="menu-container">
       <div class="nav">
         <a [routerLink]="['/inicio']" routerLinkActive="active">Inicio</a>
-        <a>Productos</a>
+        <a [routerLink]="['/productos']" routerLinkActive="active">Productos</a>
         <a>Empresas</a>
       </div>
     </section>
@@ -58,7 +58,7 @@
         <div class="footer-section">
           <h4>Información</h4>
           <ul>
-            <li><a>Productos</a></li>
+            <li><a [routerLink]="['/productos']">Productos</a></li>
             <li><a>Empresas</a></li>
             <li><a>Ofertas</a></li>
             <li><a [routerLink]="['/inicio']" routerLinkActive="active">Politica de privacidad</a></li>
