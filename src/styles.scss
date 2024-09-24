@@ -1,4 +1,53 @@
-/* You can add global styles to this file, and also import other style files */
+// Ingresamos la fuente 
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@font-face {
+    font-family: 'Poppins';
+    src: url('assets/fonts/Poppins-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('assets/fonts/Poppins-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Noto-Serif';
+    src: url('assets/fonts/NotoSerif-VariableFont_wdth\,wght.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    
+}
+
+@font-face {
+    font-family: 'Noto-Serif';
+    src: url('../src/assets/fonts/NotoSerif-Italic-VariableFont_wdth\,wght.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+// Estilos de la página
+
+html, body {
+    height: 100%; 
+}
+
+
+body{
+    margin: 0;
+    color: #120D31;
+    background-color:  #EBD2BE;
+    font-family: 'Poppins' , sans-serif;
+}
+
+a{
+    text-decoration: none;
+}
+
+a:visited {
+    color: inherit;
+}

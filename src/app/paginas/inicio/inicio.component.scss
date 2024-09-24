@@ -1,0 +1,82 @@
+//Seccion presentacion
+
+.presentation-container {
+    background-image: url("../../../assets/images/presentacion.png");
+    background-size: cover; 
+    background-position: center;
+    padding: 10% 0; 
+}
+
+h1{
+    font-family: "Noto-Serif", sans-serif;
+    font-style: italic;
+    font-size: 40px;
+    max-width: 80%;
+    margin-left: 5%;
+    color: #5E503F;
+}
+
+.presentation-container p,.about-us-container p{
+    font-size: 20px;
+    margin-left: 5%;
+    line-height: 1.5;
+}
+
+.presentation-container p{
+    max-width: 30%;
+}
+
+.about-us-container{
+    display: flex;
+    margin-right: 5%;
+
+}
+
+#image-about-us{
+    flex-basis: 50%;
+}
+
+#image-about-us img{
+    max-width: 50%;
+    margin-top: 15%;
+    margin-left: 25%;
+}
+
+#text-about-us{
+    flex-basis: 50%;
+    margin-top: 5%;
+    height: fit-content;
+    border-top: solid 3px #5E503F;
+    border-bottom: solid 3px #5E503F;
+}
+
+hr{
+    border: none; 
+    height: 2px; 
+    background-color: #5E503F;
+    margin: 2% 15%;
+}
+
+.FAQ-container div{
+    display: flex;
+    margin: 0 15%;
+}
+
+mat-expansion-panel{
+    flex-basis: 50%;
+    margin: 0 2%;
+    height: fit-content;
+}
+
+mat-panel-title{
+    font-family: "Noto-Serif", sans-serif;
+    font-size: 20px;
+    font-style: italic;
+}
+
+.FAQ-container mat-expansion-panel {
+    font-family: "Poppins",sans-serif;
+    
+    padding: 2%;
+    background-color: #EBBC6F;
+}
