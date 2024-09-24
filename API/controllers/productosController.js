@@ -1,0 +1,47 @@
+const db = require('../db');  // Conexión a la base de datos
+
+// Crear un nuevo producto
+exports.crearProducto = (req, res) => {
+    const { nombre, descripcion, precio, stock } = req.body;
+    const proveedorId = req.usuarioId;  // ID del proveedor autenticado
+
+    const query = 'INSERT INTO productos (nombre, descripcion, precio, stock, proveedor_id) VALUES (?, ?, ?, ?, ?)';
+    db.query(query, [nombre, descripcion, precio, stock, proveedorId], (err, result) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.status(201).json({ mensaje: 'Producto creado con éxito' });
+    });
+};
+
+// Obtener productos del proveedor autenticado
+exports.obtenerProductos = (req, res) => {
+    const proveedorId = req.usuarioId;
+
+    const query = 'SELECT * FROM productos WHERE proveedor_id = ?';
+    db.query(query, [proveedorId], (err, results) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json(results);
+    });
+};
+
+// Actualizar un producto
+exports.actualizarProducto = (req, res) => {
+    const { nombre, descripcion, precio, stock } = req.body;
+    const productoId = req.params.id;
+
+    const query = 'UPDATE productos SET nombre = ?, descripcion = ?, precio = ?, stock = ? WHERE id = ? AND proveedor_id = ?';
+    db.query(query, [nombre, descripcion, precio, stock, productoId, req.usuarioId], (err, result) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json({ mensaje: 'Producto actualizado con éxito' });
+    });
+};
+
+// Eliminar un producto
+exports.eliminarProducto = (req, res) => {
+    const productoId = req.params.id;
+
+    const query = 'DELETE FROM productos WHERE id = ? AND proveedor_id = ?';
+    db.query(query, [productoId, req.usuarioId], (err, result) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json({ mensaje: 'Producto eliminado con éxito' });
+    });
+};

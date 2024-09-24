@@ -1,0 +1,14 @@
+<div>
+    @for(producto of productos; track producto.id){
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>{{ producto.nombre }}</mat-card-title>
+            <mat-card-subtitle>{{ producto.precio }}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image [src]="producto.imagen_url" alt="Imagen del producto">
+        <mat-card-content>
+            <p>{{ producto.descripcion }}</p>
+        </mat-card-content>
+    </mat-card>
+    }
+</div>
