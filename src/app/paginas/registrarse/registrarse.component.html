@@ -1,9 +1,12 @@
 <!-- Sección form -->
-<form>
+<form (ngSubmit)="crearEmpresa()">
     <h1>Registrarse</h1>
     <!-- div nombre completo y correo-->
     <img src="assets/images/registro.svg" alt="Solicitar URL de imagen" style="cursor: pointer; width: 100px;" />
-    <mat-form-field id="img-registro">Ingresa el link de tu imagen: <input matInput></mat-form-field>
+    <mat-form-field id="img-registro">
+        Ingresa el link de tu imagen:
+        <input matInput [formControl]="logo">
+      </mat-form-field>
     <div class="form-2-fields">
 
         <mat-form-field>
@@ -80,12 +83,14 @@
 
         <mat-form-field>
             <mat-label>Ingresa una descripción</mat-label>
-            <textarea matInput></textarea>
+            <textarea matInput
+            [formControl]="descripcion"></textarea>
         </mat-form-field>
 
         <mat-form-field>
             <mat-label>Direccion</mat-label>
-            <textarea matInput placeholder="Ej. Av. America 1258 (Ingresa indicaciones de ser necesario)"></textarea>
+            <textarea matInput
+            [formControl]="direccion" placeholder="Ej. Av. America 1258 (Ingresa indicaciones de ser necesario)"></textarea>
         </mat-form-field>
 
     </div>
@@ -94,13 +99,14 @@
         <mat-form-field>
             <mat-label>Contacto</mat-label>
             <span matTextPrefix>+591 &nbsp;</span>
-            <input type="tel" matInput placeholder="61675219">
+            <input type="tel" matInput
+            [formControl]="contacto" placeholder="61675219">
         </mat-form-field>
             <input type="checkbox" id="terms" name="terms" required>
             <a [routerLink]="['/terminos-condiciones']" routerLinkActive="active" for="terms">Acepto los términos y condiciones</a>
     </div>
     <!-- creación de cuenta-->
-    <a mat-stroked-button [routerLink]="['/inicio']" routerLinkActive="active" id="registrarse"> > Registrarse</a>
+    <button mat-stroked-button (click)="crearEmpresa()" id="registrarse"> > Registrarse</button>
   </form>
   
   
