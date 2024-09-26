@@ -1,0 +1,44 @@
+/* iniciar-sesion.component.css */
+form {
+  display: flex;
+  flex-direction: column;
+  background-color: #EBBC6F;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 400px;
+  margin: 50px auto;
+  gap: 20px;
+}
+
+h1 {
+  text-align: center;
+  font-family: "Noto-Serif", sans-serif;
+  font-style: italic;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+button {
+  width: 100%;
+  background-color: #D1BEB0;
+  border: none;
+  color: black;
+}
+
+.extra-options {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.link {
+  color: #007BFF;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
