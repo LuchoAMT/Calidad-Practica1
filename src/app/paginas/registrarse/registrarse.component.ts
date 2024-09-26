@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
 import { Router,RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
@@ -8,8 +8,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {merge} from 'rxjs';
-//usuarios
-import { usuario } from '../../interfaces/usuario'; 
+//empresas
+import { Empresa } from '../../interfaces/empresa';
+import { EmpresasService } from '../../servicios/empresas.service';
 
 @Component({
   selector: 'app-registrarse',
@@ -19,16 +20,30 @@ import { usuario } from '../../interfaces/usuario';
   styleUrl: './registrarse.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RegistrarseComponent {
+export class RegistrarseComponent{
+  readonly logo = new FormControl('', [Validators.required]);
   readonly email = new FormControl('', [Validators.required, Validators.email]);
   readonly nombre = new FormControl('', [Validators.required]);
   readonly password = new FormControl('', [Validators.required]);
   readonly password_confirm = new FormControl('', [Validators.required]);
+  readonly descripcion = new FormControl('', [Validators.required]);
+  readonly direccion = new FormControl('', [Validators.required]);
+  readonly contacto = new FormControl('', [Validators.required]);
 
+  nuevaEmpresa: Empresa = {
+    id_proveedor: 0,
+    nombre: '',
+    descripcion: '',
+    correo: '',
+    contraseña: '',
+    direccion: '',
+    contacto: '',
+    logo: '',
+  };
 
   errorMessage = signal('');
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private empresasService:EmpresasService) {
     merge(this.nombre.statusChanges, this.nombre.valueChanges)
       .pipe(takeUntilDestroyed())
       .subscribe(() => this.updateErrorMessage());
@@ -48,37 +63,36 @@ export class RegistrarseComponent {
     if (this.email.hasError('required')) {
       this.errorMessage.set('Este campo es obligatorio para ingresar');
     } else if (this.email.hasError('email')) {
-      this.errorMessage.set('El email ingresado no es valido');
+      this.errorMessage.set('El campo ingresado no es valido');
     } else {
       this.errorMessage.set('');
     }
   }
   
 
-  usuario: usuario = {  
-    nombre: '',
-    correo: '',
-    contraseña: '',
-    descripcion: '',
-    direccion: '',
-    contacto: '',
-    foto: ''
-  };
-
   terms: boolean = false;
 
-onSubmit() {
-    // Verificar si algún campo está vacío
-  if (!this.usuario.nombre || !this.usuario.correo || !this.usuario.contraseña ) {
-    alert('Todos los campos son obligatorios, llena los datos faltantes');
-    return;
+  async crearEmpresa() {
+    if (this.password.value === this.password_confirm.value) {
+      this.nuevaEmpresa.logo = this.logo.value || '';
+      this.nuevaEmpresa.nombre = this.nombre.value!;
+      this.nuevaEmpresa.correo = this.email.value!;
+      this.nuevaEmpresa.contraseña = this.password.value!;
+      this.nuevaEmpresa.descripcion = this.descripcion.value!;
+      this.nuevaEmpresa.direccion = this.direccion.value!;
+      this.nuevaEmpresa.contacto = this.contacto.value!;
+  
+      try {
+        const empresaCreada = await this.empresasService.crearEmpresa(this.nuevaEmpresa);
+        console.log('Empresa creada:', empresaCreada);
+        // Redirige a la página de inicio tras la creación exitosa
+        this.router.navigate(['/inicio']);
+      } catch (error) {
+        console.error('Error al crear la empresa:', error);;
+      }
+    } else {
+      this.errorMessage.set('Las contraseñas no coinciden');
+    }
   }
-
-  // Verificar términos y condiciones
-  if (!this.terms) {
-    alert('Debe aceptar los términos y condiciones');
-    return;
-  }
-
-  }
+  
 }

@@ -65,6 +65,17 @@ app.get('/proveedores', (req, res) => {
   });
 });
 
+app.post('/proveedores', (req, res) => {
+    const { nombre, correo, contraseña, descripcion, direccion, contacto, logo } = req.body;
+    const proveedorId = req.usuarioId;  // ID del proveedor autenticado
+    const query = 'INSERT INTO proveedores (nombre, correo, contraseña, descripcion, direccion, contacto, logo, id_proveedor) VALUES (?, ?, ?, ?, ?, ?, ?, ?)'; // Asegúrate de que todos los parámetros estén incluidos
+    db.query(query, [nombre, correo, contraseña, descripcion, direccion, contacto, logo, proveedorId], (err, result) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.status(201).json({ mensaje: 'Empresa creada con éxito' });
+    });
+});
+
+
 
 // Iniciar el servidor
 app.listen(port, () => {
