@@ -55,6 +55,17 @@ app.delete('/productos/:id', (req, res) => {
     });
 });
 
+
+app.get('/proveedores', (req, res) => {
+  db.query('SELECT * FROM proveedores', (err, results) => {
+      if (err) {
+          return res.status(500).send('Error al consultar productos.');
+      }
+      res.json(results);
+  });
+});
+
+
 // Iniciar el servidor
 app.listen(port, () => {
     console.log(`Servidor corriendo en http://localhost:${port}`);
