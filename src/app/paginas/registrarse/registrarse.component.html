@@ -1,0 +1,106 @@
+<!-- Sección form -->
+<form>
+    <h1>Registrarse</h1>
+    <!-- div nombre completo y correo-->
+    <img src="assets/images/registro.svg" alt="Solicitar URL de imagen" style="cursor: pointer; width: 100px;" />
+    <mat-form-field id="img-registro">Ingresa el link de tu imagen: <input matInput></mat-form-field>
+    <div class="form-2-fields">
+
+        <mat-form-field>
+            <mat-label>Nombre</mat-label>
+            <input matInput
+            [formControl]="nombre"
+            (blur)="updateErrorMessage()"
+            required>
+            @if (nombre.invalid) {
+                <mat-error>{{errorMessage()}}</mat-error>
+            }
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Ingresa tu correo</mat-label>
+            <input
+            matInput
+            placeholder="tuemail@ejemplo.com"
+            [formControl]="email"
+            (blur)="updateErrorMessage()"
+            required
+            />
+            @if (email.invalid) {
+            <mat-error>{{errorMessage()}}</mat-error>
+            }
+        </mat-form-field>
+
+    </div>
+    <!-- div contraseña-->
+    <div class="form-2-fields">
+
+        <mat-form-field>
+            <mat-label>Ingresa tu contraseña</mat-label>
+            <input matInput [type]="hide() ? 'password' : 'text'" 
+            [formControl]="password"
+            (blur)="updateErrorMessage()"
+            required/>
+            @if (password.invalid) {
+                <mat-error>{{errorMessage()}}</mat-error>
+            }
+        <button
+            mat-icon-button
+            matSuffix
+            (click)="clickEvent($event)"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide()"
+        >
+            <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Confirma tu contraseña</mat-label>
+            <input matInput [type]="hide() ? 'password' : 'text'" 
+            [formControl]="password_confirm"
+            (blur)="updateErrorMessage()"
+            required/>
+            @if (password_confirm.invalid) {
+                <mat-error>{{errorMessage()}}</mat-error>
+            }
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="clickEvent($event)"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide()"
+            >
+              <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+    </div>
+    <!-- div descripción y dirección-->
+    <div class="form-2-fields">
+
+        <mat-form-field>
+            <mat-label>Ingresa una descripción</mat-label>
+            <textarea matInput></textarea>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Direccion</mat-label>
+            <textarea matInput placeholder="Ej. Av. America 1258 (Ingresa indicaciones de ser necesario)"></textarea>
+        </mat-form-field>
+
+    </div>
+    <!-- div contacto y terminos y condiciones-->
+    <div class="form-2-fields">
+        <mat-form-field>
+            <mat-label>Contacto</mat-label>
+            <span matTextPrefix>+591 &nbsp;</span>
+            <input type="tel" matInput placeholder="61675219">
+        </mat-form-field>
+            <input type="checkbox" id="terms" name="terms" required>
+            <a [routerLink]="['/terminos-condiciones']" routerLinkActive="active" for="terms">Acepto los términos y condiciones</a>
+    </div>
+    <!-- creación de cuenta-->
+    <a mat-stroked-button [routerLink]="['/inicio']" routerLinkActive="active" id="registrarse"> > Registrarse</a>
+  </form>
+  
+  

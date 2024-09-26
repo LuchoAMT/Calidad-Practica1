@@ -27,13 +27,17 @@
     </div> 
     <section class="account-container">
         <div class="socials">
-          <img src="assets/images/instagram.svg" alt="Instagram de la cuenta ingresada" class="social-media-account">
-          <img src="assets/images/facebook.svg" alt="Facebook de la cuenta ingresada" class="social-media-account">
-          <img src="assets/images/tiktok.svg" alt="Tik Tok de la cuenta ingresada" class="social-media-account">
+          <a href="https://www.instagram.com/Merka Bolivia/" target="_blank"><img src="assets/images/instagram.svg" alt="Instagram Merka" class="social-media-account"></a>
+          <a href="https://www.facebook.com/search/top/?q=merka" target="_blank"><img src="assets/images/facebook.svg" alt="Facebook Merka" class="social-media-account"></a>
+          <a href="https://www.tiktok.com/search?q=merka" target="_blank"><img src="assets/images/tiktok.svg" alt="Tik Tok Merka" class="social-media-account"></a>
         </div>
         <div class="nav">
-          <a>Cuenta</a>
-          <a>Carrito (0)</a>
+          <button mat-button [matMenuTriggerFor]="menu">Cuenta</button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item [routerLink]="['/registrarse']" routerLinkActive="active">Registrarse</button>
+            <button mat-menu-item [routerLink]="['/iniciar-sesion']" routerLinkActive="active">Iniciar sesion</button>
+          </mat-menu>
+          <button mat-button>Carrito (0)</button>
         </div>
     </section>
   </header>
@@ -44,14 +48,16 @@
        <!-- div contenido footer -->
        <div class="footer-content">
         <span>Juntos hacemos crecer tu negocio. <br><br>¡Conexiones que importan!</span> 
-        <img src="assets/images/logo.png" alt="Logo-Pagina" style="width: 125px; height:152px;"> 
+        <a [routerLink]="['/inicio']" routerLinkActive="active">
+          <img src="assets/images/logo.png" alt="Logo-Pagina" style="width: 125px; height:152px;"> 
+        </a>
         <!-- seccion 1-->
         <div class="footer-section">
           <h4>Nuestras redes</h4>
           <ul id="menu-1">
-            <li><a><img src="assets/images/instagram.svg" alt="Instagram Merka" class="social-media-account"></a></li>
-            <li><a><img src="assets/images/facebook.svg" alt="Facebook Merka" class="social-media-account"></a></li>
-            <li><a><img src="assets/images/tiktok.svg" alt="Tik Tok Merka" class="social-media-account"></a></li>
+            <li><a href="https://www.instagram.com/Merka Bolivia/" target="_blank"><img src="assets/images/instagram.svg" alt="Instagram Merka" class="social-media-account"></a></li>
+            <li><a href="https://www.facebook.com/search/top/?q=merka" target="_blank"><img src="assets/images/facebook.svg" alt="Facebook Merka" class="social-media-account"></a></li>
+            <li><a href="https://www.tiktok.com/search?q=merka" target="_blank"><img src="assets/images/tiktok.svg" alt="Tik Tok Merka" class="social-media-account"></a></li>
           </ul>
         </div>
         <!-- seccion 1-->
@@ -60,9 +66,8 @@
           <ul>
             <li><a [routerLink]="['/productos']">Productos</a></li>
             <li><a>Empresas</a></li>
-            <li><a>Ofertas</a></li>
-            <li><a [routerLink]="['/inicio']" routerLinkActive="active">Politica de privacidad</a></li>
-            <li><a [routerLink]="['/inicio']" routerLinkActive="active">Terminos y condiciones</a></li>
+            <li><a [routerLink]="['/productos']" routerLinkActive="active">Ofertas</a></li>
+            <li><a [routerLink]="['/terminos-condiciones']" routerLinkActive="active">Terminos y condiciones</a></li>
           </ul>
         </div>    
       </div>

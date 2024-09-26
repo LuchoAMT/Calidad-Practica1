@@ -1,0 +1,25 @@
+.container-not-found {
+    text-align: center;
+}
+
+.container-not-found img{
+    max-width: 75%;
+    margin: 5% 0%;
+}   
+
+
+h1 {
+    margin: 2.5% 0;
+    font-size: 2rem;
+    font-style: italic;
+}
+
+.mat-mdc-outlined-button:not(:disabled){
+    color: black;
+    font-family: "Poppins", sans-serif;
+    border-color: black;
+}
+
+.mat-mdc-outlined-button:hover{
+    background-color: #CCAD8F;
+}
