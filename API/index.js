@@ -1,7 +1,5 @@
 const express = require('express');
 const cors = require('cors');
-const db = require('./db');  // Importa la conexión a la base de datos
-const bcrypt = require('bcrypt')
 const app = express();
 const port = 3000;
 
@@ -12,8 +10,9 @@ app.use(express.json());
 // Rutas
 const productosRoutes = require('./routes/productos');
 const proveedoresRoutes = require('./routes/empresas');
+const authRoutes = require('./routes/auth');
 
-
+app.use('/auth', authRoutes);
 app.use('/productos', productosRoutes);
 app.use('/proveedores', proveedoresRoutes);
 
