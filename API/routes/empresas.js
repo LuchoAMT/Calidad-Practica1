@@ -7,15 +7,19 @@ const { crearEmpresa, obtenerEmpresas, eliminarEmpresa } = require('../controlle
 const router = express.Router();
 
 // Crear una empresa
-router.post('/proveedores', verificarToken, crearEmpresa); 
+router.post('/', crearEmpresa); 
 
 // Obtener las empresas
-router.get('/proveedores', verificarToken, obtenerEmpresas);
+router.get('/', obtenerEmpresas);
 
 // Obtener las empresas por id
 router.get('/proveedores/:id_proveedor', obtenerEmpresaPorId);
 
 // Eliminar una empresa
+<<<<<<< HEAD
 router.delete('/:id_proveedor', verificarToken, eliminarEmpresa);
+=======
+router.delete('/:id', eliminarEmpresa);
+>>>>>>> 253f682379c9138476d902634f968b911e711982
 
 module.exports = router;

@@ -14,7 +14,7 @@ import { RouterLink } from '@angular/router';
 export class ListaProductosComponent implements OnInit {
   productos: Producto[] = [];
   nuevoProducto: Producto = {
-    id: 0,
+    id_producto: 0,
     nombre: '',
     descripcion: '',
     precio: 0,
