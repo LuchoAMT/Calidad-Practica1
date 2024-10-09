@@ -12,7 +12,10 @@ router.post('/proveedores', verificarToken, crearEmpresa);
 // Obtener las empresas
 router.get('/proveedores', verificarToken, obtenerEmpresas);
 
+// Obtener las empresas por id
+router.get('/proveedores/:id_proveedor', obtenerEmpresaPorId);
+
 // Eliminar una empresa
-router.delete('/:id', verificarToken, eliminarEmpresa);
+router.delete('/:id_proveedor', verificarToken, eliminarEmpresa);
 
 module.exports = router;

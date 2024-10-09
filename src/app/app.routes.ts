@@ -6,6 +6,7 @@ import { PaginaNoEncontradaComponent } from './paginas/pagina-no-encontrada/pagi
 import { RegistrarseComponent } from './paginas/registrarse/registrarse.component';
 import { IniciarSesionComponent } from './paginas/iniciar-sesion/iniciar-sesion.component';
 import { TerminosCondicionesComponent } from './paginas/terminos-condiciones/terminos-condiciones.component';
+import { DetallesEmpresaComponent } from './paginas/detalles-empresa/detalles-empresa.component';
 
 export const routes: Routes = [
     { path: 'inicio', component: InicioComponent },
@@ -15,5 +16,6 @@ export const routes: Routes = [
     { path: 'registrarse', component: RegistrarseComponent },
     { path: 'iniciar-sesion', component: IniciarSesionComponent },
     { path: 'terminos-condiciones', component: TerminosCondicionesComponent },
+    { path: 'detalles-empresa/:id', component: DetallesEmpresaComponent},
     { path: '**', component: PaginaNoEncontradaComponent },
 ];

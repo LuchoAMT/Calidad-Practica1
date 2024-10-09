@@ -65,6 +65,19 @@ app.get('/proveedores', (req, res) => {
   });
 });
 
+app.get('/proveedores/:id', (req, res) => {
+    const empresaId = req.params.id;
+    db.query('SELECT * FROM proveedores WHERE id_proveedor = ?', [empresaId], (err, results) => {
+        if (err) {
+            return res.status(500).send('Error al consultar productos.');
+        }
+        if (results.length === 0) {
+            return res.status(404).send('Empresa no encontrada.');
+        }
+            res.json(results[0]);  // Enviar solo la primera coincidencia
+        });
+    });
+    
 app.post('/proveedores', (req, res) => {
     const { nombre, correo, contraseña, descripcion, direccion, contacto, logo } = req.body;
     const proveedorId = req.usuarioId;  // ID del proveedor autenticado

@@ -17,6 +17,12 @@ export class EmpresasService {
     return empresas;
   }
 
+  async getEmpresa(id: number): Promise<Empresa> {
+    const resp = await fetch(`${this.apiUrl}/${id}`);
+    const empresa = await resp.json();
+    return empresa;
+  }
+
   async crearEmpresa(empresa: Empresa): Promise<Empresa> {
     const resp = await fetch(this.apiUrl, {
       method: 'POST',
