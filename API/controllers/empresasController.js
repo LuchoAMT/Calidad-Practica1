@@ -29,6 +29,27 @@ exports.obtenerEmpresas = async (req, res) => {
     }
 };
 
+exports.obtenerEmpresaPorId = async (req, res) => {
+    const empresaId = req.params.id_proveedor;
+    
+    try {
+        // Usar await para manejar la promesa de la consulta
+        const [results] = await db.query('SELECT * FROM proveedores WHERE id_proveedor = ?', [empresaId]);
+
+        // Verificar si se encontró la empresa
+        if (results.length === 0) {
+            return res.status(404).send('Empresa no encontrada.');
+        }
+
+        // Enviar la primera coincidencia
+        res.json(results[0]);
+    } catch (err) {
+        // Manejo de errores
+        return res.status(500).send('Error al consultar la empresa.');
+    }
+};
+
+
 // Eliminar una empresa
 exports.eliminarEmpresa = async (req, res) => {
     const proveedorId = req.params.id;
