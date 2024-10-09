@@ -3,19 +3,19 @@
     <!-- Sección encabezado-->
     <header class="header-detail">
       <div class="go-back">
-        <a [routerLink]="'/tienda'" [routerLinkActive]="['active']">
+        <a [routerLink]="'/empresas'" [routerLinkActive]="['active']">
           <span style="color: white;">&lt;</span> Volver atrás
         </a>
       </div>
     </header>
-  
+
     <!-- Sección contenido -->
     <div class="container-detail">
       <!-- imagen producto -->
       <div class="img">
         <img [src]="empresa?.logo" alt="Logo de {{empresa?.nombre}}">
       </div>
-  
+
       <!-- descripcion detallada del producto -->
       <div class="description">
         <h2>{{empresa?.nombre}}</h2>
@@ -27,4 +27,3 @@
       </div>
     </div>
   </section>
-  

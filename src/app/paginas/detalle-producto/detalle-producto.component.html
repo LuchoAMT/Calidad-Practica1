@@ -1,0 +1,28 @@
+<!-- Sección detalles -->
+<section class="detail">
+  <!-- Sección encabezado-->
+  <header class="header-detail">
+    <div class="go-back">
+      <a [routerLink]="'/productos'" [routerLinkActive]="['active']">
+        <span style="color: white;">&lt;</span> Volver atrás
+      </a>
+    </div>
+  </header>
+
+  <!-- Sección contenido -->
+  <div class="container-detail">
+    <!-- imagen producto -->
+    <div class="img">
+      <img [src]="producto?.imagen_url" alt="Logo de {{producto?.nombre}}">
+    </div>
+
+    <!-- descripcion detallada del producto -->
+    <div class="description">
+      <h2>{{producto?.nombre}}</h2>
+      <div class="category">
+        <p>{{producto?.descripcion}}</p>
+      </div>
+
+    </div>
+  </div>
+</section>

@@ -28,6 +28,25 @@ exports.obtenerProductos = async (req, res) => {
         return res.status(500).json({ error: err.message });
     }
 };
+exports.obtenerPorductoPorId = async (req, res) => {
+  const productoId = req.params.id_producto;
+
+  try {
+      // Usar await para manejar la promesa de la consulta
+      const [results] = await db.query('SELECT * FROM productos WHERE id_producto = ?', [productoId]);
+
+      // Verificar si se encontró la empresa
+      if (results.length === 0) {
+          return res.status(404).send('Producto no encontrado.');
+      }
+
+      // Enviar la primera coincidencia
+      res.json(results[0]);
+  } catch (err) {
+      // Manejo de errores
+      return res.status(500).send('Error al consultar la empresa.');
+  }
+};
 
 // Actualizar un producto
 exports.actualizarProducto = async (req, res) => {

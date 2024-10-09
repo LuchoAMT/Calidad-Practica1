@@ -1,91 +1,91 @@
 .container {
-    display: flex;
-    flex-wrap: wrap; 
-    justify-content: space-around; 
-    margin: 0 4%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 0 4%;
 }
 
 // seccion contenedor producto
 .container-product, mat-card img{
-    border-radius: 10px;
-  }
+  border-radius: 10px;
+}
 
 // seccion contenedor producto
-  .container-product {
-    width: auto;
-    height: fit-content; 
-    padding: 1%; 
-    border: 1px solid #343434;
-    background-color: #F0CD93;
-    box-sizing: border-box;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-    transition: transform 0.3s ease, box-shadow 0.3s ease; 
-    margin: 20px;
+.container-product {
+  width: auto;
+  height: fit-content;
+  padding: 1%;
+  border: 1px solid #343434;
+  background-color: #F0CD93;
+  box-sizing: border-box;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin: 20px;
 }
 
 /* Efecto hover en las tarjetas */
 .container-product:hover {
-  transform: translateY(-10px); 
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
+transform: translateY(-10px);
+box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .container-img{
-  text-align: center;
+text-align: center;
 }
 
 .container-img img {
-    width: 15rem;
-    height: auto;
-    object-fit: cover;
-    margin-top: 10%;
-    margin-bottom: 5%;
+  width: 15rem;
+  height: auto;
+  object-fit: cover;
+  margin-top: 10%;
+  margin-bottom: 5%;
 }
 
 mat-card-content {
-    flex-grow: 1;
-    overflow: hidden;
+  flex-grow: 1;
+  overflow: hidden;
 }
 
 mat-card-title, button {
-    font-family: 'Noto-Serif', sans-serif;
-    font-style: italic;
+  font-family: 'Noto-Serif', sans-serif;
+  font-style: italic;
 }
 
 #descripcion{
-  font-size: 15px;
+font-size: 15px;
 }
 
- // seccion del fondo (precio y botón)
-  
-  .bottom-product .bottom-container{
-    margin-top: 5%;
-    display: flex;
-    justify-content: space-between;
+// seccion del fondo (precio y botón)
+
+.bottom-product .bottom-container{
+  margin-top: 5%;
+  display: flex;
+  justify-content: space-between;
 }
-   
-  .price p{
-    font-size: 12px;
-    margin: 0; 
-    margin-bottom: 10%;  
-  }
 
-  .bottom-product a {
-    flex: 0.4;
-    margin: 0 2.5%;
-    
-  }
+.price p{
+  font-size: 12px;
+  margin: 0;
+  margin-bottom: 10%;
+}
 
-  
-  button {
-    background-color: #0a2533;
-    color: white;
-    padding: 2% 5%; 
-    font-size: 14px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-  }
-  
-  button[mat-flat-button]:hover {
-      background-color:  #120907; 
-      transform: scale(1.05); 
-      font-style: normal;
-  }
+.bottom-product a {
+  flex: 0.4;
+  margin: 0 2.5%;
+
+}
+
+
+button {
+  background-color: #0a2533;
+  color: white;
+  padding: 2% 5%;
+  font-size: 14px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button[mat-flat-button]:hover {
+    background-color:  #120907;
+    transform: scale(1.05);
+    font-style: normal;
+}
