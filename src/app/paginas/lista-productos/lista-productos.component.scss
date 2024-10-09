@@ -1,44 +1,91 @@
-/* Asegura que todas las tarjetas tengan el mismo tamaño */
 .container {
     display: flex;
-    flex-wrap: wrap; /* Permite que las tarjetas pasen a la siguiente fila si no hay espacio */
-    justify-content: space-around; /* Distribuye uniformemente las tarjetas */
-    gap: 20px; /* Espacio entre las tarjetas */
-    padding: 20px; /* Espacio interior del contenedor */
+    flex-wrap: wrap; 
+    justify-content: space-around; 
+    margin: 0 4%;
 }
 
-mat-card {
-    width: 300px;
-    /* Ancho fijo para todas las tarjetas */
-    height: 450px;
-    /* Alto fijo para todas las tarjetas */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    /* Espaciado entre los elementos de la tarjeta */
+// seccion contenedor producto
+.container-product, mat-card img{
+    border-radius: 10px;
+  }
+
+// seccion contenedor producto
+  .container-product {
+    width: auto;
+    height: fit-content; 
+    padding: 1%; 
+    border: 1px solid #343434;
+    background-color: #F0CD93;
+    box-sizing: border-box;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
     margin: 20px;
-    /* Separación entre las tarjetas */
 }
 
-/* Asegura que la imagen ocupe un tamaño fijo y se ajuste */
-mat-card img {
-    width: 100%;
-    /* Ocupa todo el ancho de la tarjeta */
-    height: 200px;
-    /* Fija la altura de la imagen */
+/* Efecto hover en las tarjetas */
+.container-product:hover {
+  transform: translateY(-10px); 
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
+}
+
+.container-img{
+  text-align: center;
+}
+
+.container-img img {
+    width: 15rem;
+    height: auto;
     object-fit: cover;
-    /* Hace que la imagen se ajuste sin perder proporciones */
+    margin-top: 10%;
+    margin-bottom: 5%;
 }
 
-/* Controla el contenido para que no exceda el tamaño */
 mat-card-content {
     flex-grow: 1;
-    /* Hace que el contenido crezca si es necesario */
     overflow: hidden;
-    /* Evita que el contenido sobrepase la tarjeta */
 }
 
-mat-card-header {
-    height: 50px;
-    /* Tamaño fijo para el header */
+mat-card-title, button {
+    font-family: 'Noto-Serif', sans-serif;
+    font-style: italic;
 }
+
+#descripcion{
+  font-size: 15px;
+}
+
+ // seccion del fondo (precio y botón)
+  
+  .bottom-product .bottom-container{
+    margin-top: 5%;
+    display: flex;
+    justify-content: space-between;
+}
+   
+  .price p{
+    font-size: 12px;
+    margin: 0; 
+    margin-bottom: 10%;  
+  }
+
+  .bottom-product a {
+    flex: 0.4;
+    margin: 0 2.5%;
+    
+  }
+
+  
+  button {
+    background-color: #0a2533;
+    color: white;
+    padding: 2% 5%; 
+    font-size: 14px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  button[mat-flat-button]:hover {
+      background-color:  #120907; 
+      transform: scale(1.05); 
+      font-style: normal;
+  }

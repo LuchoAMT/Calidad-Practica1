@@ -79,3 +79,17 @@ mat-panel-title{
     padding: 2%;
     background-color: #EBBC6F;
 }
+
+@media only screen and (max-width: 768px) {
+    h1{
+        font-size: 30px;
+    }
+
+    .presentation-container p,.about-us-container p{
+        font-size: 18px;
+    }
+
+    mat-panel-title{
+        font-size: 12px;
+    }
+  }
