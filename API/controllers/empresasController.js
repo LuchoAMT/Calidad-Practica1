@@ -17,8 +17,8 @@ exports.crearEmpresa = (req, res) => {
 exports.obtenerEmpresas = (req, res) => {
     const proveedorId = req.usuarioId;
 
-    const query = 'SELECT * FROM proveedores WHERE proveedor_id = ?';
-    db.query(query, [proveedorId], (err, results) => {
+    const query = 'SELECT * FROM proveedores';
+    db.query(query, (err, results) => {
         if (err) return res.status(500).json({ error: err.message });
         res.json(results);
     });
@@ -28,7 +28,7 @@ exports.obtenerEmpresas = (req, res) => {
 exports.eliminarEmpresa= (req, res) => {
     const proveedorId = req.params.id;
 
-    const query = 'DELETE FROM proveedores WHERE id = ? AND proveedor_id = ?';
+    const query = 'DELETE FROM proveedores WHERE id = ? AND id_proveedor = ?';
     db.query(query, [proveedorId, req.usuarioId], (err, result) => {
         if (err) return res.status(500).json({ error: err.message });
         res.json({ mensaje: 'Empresa eliminada con éxito' });
