@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const { verificarToken } = require('../middleware/auth');  // Middleware para verificar token de autenticación
 
 // Controladores
 const { crearProducto, obtenerProductos, actualizarProducto, eliminarProducto } = require('../controllers/productosController');
