@@ -5,7 +5,7 @@ exports.crearProducto = (req, res) => {
     const { nombre, descripcion, precio, stock } = req.body;
     const proveedorId = req.usuarioId;  // ID del proveedor autenticado
 
-    const query = 'INSERT INTO productos (nombre, descripcion, precio, stock, proveedor_id) VALUES (?, ?, ?, ?, ?)';
+    const query = 'INSERT INTO productos (nombre, descripcion, precio, stock, id_proveedor) VALUES (?, ?, ?, ?, ?)';
     db.query(query, [nombre, descripcion, precio, stock, proveedorId], (err, result) => {
         if (err) return res.status(500).json({ error: err.message });
         res.status(201).json({ mensaje: 'Producto creado con éxito' });
@@ -16,8 +16,8 @@ exports.crearProducto = (req, res) => {
 exports.obtenerProductos = (req, res) => {
     const proveedorId = req.usuarioId;
 
-    const query = 'SELECT * FROM productos WHERE proveedor_id = ?';
-    db.query(query, [proveedorId], (err, results) => {
+    const query = 'SELECT * FROM productos';
+    db.query(query, (err, results) => {
         if (err) return res.status(500).json({ error: err.message });
         res.json(results);
     });
@@ -28,7 +28,7 @@ exports.actualizarProducto = (req, res) => {
     const { nombre, descripcion, precio, stock } = req.body;
     const productoId = req.params.id;
 
-    const query = 'UPDATE productos SET nombre = ?, descripcion = ?, precio = ?, stock = ? WHERE id = ? AND proveedor_id = ?';
+    const query = 'UPDATE productos SET nombre = ?, descripcion = ?, precio = ?, stock = ? WHERE id_producto = ? AND id_proveedor = ?';
     db.query(query, [nombre, descripcion, precio, stock, productoId, req.usuarioId], (err, result) => {
         if (err) return res.status(500).json({ error: err.message });
         res.json({ mensaje: 'Producto actualizado con éxito' });
@@ -39,7 +39,7 @@ exports.actualizarProducto = (req, res) => {
 exports.eliminarProducto = (req, res) => {
     const productoId = req.params.id;
 
-    const query = 'DELETE FROM productos WHERE id = ? AND proveedor_id = ?';
+    const query = 'DELETE FROM productos WHERE id_producto = ? AND id_proveedor = ?';
     db.query(query, [productoId, req.usuarioId], (err, result) => {
         if (err) return res.status(500).json({ error: err.message });
         res.json({ mensaje: 'Producto eliminado con éxito' });
