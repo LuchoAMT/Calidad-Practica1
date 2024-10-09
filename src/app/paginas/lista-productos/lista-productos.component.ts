@@ -40,4 +40,13 @@ export class ListaProductosComponent implements OnInit {
   ngOnInit(): void {
     this.obtenerProductos();
   }
+
+  limitarDescripcion(texto: string, limitePalabras: number): string {
+    const palabras = texto.split(' '); 
+    if (palabras.length > limitePalabras) {
+        return palabras.slice(0, limitePalabras).join(' ') + ' .....'; 
+    }
+    return texto; 
+}
+
 }

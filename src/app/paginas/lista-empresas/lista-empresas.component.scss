@@ -37,10 +37,9 @@
 .company img {
   width: 100%;
   height: auto;
-  margin-bottom: 40%;
 }
 
-.company-description-bk {
+.company-name-bk {
   background-color: #F69479;
   border-radius: 30px;
   position: absolute;
@@ -52,17 +51,20 @@
 
 .company-name {
   position: absolute;
-  font-weight: bold;
-  right: 20%; 
-  bottom: 26%;
-  font-size: 1.2em;
+  right: 5%; 
+  bottom: 25%;
+}
+
+.company-name mat-card-title{
+  font-size: 20px;
+  font-weight: 500;
 }
 
 button {
   position: absolute;
   font-family: 'Noto-Serif', sans-serif;
   font-style: italic;
-  right: 15%; 
+  right: 5%; 
   bottom: 10%;
   background-color: transparent; 
   border: none;
