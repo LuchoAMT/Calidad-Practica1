@@ -77,3 +77,24 @@ button[mat-flat-button]:hover {
   transform: scale(1.05); 
   font-style: normal;
 }
+
+
+@media (max-width: 768px) {
+
+  .company{
+    width: 50%;
+  }
+
+}
+
+@media (max-width: 425px) {
+
+  .container{
+    margin: 12.5% 5%;
+  }
+
+  .company{
+    width: 85%;
+  }
+
+}

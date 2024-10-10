@@ -280,6 +280,34 @@
   .footer-copyright .participantes{
     display: block;
   }
+
+  .footer-content{
+    flex-direction: column;
+    align-items: center;
+    gap: 20%;
+  }
+
+  .footer-content span{
+    width: 85%;
+    font-size: 20px;
+    margin-bottom: 7.5%;
+  }
+
+  .footer-copyright{
+    flex-direction: column;
+  }
+
+  .footer-copyright h4{
+    margin-bottom: 0;
+  }
+
+  .footer-copyright ul{
+    margin: 0 15%;
+  }
+
+  .footer-copyright p{
+    margin-bottom: 0;
+  }
 }
 
 

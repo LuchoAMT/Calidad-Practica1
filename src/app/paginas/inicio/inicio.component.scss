@@ -98,4 +98,59 @@ mat-panel-title{
     mat-panel-title{
         font-size: 12px;
     }
+    
+    video{
+        width: 100%;
+        height: fit-content;
+    }
+
+    #image-about-us img{
+        margin-top: 70%;
+    }
   }
+
+  @media only screen and (max-width: 425px) { 
+    .presentation-container{
+        background-size: contain; 
+        background-repeat: no-repeat; 
+    }
+
+    .presentation-container h1{
+        font-size: 18px;
+    }
+
+    .presentation-container p{
+        font-size: 14px;
+        margin-bottom: 0;
+    }
+
+    .about-us-container{
+        flex-direction: column;
+    }
+
+    #image-about-us img{
+        margin-top: 0;
+    }
+
+    video{
+        width: 90%;
+    }
+
+    .FAQ-container div{
+        flex-direction: column;
+    }
+
+    .FAQ-container hr:nth-child(4){
+        height: 0px;
+        margin: 0;
+    }
+
+    .FAQ-container mat-expansion-panel{
+        margin: 10% 0%;
+        padding: 8% 4%;
+    }
+
+    .FAQ-container mat-panel-title{
+        font-size: 12px;
+    }
+}
