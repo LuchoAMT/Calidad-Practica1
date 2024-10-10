@@ -18,9 +18,6 @@ export class ProductosService {
 
   async getProductoPorId(id: number): Promise<Producto> {
     const resp = await fetch(`${this.apiUrl}/${id}`);
-    if(!resp.ok) {
-      throw new Error('Producto no encontrado');
-    }
     const producto = await resp.json();
     return producto;
   }
