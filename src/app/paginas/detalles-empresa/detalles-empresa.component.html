@@ -1,30 +1,36 @@
 <!-- Sección detalles -->
-<section class="detail">
-    <!-- Sección encabezado-->
-    <header class="header-detail">
-      <div class="go-back">
-        <a [routerLink]="'/tienda'" [routerLinkActive]="['active']">
-          <span style="color: white;">&lt;</span> Volver atrás
-        </a>
-      </div>
-    </header>
-  
+<div class="button-container">
+  <a mat-stroked-button [routerLink]="['/empresas']" routerLinkActive="active"> < Volver atrás</a>
+</div>
+<section class="detail-company">
     <!-- Sección contenido -->
     <div class="container-detail">
-      <!-- imagen producto -->
-      <div class="img">
-        <img [src]="empresa?.logo" alt="Logo de {{empresa?.nombre}}">
-      </div>
-  
-      <!-- descripcion detallada del producto -->
-      <div class="description">
-        <h2>{{empresa?.nombre}}</h2>
-        <div class="category">
+      <div class="detail-section">
+        <img [src]="empresa?.logo" alt="Logo de {{empresa?.nombre}}" id="Logo">
+        <div class="data">
+          <h1>{{empresa?.nombre}}</h1>       
           <p>{{empresa?.descripcion}}</p>
+          <a mat-stroked-button [routerLink]="['/productos']" routerLinkActive="active"> Conoce nuestros productos</a>
         </div>
-        <p>{{empresa?.direccion}}</p>
-        <p>{{empresa?.contacto}}</p>
+      </div>
+      <div class="detail-section">
+        <div>
+          <img src="assets/images/social-media.svg" alt="Contacto"> 
+          <p>Para comunicarse con nosotros escribenos en el <a href="{{empresa?.contacto}}" target="_blank">siguiente link</a></p>
+        </div>
+        <div>
+          <google-map 
+            [height]="'300px'" 
+            [width]="'100%'" 
+            [center]="center" 
+            [zoom]="zoom" 
+            (mapClick)="moveMap($event)" 
+            (mapMousemove)="move($event)">
+          </google-map> 
+          <p>Nos encontramos ubicados en <span>{{empresa?.direccion}}</span></p>       
+        </div>
       </div>
     </div>
-  </section>
+</section>
+
   
