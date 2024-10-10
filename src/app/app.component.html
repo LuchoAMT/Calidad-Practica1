@@ -38,7 +38,7 @@
             <button mat-menu-item [routerLink]="['/iniciar-sesion']" routerLinkActive="active">Iniciar sesion</button>
             <button mat-menu-item [routerLink]="['/perfil-negocio']" routerLinkActive="active">Mi cuenta</button>
           </mat-menu>
-          <button mat-button>Carrito (0)</button>
+          <button mat-button [routerLink]="['/carrito']" routerLinkActive="active">Carrito ({{ carritoCount }})</button>
         </div>
     </section>
   </header>

@@ -1,14 +1,9 @@
 <!-- Sección detalles -->
 <section class="detail">
   <!-- Sección encabezado -->
-  <header class="header-detail">
-    <div class="go-back">
-      <a [routerLink]="'/productos'" [routerLinkActive]="['active']">
-        <span class="back-arrow">&lt;</span> Volver atrás
-      </a>
-    </div>
-  </header>
-
+  <div class="button-container">
+    <a mat-stroked-button [routerLink]="['/productos']" routerLinkActive="active"> < Volver atrás</a>
+  </div>
   <!-- Sección contenido -->
   <article class="container-detail producto-card">
     <!-- imagen producto -->
@@ -19,11 +14,11 @@
     <!-- descripcion detallada del producto -->
     <div class="description producto-detalles">
       <h1 class="producto-nombre">{{producto?.nombre}}</h1>
-      <h2 class="producto-precio">{{producto?.precio}} bs</h2>
+      <h2 class="producto-precio">{{producto?.precio}} Bs.</h2>
       <div class="category">
         <p class="producto-descripcion">{{producto?.descripcion}}</p>
       </div>
-      <button class="boton-agregar">Añadir al carrito</button>
+      <button mat-button (click)="agregarAlCarrito()" class="boton-agregar">Añadir al carrito</button>
     </div>
   </article>
 </section>

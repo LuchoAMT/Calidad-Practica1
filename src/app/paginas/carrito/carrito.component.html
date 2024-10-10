@@ -1,0 +1,44 @@
+<!-- productos del carrito -->
+<div class="container-cart-products">
+    <h2 class="title-cart">Carrito de compras</h2>
+    <div class="header-cart">
+        <h3>Imagen</h3>
+        <h3>Nombre</h3>
+        <h3>Precio Unitario</h3>
+        <h3>Cantidad</h3>
+        <h3>Total Parcial</h3>
+    </div>
+    <!-- seccion contenedor producto -->
+
+
+    @for(producto_carrito of productosCarrito; track producto_carrito.producto.id_producto){
+    <section class="container-cart-product">
+        <!-- imagen producto -->
+        <div class="container-img">
+          <img [src]="producto_carrito.producto.imagen_url" alt="{{producto_carrito.producto.nombre}}">
+        </div>
+        <!-- nombre-->
+        <div class="container-title">
+          <h2 class="title">{{producto_carrito.producto.nombre}}</h2>
+        </div>
+        <!-- precio-->
+        <div class="container-price">
+          <p>{{producto_carrito.producto.precio}} Bs.</p>
+        </div>
+        <!-- cantidad -->
+        <div class="container-quantity">
+          <p>{{producto_carrito.cantidad}}</p>
+          <button mat-flat-button (click)="incrementarCantidad(producto_carrito.producto)">+</button>
+          <button mat-flat-button (click)="decrementarCantidad(producto_carrito.producto)">-</button>
+        </div>
+        <!-- total parcial -->
+        <div class="container-partial">
+          <p>{{producto_carrito.producto.precio * producto_carrito.cantidad}} Bs.</p>
+        </div>
+      </section>
+    }
+    <!-- Total y botón de compra -->
+    <div class="total-container">
+        <p >Total del carrito: &nbsp; {{ totalCarrito }} Bs.</p>
+        <a mat-stroked-button [href]="'https://www.paypal.me/YourPayPalMeName/' + totalCarrito" target="_blank">Confirmar Pedido</a>
+    </div>    
