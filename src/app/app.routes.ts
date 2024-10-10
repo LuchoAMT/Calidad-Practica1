@@ -6,12 +6,10 @@ import { PaginaNoEncontradaComponent } from './paginas/pagina-no-encontrada/pagi
 import { RegistrarseComponent } from './paginas/registrarse/registrarse.component';
 import { IniciarSesionComponent } from './paginas/iniciar-sesion/iniciar-sesion.component';
 import { TerminosCondicionesComponent } from './paginas/terminos-condiciones/terminos-condiciones.component';
-<<<<<<< HEAD
-import { PerfilNegocioComponent } from './paginas/perfil-negocio/perfil-negocio.component';
-=======
 import { DetallesEmpresaComponent } from './paginas/detalles-empresa/detalles-empresa.component';
 import { DetalleProductoComponent } from './paginas/detalle-producto/detalle-producto.component';
->>>>>>> 743e1777d9089a4ae2f7622262db7d81fc486563
+import { PerfilNegocioComponent } from './paginas/perfil-negocio/perfil-negocio.component';
+
 
 export const routes: Routes = [
     { path: 'inicio', component: InicioComponent },
