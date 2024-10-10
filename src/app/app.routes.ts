@@ -6,6 +6,7 @@ import { PaginaNoEncontradaComponent } from './paginas/pagina-no-encontrada/pagi
 import { RegistrarseComponent } from './paginas/registrarse/registrarse.component';
 import { IniciarSesionComponent } from './paginas/iniciar-sesion/iniciar-sesion.component';
 import { TerminosCondicionesComponent } from './paginas/terminos-condiciones/terminos-condiciones.component';
+import { PerfilNegocioComponent } from './paginas/perfil-negocio/perfil-negocio.component';
 
 export const routes: Routes = [
     { path: 'inicio', component: InicioComponent },
@@ -14,6 +15,7 @@ export const routes: Routes = [
     { path: 'empresas', component: ListaEmpresasComponent },
     { path: 'registrarse', component: RegistrarseComponent },
     { path: 'iniciar-sesion', component: IniciarSesionComponent },
+    { path: 'perfil-negocio', component: PerfilNegocioComponent },
     { path: 'terminos-condiciones', component: TerminosCondicionesComponent },
     { path: '**', component: PaginaNoEncontradaComponent },
 ];

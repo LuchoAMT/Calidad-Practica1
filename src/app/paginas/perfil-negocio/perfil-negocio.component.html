@@ -1,0 +1,47 @@
+<div class="perfil-container">
+  <section class="detalles-negocio">
+    <div class="logo-negocio">
+      <img src="assets/images/logo-placeholder.png" alt="Logo negocio" />
+      <!-- Botón para cambiar la imagen -->
+      <button (click)="editarImagen()">Cambiar Imagen</button>
+    </div>
+
+    <div class="info-negocio">
+      <h1>{{ nombreNegocio }}</h1>
+      <!-- Botón para editar el nombre del negocio -->
+      <button (click)="editarNombre()">Editar Nombre</button>
+      <p>{{ descripcionNegocio }}</p>
+      <!-- Botón para editar la descripción -->
+      <button (click)="editarDescripcion()">Editar Descripción</button>
+    </div>
+
+    <div class="certificaciones">
+      <h2>Certificaciones</h2>
+      <div *ngFor="let premio of premios" class="certificado">
+        <img [src]="premio.imagen" alt="{{premio.titulo}}" />
+        <p>{{ premio.titulo }}</p>
+      </div>
+    </div>
+
+    <div class="productos-destacados">
+      <h2>Productos destacados</h2>
+      <div class="producto" *ngFor="let producto of productos">
+        <img [src]="producto.imagen" alt="{{ producto.nombre }}" />
+        <p>{{ producto.nombre }}</p>
+      </div>
+    </div>
+
+    <div class="metricas">
+      <h2>Metricas</h2>
+      <div *ngFor="let metrica of metricas" class="metrica">
+        <h3>{{ metrica.valor }}</h3>
+        <p>{{ metrica.nombre }}</p>
+      </div>
+    </div>
+
+    <div class="ubicacion">
+      <img src="assets/images/map-placeholder.png" alt="Mapa" />
+      <p>{{ ubicacion.latitud }} - {{ ubicacion.longitud }}</p>
+    </div>
+  </section>
+</div>
