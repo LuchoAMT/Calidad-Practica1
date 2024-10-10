@@ -50,6 +50,12 @@ h1{
     border-bottom: solid 3px #5E503F;
 }
 
+video{
+    margin: 2% 0;
+    margin-left: 5%; 
+    border-radius: 10px; 
+}
+
 hr{
     border: none; 
     height: 2px; 
@@ -79,3 +85,17 @@ mat-panel-title{
     padding: 2%;
     background-color: #EBBC6F;
 }
+
+@media only screen and (max-width: 768px) {
+    h1{
+        font-size: 30px;
+    }
+
+    .presentation-container p,.about-us-container p{
+        font-size: 18px;
+    }
+
+    mat-panel-title{
+        font-size: 12px;
+    }
+  }

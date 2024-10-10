@@ -1,45 +1,77 @@
-/* Asegura que todas las tarjetas tengan el mismo tamaño */
+
 .container {
   display: flex;
-  flex-wrap: wrap; /* Permite que las tarjetas pasen a la siguiente fila si no hay espacio */
-  justify-content: space-around; /* Distribuye uniformemente las tarjetas */
-  gap: 20px; /* Espacio entre las tarjetas */
-  padding: 20px; /* Espacio interior del contenedor */
+  flex-wrap: nowrap; 
+  justify-content: flex-start;
+  overflow-x: auto; 
+  gap: 10%;
+  margin: 5%;
+  scroll-behavior: smooth;
 }
 
-mat-card {
-  width: 300px;
-  /* Ancho fijo para todas las tarjetas */
-  height: 450px;
-  /* Alto fijo para todas las tarjetas */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  /* Espaciado entre los elementos de la tarjeta */
-  margin: 20px;
-  /* Separación entre las tarjetas */
-  align-items: center;
+.container::-webkit-scrollbar {
+  height: 10px;
 }
 
-/* Asegura que la imagen ocupe un tamaño fijo y se ajuste */
-mat-card img {
-  width: 100%;
-  /* Ocupa todo el ancho de la tarjeta */
-  height: 200px;
-  /* Fija la altura de la imagen */
-  object-fit: cover;
-  /* Hace que la imagen se ajuste sin perder proporciones */
+.container::-webkit-scrollbar-track, .container::-webkit-scrollbar-thumb {
+  background: #F0CD93; 
+  border-radius: 5px; 
 }
 
-/* Controla el contenido para que no exceda el tamaño */
-mat-card-content {
-  flex-grow: 1;
-  /* Hace que el contenido crezca si es necesario */
+.container::-webkit-scrollbar-thumb  {
+  background: #E08B5B; 
+}
+
+.company {
+  flex: 0 0 auto; 
+  display: inline-block;
+  position: relative;
+  width: 25%; 
+  border-radius: 30px;
   overflow: hidden;
-  /* Evita que el contenido sobrepase la tarjeta */
+  box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.3);
+  background-color: #F0CD93;
+  margin: 2% 0;
 }
 
-mat-card-header {
-  height: 50px;
-  /* Tamaño fijo para el header */
+.company img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 40%;
+}
+
+.company-description-bk {
+  background-color: #F69479;
+  border-radius: 30px;
+  position: absolute;
+  top: 55%;
+  height: 60%;
+  width: 105%;
+  transform: skew(19deg, -9deg);
+}
+
+.company-name {
+  position: absolute;
+  font-weight: bold;
+  right: 20%; 
+  bottom: 26%;
+  font-size: 1.2em;
+}
+
+button {
+  position: absolute;
+  font-family: 'Noto-Serif', sans-serif;
+  font-style: italic;
+  right: 15%; 
+  bottom: 10%;
+  background-color: transparent; 
+  border: none;
+  padding: 2% 5%; 
+  font-size: 14px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button[mat-flat-button]:hover {
+  transform: scale(1.05); 
+  font-style: normal;
 }

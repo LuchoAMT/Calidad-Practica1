@@ -1,0 +1,29 @@
+<!-- Sección detalles -->
+<section class="detail">
+  <!-- Sección encabezado -->
+  <header class="header-detail">
+    <div class="go-back">
+      <a [routerLink]="'/productos'" [routerLinkActive]="['active']">
+        <span class="back-arrow">&lt;</span> Volver atrás
+      </a>
+    </div>
+  </header>
+
+  <!-- Sección contenido -->
+  <article class="container-detail producto-card">
+    <!-- imagen producto -->
+    <div class="img producto-imagen">
+      <img [src]="producto?.imagen_url" alt="Logo de {{producto?.nombre}}" width="400" height="400">
+    </div>
+
+    <!-- descripcion detallada del producto -->
+    <div class="description producto-detalles">
+      <h1 class="producto-nombre">{{producto?.nombre}}</h1>
+      <h2 class="producto-precio">{{producto?.precio}} bs</h2>
+      <div class="category">
+        <p class="producto-descripcion">{{producto?.descripcion}}</p>
+      </div>
+      <button class="boton-agregar">Añadir al carrito</button>
+    </div>
+  </article>
+</section>

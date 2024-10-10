@@ -1,13 +1,23 @@
 <div class="container">
-    @for(producto of productos; track producto.id){
+    @for(producto of productos; track producto.id_producto){
     <mat-card>
         <mat-card-header>
             <mat-card-title>{{ producto.nombre }}</mat-card-title>
-            <mat-card-subtitle>{{ producto.precio }}</mat-card-subtitle>
         </mat-card-header>
-        <img mat-card-image [src]="producto.imagen_url" alt="Imagen del producto">
-        <mat-card-content>
+        <div class="container-img">
+            <img mat-card-image [src]="producto.imagen_url" alt="Imagen del producto">
+        </div>
+        <mat-card-content id="descripcion">
             <p>{{ producto.descripcion }}</p>
+        </mat-card-content>
+        <mat-card-content class="bottom-product">
+            <div class="bottom-container">
+                <div class="price">
+                    <p>Precio:</p>
+                    <span>{{ producto.precio }} Bs.</span>
+                </div>
+                    <button mat-flat-button [routerLink]="['/detalles-producto', producto.id_producto]">Más detalles</button>
+            </div>
         </mat-card-content>
     </mat-card>
     }

@@ -204,3 +204,85 @@
   .footer-copyright a:hover {
     text-decoration: underline;
   }
+
+/* Media query para max-width: 768px */
+@media (max-width: 768px) {
+  header {
+    align-items: center;
+    padding: 10px;
+    padding-right: 0;
+  }
+
+  p {
+    font-size: 12px;
+  }
+
+  .nav a, .nav button {
+    font-size: 14px;
+  }
+
+  .account-container {
+    flex: 0.75;
+  }
+
+  .account-container .nav {
+    margin: 0;
+    padding-left: 20%;
+  }
+
+  .footer-copyright ul {
+    margin-left: 15%;
+  }
+}
+
+@media (max-width: 425px) {
+
+  header {
+    padding-right: 0;
+    justify-content: space-evenly;
+  }
+
+  .marquee p{
+    font-size: 10px;
+  }
+
+  .menu-container .nav{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .gif-container{
+    max-width: 20%;
+  }
+
+
+  .account-container{
+    display: flex;
+    flex-direction: column;
+    margin-left: 8%;
+  }
+
+  .socials{
+    display: block;
+    margin-left: 25%;
+  }
+
+  .socials a{
+    margin: 0% 5%;
+  }
+
+  .account-container .nav{
+    display: block;
+    padding: 0;
+    margin-left: 25%;
+  }
+
+  .footer-copyright .participantes{
+    display: block;
+  }
+}
+
+
+  
+
+
