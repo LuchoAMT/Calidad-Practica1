@@ -88,9 +88,11 @@
         </mat-form-field>
 
         <mat-form-field>
-            <mat-label>Direccion</mat-label>
-            <textarea matInput
-            [formControl]="direccion" placeholder="Ej. Av. America 1258 (Ingresa indicaciones de ser necesario)"></textarea>
+            <mat-label>Latitud</mat-label>
+            <input matInput
+            [formControl]="latitud"
+            (blur)="updateErrorMessage()"
+            required>
         </mat-form-field>
 
     </div>
@@ -102,9 +104,18 @@
             <input type="tel" matInput
             [formControl]="contacto" placeholder="61675219">
         </mat-form-field>
-            <input type="checkbox" id="terms" name="terms" required>
-            <a [routerLink]="['/terminos-condiciones']" routerLinkActive="active" for="terms">Acepto los términos y condiciones</a>
+
+        <mat-form-field>
+            <mat-label>Longitud</mat-label>
+            <input matInput
+            [formControl]="longitud"
+            (blur)="updateErrorMessage()"
+            required>
+        </mat-form-field>
+            
     </div>
+    <input type="checkbox" id="terms" name="terms" required>
+    <a [routerLink]="['/terminos-condiciones']" routerLinkActive="active" for="terms">Acepto los términos y condiciones</a>
     <!-- creación de cuenta-->
     <button mat-stroked-button (click)="crearEmpresa()" id="registrarse"> > Registrarse</button>
   </form>

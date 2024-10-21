@@ -27,7 +27,8 @@ export class RegistrarseComponent{
   readonly password = new FormControl('', [Validators.required]);
   readonly password_confirm = new FormControl('', [Validators.required]);
   readonly descripcion = new FormControl('', [Validators.required]);
-  readonly direccion = new FormControl('', [Validators.required]);
+  readonly latitud = new FormControl('', [Validators.required]);
+  readonly longitud = new FormControl('', [Validators.required]);
   readonly contacto = new FormControl('', [Validators.required]);
 
   nuevaEmpresa: Empresa = {
@@ -36,7 +37,8 @@ export class RegistrarseComponent{
     descripcion: '',
     correo: '',
     contraseña: '',
-    direccion: '',
+    latitud: 0,
+    longitud: 0,
     contacto: '',
     logo: '',
   };
@@ -79,7 +81,8 @@ export class RegistrarseComponent{
       this.nuevaEmpresa.correo = this.email.value!;
       this.nuevaEmpresa.contraseña = this.password.value!;
       this.nuevaEmpresa.descripcion = this.descripcion.value!;
-      this.nuevaEmpresa.direccion = this.direccion.value!;
+      this.nuevaEmpresa.latitud = parseFloat(this.latitud.value!);
+      this.nuevaEmpresa.longitud = parseFloat(this.longitud.value!);
       this.nuevaEmpresa.contacto = this.contacto.value!;
   
       try {

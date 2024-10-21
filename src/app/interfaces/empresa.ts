@@ -4,9 +4,9 @@ export interface Empresa {
   descripcion: string;
   correo: string;
   contraseña: string;
-  direccion: string;
+  latitud: number;
+  longitud: number;
   contacto: string;
   logo: string;
-
 }
 

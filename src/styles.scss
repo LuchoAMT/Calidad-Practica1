@@ -48,6 +48,6 @@ a{
     text-decoration: none;
 }
 
-a:visited {
-    color: inherit;
+a:visited, a:-webkit-any-link {
+    color: #120D31;
 }

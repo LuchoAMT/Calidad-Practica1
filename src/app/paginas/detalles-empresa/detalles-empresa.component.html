@@ -1,36 +1,30 @@
-<!-- Sección detalles -->
 <div class="button-container">
   <a mat-stroked-button [routerLink]="['/empresas']" routerLinkActive="active"> < Volver atrás</a>
 </div>
+
 <section class="detail-company">
-    <!-- Sección contenido -->
-    <div class="container-detail">
-      <div class="detail-section">
-        <img [src]="empresa?.logo" alt="Logo de {{empresa?.nombre}}" id="Logo">
-        <div class="data">
-          <h1>{{empresa?.nombre}}</h1>       
-          <p>{{empresa?.descripcion}}</p>
-          <a mat-stroked-button [routerLink]="['/productos']" routerLinkActive="active"> Conoce nuestros productos</a>
-        </div>
-      </div>
-      <div class="detail-section">
-        <div>
-          <img src="assets/images/social-media.svg" alt="Contacto"> 
-          <p>Para comunicarse con nosotros escribenos en el <a href="{{empresa?.contacto}}" target="_blank">siguiente link</a></p>
-        </div>
-        <div>
-          <google-map 
-            [height]="'300px'" 
-            [width]="'100%'" 
-            [center]="center" 
-            [zoom]="zoom" 
-            (mapClick)="moveMap($event)" 
-            (mapMousemove)="move($event)">
-          </google-map> 
-          <p>Nos encontramos ubicados en <span>{{empresa?.direccion}}</span></p>       
-        </div>
+  <div class="container-detail">
+    <div class="detail-section">
+      <img [src]="empresa?.logo" alt="Logo de {{empresa?.nombre}}" id="Logo">
+      <div class="data">
+        <h1>{{empresa?.nombre}}</h1>       
+        <p>{{empresa?.descripcion}}</p>
+        <a mat-stroked-button [routerLink]="['/productos']" routerLinkActive="active"> Conoce nuestros productos</a>
       </div>
     </div>
+    <div class="detail-section">
+      <div>
+        <img src="assets/images/social-media.svg" alt="Contacto"> 
+        <p>Para comunicarse con nosotros escribenos en el <a href="{{empresa?.contacto}}" target="_blank">siguiente link</a></p>
+      </div>
+      <div>
+        <google-map 
+        [height]="'300px'"
+        [width]="'300px'"
+        [center]="center"
+        [zoom]="zoom">
+        </google-map>     
+      </div>
+    </div>
+  </div>
 </section>
-
-  
