@@ -40,5 +40,5 @@
     <!-- Total y botón de compra -->
     <div class="total-container">
         <p >Total del carrito: &nbsp; {{ totalCarrito }} Bs.</p>
-        <a mat-stroked-button [href]="'https://www.paypal.me/YourPayPalMeName/' + totalCarrito" target="_blank">Confirmar Pedido</a>
-    </div>    
+        <a mat-stroked-button [routerLink]="'/pago-tarjeta' "  routerLinkActive="active">Confirmar Pedido</a>
+    </div>

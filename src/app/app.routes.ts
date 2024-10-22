@@ -10,6 +10,7 @@ import { DetallesEmpresaComponent } from './paginas/detalles-empresa/detalles-em
 import { DetalleProductoComponent } from './paginas/detalle-producto/detalle-producto.component';
 import { PerfilNegocioComponent } from './paginas/perfil-negocio/perfil-negocio.component';
 import { CarritoComponent } from './paginas/carrito/carrito.component';
+import { PagoTarjetaComponent } from './paginas/pago-tarjeta/pago-tarjeta.component';
 
 
 export const routes: Routes = [
@@ -24,5 +25,6 @@ export const routes: Routes = [
     { path: 'detalles-empresa/:id', component: DetallesEmpresaComponent},
     { path: 'detalles-producto/:id', component: DetalleProductoComponent },
     { path: 'carrito', component: CarritoComponent},
+    {path: 'pago-tarjeta',component:PagoTarjetaComponent},
     { path: '**', component: PaginaNoEncontradaComponent },
 ];
