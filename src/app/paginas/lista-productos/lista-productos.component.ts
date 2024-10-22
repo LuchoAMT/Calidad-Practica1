@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductosService } from '../../servicios/productos.service';
 import { Producto } from '../../interfaces/producto';
 import { MatCardModule } from '@angular/material/card';
-import { RouterLink } from '@angular/router';
+import { RouterLink, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-lista-productos',
@@ -19,14 +19,20 @@ export class ListaProductosComponent implements OnInit {
     descripcion: '',
     precio: 0,
     imagen_url: '',
-    proveedor_id: 1
+    empresa_id: 1
   };
+  idEmpresa: number | null = null;
 
-  constructor(private productosService: ProductosService) {}
-
+  constructor(private productosService: ProductosService, private route: ActivatedRoute) {}
+  
   async obtenerProductos() {
-    this.productos = await this.productosService.getProductos();
+    if (this.idEmpresa !== null) {
+      this.productos = await this.productosService.getProductosPorEmpresa(this.idEmpresa);
+    } else {
+      this.productos = await this.productosService.getProductos();
+    }
   }
+
 
   async crearProducto() {
     try {
@@ -38,7 +44,10 @@ export class ListaProductosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.obtenerProductos();
+    this.route.queryParams.subscribe(params => {
+      this.idEmpresa = params['id_empresa'] ? Number(params['id_empresa']) : null;
+      this.obtenerProductos();
+    });
   }
 
   limitarDescripcion(texto: string, limitePalabras: number): string {

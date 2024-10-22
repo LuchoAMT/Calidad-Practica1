@@ -19,9 +19,19 @@ import { GoogleMap } from '@angular/google-maps';
 export class DetallesEmpresaComponent implements OnInit {
   empresa: Empresa | undefined;
   center: google.maps.LatLngLiteral = { lat: -17.399945139000618, lng: -66.15775054829115 };
-  zoom = 11;
+  zoom = 15;
 
-  @ViewChild(GoogleMap) map!: GoogleMap; // Referencia al mapa
+  circleOptions: google.maps.CircleOptions = {
+    center: this.center, 
+    radius: 50, 
+    fillColor: '#FF0000',
+    fillOpacity: 0.35,
+    strokeColor: '#FF0000',
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+  };
+
+  @ViewChild(GoogleMap) map!: GoogleMap; 
 
   constructor(
     private route: ActivatedRoute,
@@ -36,14 +46,11 @@ export class DetallesEmpresaComponent implements OnInit {
   async cargarEmpresa(id: number) {
     try {
       this.empresa = await this.empresasService.getEmpresa(id);
-      console.log('Empresa cargada:', this.empresa);
   
       if (this.empresa) {
-        // Convertir latitud y longitud a números
         const latitud = Number(this.empresa.latitud);
         const longitud = Number(this.empresa.longitud);
   
-        // Verificar que las coordenadas son válidas
         if (!isNaN(latitud) && !isNaN(longitud) && isFinite(latitud) && isFinite(longitud)) {
           this.center = {
             lat: latitud,
@@ -59,7 +66,6 @@ export class DetallesEmpresaComponent implements OnInit {
       console.error('Error al cargar la empresa:', error);
     }
   }
-
 
   moveMap(event: google.maps.MapMouseEvent) {
     if (event.latLng) {

@@ -26,11 +26,6 @@
       </a>
     </div>
     <section class="account-container">
-        <div class="socials">
-          <a href="https://www.instagram.com/Merka Bolivia/" target="_blank"><img src="assets/images/instagram.svg" alt="Instagram Merka" class="social-media-account"></a>
-          <a href="https://www.facebook.com/search/top/?q=merka" target="_blank"><img src="assets/images/facebook.svg" alt="Facebook Merka" class="social-media-account"></a>
-          <a href="https://www.tiktok.com/search?q=merka" target="_blank"><img src="assets/images/tiktok.svg" alt="Tik Tok Merka" class="social-media-account"></a>
-        </div>
         <div class="nav">
           <button mat-button [matMenuTriggerFor]="menu">Cuenta</button>
           <mat-menu #menu="matMenu">
@@ -66,7 +61,7 @@
           <h4>Información</h4>
           <ul>
             <li><a [routerLink]="['/productos']">Productos</a></li>
-            <li><a>Empresas</a></li>
+            <li><a [routerLink]="['/empresas']">Empresas</a></li>
             <li><a [routerLink]="['/productos']" routerLinkActive="active">Ofertas</a></li>
             <li><a [routerLink]="['/terminos-condiciones']" routerLinkActive="active">Terminos y condiciones</a></li>
           </ul>

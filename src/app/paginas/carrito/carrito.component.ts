@@ -21,6 +21,7 @@ export class CarritoComponent {
 
   ngOnInit(): void {
     this.cargarProductosCarrito();
+    this.calcularTotalCarrito();
   }
 
   cargarProductosCarrito() {
@@ -44,8 +45,13 @@ export class CarritoComponent {
 
   decrementarCantidad(producto: Producto) {
     const item = this.productosCarrito.find(p => p.producto.id_producto === producto.id_producto);
-    if (item && item.cantidad > 1) {
-      this.carritoService.actualizarProductoEnCarrito(producto.id_producto, item.cantidad - 1);
+    if (item) {
+      if (item.cantidad > 1) {
+        this.carritoService.actualizarProductoEnCarrito(producto.id_producto, item.cantidad - 1);
+      } else {
+        // Si la cantidad es 1, eliminar el producto del carrito
+        this.carritoService.eliminarDelCarrito(producto.id_producto);
+      }
       this.cargarProductosCarrito();
       this.calcularTotalCarrito();
     }
@@ -54,5 +60,4 @@ export class CarritoComponent {
   calcularTotalCarrito() {
     this.totalCarrito = this.carritoService.getTotal();
   }
-  
 }

@@ -1,12 +1,12 @@
 <div class="container">
-  @for(empresa of empresas; track empresa.id_proveedor){
+  @for(empresa of empresas; track empresa.id_empresa){
   <mat-card  class="company">
     <img mat-card-image [src]="empresa.logo" alt="Imagen de la empresa">
     <div class="company-name-bk"></div>
     <mat-card-content  class="company-name">
       <mat-card-title>{{ empresa.nombre }}</mat-card-title>
     </mat-card-content>
-    <button mat-flat-button [routerLink]="['/detalles-empresa', empresa.id_proveedor]">Más detalles</button>
+    <button mat-flat-button [routerLink]="['/detalles-empresa', empresa.id_empresa]">Más detalles</button>
   </mat-card>
 }
 </div>

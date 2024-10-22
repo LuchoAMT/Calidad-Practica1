@@ -2,24 +2,23 @@ const db = require('../db');  // Conexión a la base de datos
 
 // Crear un nuevo producto
 exports.crearEmpresa = async (req, res) => {
-    const { nombre, descripcion, correo, contraseña, direccion, contacto, logo } = req.body;
-    const proveedorId = req.usuarioId;  // ID del proveedor autenticado
+    const { nombre, descripcion, correo, contraseña, latitud, longitud, contacto, logo } = req.body;
+    const empresaId = req.usuarioId;  // ID de la empresa autenticada
 
-    const query = 'INSERT INTO proveedores (nombre, correo, contraseña, descripcion, direccion, contacto, logo, id_proveedor) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+    const query = 'INSERT INTO empresas (nombre, correo, contraseña, descripcion, latitud, longitud, contacto, logo, id_empresa) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
 
     try {
-        const [result] = await db.query(query, [nombre, descripcion, correo, contraseña, direccion, contacto, logo, proveedorId]);
+        const [result] = await db.query(query, [nombre, descripcion, correo, contraseña, latitud, longitud, contacto, logo, empresaId]);
         res.status(201).json({ mensaje: 'Empresa creada con éxito' });
     } catch (err) {
         return res.status(500).json({ error: err.message });
     }
 };
 
-// Obtener productos del proveedor autenticado
+// Obtener productos de la empresa autenticado
 exports.obtenerEmpresas = async (req, res) => {
-    const proveedorId = req.usuarioId;
 
-    const query = 'SELECT * FROM proveedores';
+    const query = 'SELECT * FROM empresas';
 
     try {
         const [results] = await db.query(query);
@@ -30,11 +29,11 @@ exports.obtenerEmpresas = async (req, res) => {
 };
 
 exports.obtenerEmpresaPorId = async (req, res) => {
-    const empresaId = req.params.id_proveedor;
+    const empresaId = req.params.id_empresa;
     
     try {
         // Usar await para manejar la promesa de la consulta
-        const [results] = await db.query('SELECT * FROM proveedores WHERE id_proveedor = ?', [empresaId]);
+        const [results] = await db.query('SELECT * FROM empresas WHERE id_empresa = ?', [empresaId]);
 
         // Verificar si se encontró la empresa
         if (results.length === 0) {
@@ -52,12 +51,12 @@ exports.obtenerEmpresaPorId = async (req, res) => {
 
 // Eliminar una empresa
 exports.eliminarEmpresa = async (req, res) => {
-    const proveedorId = req.params.id;
+    const empresaId = req.params.id;
 
-    const query = 'DELETE FROM proveedores WHERE id_proveedor = ? AND id = ?';
+    const query = 'DELETE FROM empresas WHERE id_empresa = ? AND id = ?';
 
     try {
-        const [result] = await db.query(query, [req.usuarioId, proveedorId]);
+        const [result] = await db.query(query, [req.usuarioId, empresaId]);
         res.json({ mensaje: 'Empresa eliminada con éxito' });
     } catch (err) {
         return res.status(500).json({ error: err.message });

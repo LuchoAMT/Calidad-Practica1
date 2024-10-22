@@ -70,9 +70,20 @@
       margin: 0;
       font-size: 28px; 
     }
-  
+
     .container-img {
+      cursor: pointer; 
       height: 200px;
+      
+      & img{
+        transition: transform 0.2s ease, box-shadow 0.2s ease; 
+      }
+
+      & img:hover {
+        transform: scale(1.1); 
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); 
+        border: 1px solid black;
+      }
     }
   
     img {

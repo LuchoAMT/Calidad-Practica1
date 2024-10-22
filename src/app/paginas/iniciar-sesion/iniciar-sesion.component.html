@@ -21,7 +21,7 @@
     <mat-label>Tipo de Usuario</mat-label>
     <mat-select [formControl]="userType" required>
       <mat-option value="negocio">Negocio</mat-option>
-      <mat-option value="proveedor">Proveedor</mat-option>
+      <mat-option value="empresa">Empresa</mat-option>
     </mat-select>
     <mat-error *ngIf="userType.invalid && userType.touched">Selecciona un tipo de usuario</mat-error>
   </mat-form-field>

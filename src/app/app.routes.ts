@@ -17,6 +17,7 @@ export const routes: Routes = [
     { path: 'inicio', component: InicioComponent },
     { path: '', redirectTo: 'inicio', pathMatch: 'full' },
     { path: 'productos', component: ListaProductosComponent },
+    { path: 'productos/:id', component: ListaProductosComponent },
     { path: 'empresas', component: ListaEmpresasComponent },
     { path: 'registrarse', component: RegistrarseComponent },
     { path: 'iniciar-sesion', component: IniciarSesionComponent },
