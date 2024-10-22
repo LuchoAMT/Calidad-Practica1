@@ -3,31 +3,39 @@ const db = require('../db');  // Conexión a la base de datos
 // Crear un nuevo producto
 exports.crearProducto = async (req, res) => {
     const { nombre, descripcion, precio, stock } = req.body;
-    const proveedorId = req.usuarioId;  // ID del proveedor autenticado
+    const empresaId = req.usuarioId;  // ID de la empresa autenticado
 
-    const query = 'INSERT INTO productos (nombre, descripcion, precio, stock, id_proveedor) VALUES (?, ?, ?, ?, ?)';
+    const query = 'INSERT INTO productos (nombre, descripcion, precio, stock, id_empresa) VALUES (?, ?, ?, ?, ?)';
 
     try {
-        const [result] = await db.query(query, [nombre, descripcion, precio, stock, proveedorId]);
+        const [result] = await db.query(query, [nombre, descripcion, precio, stock, empresaId]);
         res.status(201).json({ mensaje: 'Producto creado con éxito' });
     } catch (err) {
         return res.status(500).json({ error: err.message });
     }
 };
 
-// Obtener productos del proveedor autenticado
-exports.obtenerProductos = async (req, res) => {
-    const proveedorId = req.usuarioId;
+// Obtener productos de la empresa autenticado o todos los productos si no hay filtro
+exports.obtenerProductosPorProveedor = async (req, res) => {
+    const empresaId = req.query.id_empresa; 
 
-    const query = 'SELECT * FROM productos';
+    // Query con o sin filtro
+    let query = 'SELECT * FROM productos';
+    let params = [];
+
+    if (empresaId ) {
+        query += ' WHERE id_empresa = ?';
+        params.push(empresaId);
+    }
 
     try {
-        const [results] = await db.query(query);
+        const [results] = await db.query(query, params);
         res.json(results);
     } catch (err) {
         return res.status(500).json({ error: err.message });
     }
 };
+
 exports.obtenerPorductoPorId = async (req, res) => {
   const productoId = req.params.id_producto;
 
@@ -53,7 +61,7 @@ exports.actualizarProducto = async (req, res) => {
     const { nombre, descripcion, precio, stock } = req.body;
     const productoId = req.params.id;
 
-    const query = 'UPDATE productos SET nombre = ?, descripcion = ?, precio = ?, stock = ? WHERE id_producto = ? AND id_proveedor = ?';
+    const query = 'UPDATE productos SET nombre = ?, descripcion = ?, precio = ?, stock = ? WHERE id_producto = ? AND id_empresa = ?';
 
     try {
         const [result] = await db.query(query, [nombre, descripcion, precio, stock, productoId, req.usuarioId]);
@@ -67,7 +75,7 @@ exports.actualizarProducto = async (req, res) => {
 exports.eliminarProducto = async (req, res) => {
     const productoId = req.params.id;
 
-    const query = 'DELETE FROM productos WHERE id_producto = ? AND id_proveedor = ?';
+    const query = 'DELETE FROM productos WHERE id_producto = ? AND id_empresa = ?';
 
     try {
         const [result] = await db.query(query, [productoId, req.usuarioId]);

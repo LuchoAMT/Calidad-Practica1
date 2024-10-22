@@ -32,7 +32,7 @@ export class RegistrarseComponent{
   readonly contacto = new FormControl('', [Validators.required]);
 
   nuevaEmpresa: Empresa = {
-    id_proveedor: 0,
+    id_empresa: 0,
     nombre: '',
     descripcion: '',
     correo: '',

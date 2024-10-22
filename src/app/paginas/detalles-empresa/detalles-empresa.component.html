@@ -9,7 +9,9 @@
       <div class="data">
         <h1>{{empresa?.nombre}}</h1>       
         <p>{{empresa?.descripcion}}</p>
-        <a mat-stroked-button [routerLink]="['/productos']" routerLinkActive="active"> Conoce nuestros productos</a>
+        <a mat-stroked-button [routerLink]="['/productos']" [queryParams]="{ id_empresa: empresa?.id_empresa }" routerLinkActive="active">
+          Conoce nuestros productos
+        </a>
       </div>
     </div>
     <div class="detail-section">
@@ -19,10 +21,16 @@
       </div>
       <div>
         <google-map 
-        [height]="'300px'"
-        [width]="'300px'"
-        [center]="center"
-        [zoom]="zoom">
+          [height]="'300px'"
+          [width]="'500px'"
+          [center]="center"
+          [zoom]="zoom">
+          
+          <map-circle 
+            [center]="center" 
+            [options]="circleOptions">
+          </map-circle>
+      
         </google-map>     
       </div>
     </div>

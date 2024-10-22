@@ -68,4 +68,14 @@ export class ProductosService {
     return;  // No se espera ninguna respuesta del servidor al eliminar
   }
 
+    async getProductosPorEmpresa(idEmpresa: number): Promise<Producto[]> {
+      const resp = await fetch(`${this.apiUrl}?id_empresa=${idEmpresa}`);
+      const productos = await resp.json();
+      
+      if (!resp.ok) {
+        throw new Error('Error al obtener los productos por empresa');
+      }
+  
+      return productos;
+    }
 }

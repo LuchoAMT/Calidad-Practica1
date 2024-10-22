@@ -13,9 +13,9 @@ router.post('/', crearEmpresa);
 router.get('/', obtenerEmpresas);
 
 // Obtener las empresas por id
-router.get('/:id_proveedor', obtenerEmpresaPorId);
+router.get('/:id_empresa', obtenerEmpresaPorId);
 
 // Eliminar una empresa
-router.delete('/:id_proveedor', verificarToken, eliminarEmpresa);
+router.delete('/:id_empresa', verificarToken, eliminarEmpresa);
 
 module.exports = router;

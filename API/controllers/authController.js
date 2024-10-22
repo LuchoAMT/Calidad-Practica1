@@ -6,12 +6,12 @@ const db = require('../db');  // Conexión a la base de datos
 exports.iniciarSesion = async (req, res) => {
     const { email, password, userType } = req.body;
 
-    if (userType !== 'negocio' && userType !== 'proveedor') {
+    if (userType !== 'negocio' && userType !== 'empresa') {
         return res.status(400).json({ mensaje: 'Tipo de usuario no válido' });
     }
 
-    let queryTable = userType === 'negocio' ? 'negocios' : 'proveedores';
-    let idColumn = userType === 'negocio' ? 'id_negocio' : 'id_proveedor';
+    let queryTable = userType === 'negocio' ? 'negocios' : 'empresas';
+    let idColumn = userType === 'negocio' ? 'id_negocio' : 'id_empresa';
 
     try {
         // Verificar si el usuario existe en la base de datos
