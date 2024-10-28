@@ -27,7 +27,7 @@
         font-style: italic;
     }
     
-    h1 {
+    h1,h4 {
         text-align: center;   
     }
 
@@ -37,6 +37,10 @@
         width: 42.5%;
     }
 
+    .links{
+        margin: 2.5% 0;
+        text-align: center;
+    }
 
     mat-label, mat-form-field input{
         font-family: "Poppins",sans-serif;
@@ -47,8 +51,7 @@
     }
     
     #terms{
-        margin-left: 4%;
-        margin-right: 1.5%;
+        margin-left: 12.5%;
     }
 
     #registrarse {

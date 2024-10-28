@@ -10,28 +10,29 @@ exports.iniciarSesion = async (req, res) => {
         return res.status(400).json({ mensaje: 'Tipo de usuario no válido' });
     }
 
-    let queryTable = userType === 'negocio' ? 'negocios' : 'empresas';
-    let idColumn = userType === 'negocio' ? 'id_negocio' : 'id_empresa';
+    const queryTable = userType === 'negocio' ? 'negocios' : 'empresas';
+    const idColumn = userType === 'negocio' ? 'id_negocio' : 'id_empresa';
 
     try {
-        // Verificar si el usuario existe en la base de datos
-        const [user] = await db.query(`SELECT * FROM ${queryTable} WHERE correo = ?`, [email]);
+        const [userResult] = await db.query(`SELECT * FROM ${queryTable} WHERE correo = ?`, [email]);
 
-        if (!user) {
+        if (!userResult || userResult.length === 0) {
             return res.status(404).json({ mensaje: 'Usuario no encontrado' });
         }
-        
-        console.log('User: ', user);
-        console.log('pass: ', password);
-        console.log('pass hasheada: ', user[0].contraseña);
 
-        // Comparar la contraseña con el hash almacenado en la base de datos
-        const match = await bcrypt.compare(password, user[0].contraseña);
+        const user = userResult[0];  
+
+        console.log('Usuario encontrado:', user);
+        console.log('Contraseña ingresada:', password);
+        console.log('Contraseña almacenada (hasheada):', user.contraseña);
+
+        const match = await bcrypt.compare(password, user.contraseña);
+        console.log('Resultado de comparación:', match);
+
         if (!match) {
             return res.status(401).json({ mensaje: 'Contraseña incorrecta' });
         }
 
-        // Crear un JWT con el id del usuario
         const token = jwt.sign({ id: user[idColumn] }, 'secreto', { expiresIn: '1h' });
 
         res.json({ token });

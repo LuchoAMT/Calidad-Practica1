@@ -1,3 +1,28 @@
+<section class="search-n-filter">
+    <form class="search-form">
+      <mat-form-field class="search-full-width">
+        <mat-label>¿Que productos buscas?</mat-label>
+        <!-- input de búsqueda -->
+        <input matInput
+          aria-label="Buscar"
+          [matAutocomplete]="auto"
+          [formControl]="mycontrol">
+        <!-- autocompletado -->
+        <mat-autocomplete #auto="matAutocomplete">
+          @for (producto of productosFiltrados | async; track producto) {
+            <!-- detalles del producto del autocompletado -->
+            <a [routerLink]="['/detalles-producto', producto.id_producto]">
+              <mat-option [value]="producto.nombre">
+                <img alt="" class="search-option-img" [src]="producto.imagen_url" height="75px">
+                <span>{{producto.nombre}}</span> |
+                <small>Price: {{producto.precio}}</small>          
+              </mat-option>
+            </a>
+          }
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+</section>
 <div class="container">
     @for(producto of productos; track producto.id_producto){
     <mat-card class="container-product">

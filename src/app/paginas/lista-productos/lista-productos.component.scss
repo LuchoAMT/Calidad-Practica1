@@ -1,8 +1,45 @@
+.search-n-filter{
+  display: flex;
+  justify-content: center; 
+  gap: 15%;
+  flex-wrap: wrap;
+  margin-top: 3%;
+}
+
+.mat-mdc-form-field-focus-overlay {
+  background-color: black;
+}
+
+.search-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.search-full-width {
+  width: 100%;
+}
+
+.search-option-img {
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+[dir='rtl'] .search-option-img {
+  margin-right: 0;
+  margin-left: 8px;
+}
+
+
 .container {
+  background-image: url('../../../assets/images/GifMerka.gif');
+  background-size: cover; 
+  background-position: center; 
+  background-attachment: fixed; 
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  margin: 0 4%;
+  margin: 3% 0;
 }
 
 // seccion contenedor producto
@@ -21,6 +58,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
     transition: transform 0.3s ease, box-shadow 0.3s ease; 
     margin: 20px;
+    margin-bottom: 7.5%;
 }
 
 /* Efecto hover en las tarjetas */
