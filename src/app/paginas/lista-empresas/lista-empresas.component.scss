@@ -1,11 +1,15 @@
 
 .container {
+  background-image: url('../../../assets/images/GifMerka.gif');
+  background-size: cover;
+  background-position: center;
   display: flex;
   flex-wrap: nowrap; 
   justify-content: flex-start;
   overflow-x: auto; 
-  gap: 10%;
-  margin: 5%;
+  gap: 5%;
+  padding: 9% 0;
+  margin: 2% 0;
   scroll-behavior: smooth;
 }
 
@@ -32,6 +36,7 @@
   box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.3);
   background-color: #F0CD93;
   margin: 2% 0;
+  margin-left: 4%;
 }
 
 .company img {

@@ -1,7 +1,16 @@
-.container-cart-products h2{
-    font-size: 25px;
-    text-align: center;
+.container-cart-products{
+    background-image: url('../../../assets/images/GifMerka_2.gif');
+    background-size: cover; 
+    background-position: center; 
+    background-attachment: fixed; 
+    color: white;
 }
+
+.container-cart-products h2{
+  font-size: 25px;
+  text-align: center;
+}
+
 
 .header-cart{
     display: flex;
@@ -9,7 +18,7 @@
     padding: 1%;
     margin: 2% 7.5%;
     border-radius: 10px;
-    border: 2px solid black;
+    border: 2px solid white;
     gap: 4%;
     align-items: center;
 }
@@ -32,9 +41,9 @@
 }
 
 .mat-mdc-outlined-button:not(:disabled){
-    color: black;
+    color: white;
     font-family: "Poppins", sans-serif;
-    border-color: black;
+    border-color: white;
   }
   
   .mat-mdc-outlined-button:hover{

@@ -1,16 +1,24 @@
+const bcrypt = require('bcrypt');
 const db = require('../db');  // Conexión a la base de datos
 
-// Crear un nuevo producto
+// Crear una nueva empresa 
 exports.crearEmpresa = async (req, res) => {
     const { nombre, descripcion, correo, contraseña, latitud, longitud, contacto, logo } = req.body;
     const empresaId = req.usuarioId;  // ID de la empresa autenticada
 
-    const query = 'INSERT INTO empresas (nombre, correo, contraseña, descripcion, latitud, longitud, contacto, logo, id_empresa) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+    const saltRounds = 10;
 
     try {
-        const [result] = await db.query(query, [nombre, descripcion, correo, contraseña, latitud, longitud, contacto, logo, empresaId]);
+        // Hasheamos la contraseña
+        const hashedPassword = await bcrypt.hash(contraseña, saltRounds);
+
+        const query = 'INSERT INTO empresas (nombre, correo, contraseña, descripcion, latitud, longitud, contacto, logo, id_empresa) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+
+        const [result] = await db.query(query, [nombre, correo, hashedPassword, descripcion, latitud, longitud, contacto, logo, empresaId]);
+
         res.status(201).json({ mensaje: 'Empresa creada con éxito' });
     } catch (err) {
+        console.error('Error al crear la empresa:', err);
         return res.status(500).json({ error: err.message });
     }
 };

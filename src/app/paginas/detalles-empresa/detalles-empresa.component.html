@@ -7,7 +7,7 @@
     <div class="detail-section">
       <img [src]="empresa?.logo" alt="Logo de {{empresa?.nombre}}" id="Logo">
       <div class="data">
-        <h1>{{empresa?.nombre}}</h1>       
+        <h1>{{empresa?.nombre}}</h1>
         <p>{{empresa?.descripcion}}</p>
         <a mat-stroked-button [routerLink]="['/productos']" [queryParams]="{ id_empresa: empresa?.id_empresa }" routerLinkActive="active">
           Conoce nuestros productos
@@ -16,22 +16,19 @@
     </div>
     <div class="detail-section">
       <div>
-        <img src="assets/images/social-media.svg" alt="Contacto"> 
+        <img src="assets/images/social-media.svg" alt="Contacto">
         <p>Para comunicarse con nosotros escribenos en el <a href="{{empresa?.contacto}}" target="_blank">siguiente link</a></p>
       </div>
       <div>
-        <google-map 
-          [height]="'300px'"
-          [width]="'500px'"
-          [center]="center"
-          [zoom]="zoom">
-          
-          <map-circle 
-            [center]="center" 
+        <google-map class="custom-map"
+          >
+
+          <map-circle
+            [center]="center"
             [options]="circleOptions">
           </map-circle>
-      
-        </google-map>     
+
+        </google-map>
       </div>
     </div>
   </div>

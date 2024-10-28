@@ -18,7 +18,7 @@
 
 .detail-company{
     border-radius: 10px;
-    background: #F0CD93; 
+    background: #F0CD93;
     border: 1px solid #343434;
     margin: 5%;
     margin-top: 0;
@@ -57,7 +57,7 @@
     border-radius: 10px;
     background-color: #CCAD8F;
     box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.5);
-    padding: 2%;    
+    padding: 2%;
 }
 
 .data h1{
@@ -107,12 +107,16 @@
 .data a{
     color: #141414;
 }
+.custom-map {
+  height: 200px; /* Cambia el tamaño según lo necesites */
+  width: 300px;  /* Cambia el tamaño según lo necesites */
+}
 
 @media (max-width: 768px) {
 
     .detail-section{
         flex-direction: column;
-        
+
     }
 
     .detail-company #Logo {
@@ -120,5 +124,29 @@
         height: 80%;
         margin-left: 7.5%;
     }
-  
+    .data{
+      align-items: block;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .detail-section:nth-child(2) div{
+      margin: 0 5%;
+    justify-content: center;
+  }
+    .data h1{
+      font-size: 20px;
+  }
+
+    .data p{
+
+        line-height: 2;
+        font-size: 15px;
+    }
+
+    .custom-map {
+      height: 100px; /* Cambia el tamaño según lo necesites */
+      width: 200px;  /* Cambia el tamaño según lo necesites */
+    }
+
 }

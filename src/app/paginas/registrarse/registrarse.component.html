@@ -1,121 +1,94 @@
 <!-- Sección form -->
-<form (ngSubmit)="crearEmpresa()">
+<form (ngSubmit)="crearEmpresa()" novalidate>
     <h1>Registrarse</h1>
     <!-- div nombre completo y correo-->
     <img src="assets/images/registro.svg" alt="Solicitar URL de imagen" style="cursor: pointer; width: 100px;" />
     <mat-form-field id="img-registro">
         Ingresa el link de tu imagen:
         <input matInput [formControl]="logo">
-      </mat-form-field>
+        <mat-error *ngIf="logo.invalid && logo.touched">Ingresa un link de imagen para tu logo</mat-error>
+    </mat-form-field>
     <div class="form-2-fields">
 
         <mat-form-field>
             <mat-label>Nombre</mat-label>
             <input matInput
             [formControl]="nombre"
-            (blur)="updateErrorMessage()"
             required>
-            @if (nombre.invalid) {
-                <mat-error>{{errorMessage()}}</mat-error>
-            }
+            <mat-error *ngIf="nombre.invalid && nombre.touched">Ingresa un nombre</mat-error>
         </mat-form-field>
 
-        <mat-form-field>
+        <mat-form-field appearance="fill">
             <mat-label>Ingresa tu correo</mat-label>
-            <input
-            matInput
-            placeholder="tuemail@ejemplo.com"
-            [formControl]="email"
-            (blur)="updateErrorMessage()"
-            required
-            />
-            @if (email.invalid) {
-            <mat-error>{{errorMessage()}}</mat-error>
-            }
-        </mat-form-field>
+            <input matInput type="email" [formControl]="email" required>
+            <mat-error *ngIf="email.invalid && email.touched">Ingresa un correo válido</mat-error>
+          </mat-form-field>
+
 
     </div>
     <!-- div contraseña-->
     <div class="form-2-fields">
 
-        <mat-form-field>
-            <mat-label>Ingresa tu contraseña</mat-label>
-            <input matInput [type]="hide() ? 'password' : 'text'" 
-            [formControl]="password"
-            (blur)="updateErrorMessage()"
-            required/>
-            @if (password.invalid) {
-                <mat-error>{{errorMessage()}}</mat-error>
-            }
-        <button
-            mat-icon-button
-            matSuffix
-            (click)="clickEvent($event)"
-            [attr.aria-label]="'Hide password'"
-            [attr.aria-pressed]="hide()"
-        >
-            <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </button>
+        <mat-form-field appearance="fill">
+            <mat-label>Ingresa tu Contraseña</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" [formControl]="password" required>
+            <button mat-icon-button matSuffix (click)="togglePasswordVisibility()" [attr.aria-label]="'Hide password'" type="button">
+              <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            <mat-error *ngIf="password.invalid && password.touched">Ingresa tu contraseña</mat-error>
         </mat-form-field>
 
-        <mat-form-field>
-            <mat-label>Confirma tu contraseña</mat-label>
-            <input matInput [type]="hide() ? 'password' : 'text'" 
-            [formControl]="password_confirm"
-            (blur)="updateErrorMessage()"
-            required/>
-            @if (password_confirm.invalid) {
-                <mat-error>{{errorMessage()}}</mat-error>
-            }
-            <button
-              mat-icon-button
-              matSuffix
-              (click)="clickEvent($event)"
-              [attr.aria-label]="'Hide password'"
-              [attr.aria-pressed]="hide()"
-            >
-              <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+        <mat-form-field appearance="fill">
+            <mat-label>Confirma tu Contraseña</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" [formControl]="password_confirm" required>
+            <button mat-icon-button matSuffix (click)="togglePasswordConfirmVisibility()" [attr.aria-label]="'Hide password'" type="button">
+              <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
             </button>
-          </mat-form-field>
+            <mat-error *ngIf="password_confirm.invalid && password_confirm.touched">Ingresa la confirmación de tu contraseña</mat-error>
+        </mat-form-field>
     </div>
-    <!-- div descripción y dirección-->
+    <!-- div descripcion y contacto-->
     <div class="form-2-fields">
-
         <mat-form-field>
             <mat-label>Ingresa una descripción</mat-label>
             <textarea matInput
             [formControl]="descripcion"></textarea>
+            <mat-error *ngIf="descripcion.invalid && descripcion.touched">Ingresa una descripción</mat-error>
         </mat-form-field>
 
-        <mat-form-field>
-            <mat-label>Latitud</mat-label>
-            <input matInput
-            [formControl]="latitud"
-            (blur)="updateErrorMessage()"
-            required>
-        </mat-form-field>
-
-    </div>
-    <!-- div contacto y terminos y condiciones-->
-    <div class="form-2-fields">
         <mat-form-field>
             <mat-label>Contacto</mat-label>
             <span matTextPrefix>+591 &nbsp;</span>
             <input type="tel" matInput
             [formControl]="contacto" placeholder="61675219">
+            <mat-error *ngIf="contacto.invalid && contacto.touched">Ingresa un contacto valido</mat-error>
+        </mat-form-field>           
+    </div>
+    <!-- div coordenadas-->
+    <div class="form-2-fields">
+
+        <h4>Ingresa tus coordenadas de ubicación:</h4>
+        <mat-form-field>
+            <mat-label>Latitud</mat-label>
+            <input matInput
+            [formControl]="latitud"
+            required>
+            <mat-error *ngIf="latitud.invalid && latitud.touched">Ingresa la coordenada valida</mat-error>
         </mat-form-field>
 
         <mat-form-field>
             <mat-label>Longitud</mat-label>
             <input matInput
             [formControl]="longitud"
-            (blur)="updateErrorMessage()"
             required>
+            <mat-error *ngIf="longitud.invalid && longitud.touched">Ingresa la coordenada valida</mat-error>
         </mat-form-field>
-            
     </div>
-    <input type="checkbox" id="terms" name="terms" required>
-    <a [routerLink]="['/terminos-condiciones']" routerLinkActive="active" for="terms">Acepto los términos y condiciones</a>
+    <div class="links">
+        <a href="https://www.google.com/maps" target="_blank">Busca las coordenadas de tu ubicacion</a>
+        <input type="checkbox" id="terms" name="terms" required>
+        <a [routerLink]="['/terminos-condiciones']" routerLinkActive="active" for="terms">Acepto los términos y condiciones</a>
+    </div>
     <!-- creación de cuenta-->
     <button mat-stroked-button (click)="crearEmpresa()" id="registrarse"> > Registrarse</button>
   </form>

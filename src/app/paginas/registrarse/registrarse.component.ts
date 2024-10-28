@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { Router,RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import { CommonModule } from '@angular/common'; 
 import {FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 //Angular Material
 import {MatIconModule} from '@angular/material/icon';
@@ -15,7 +16,10 @@ import { EmpresasService } from '../../servicios/empresas.service';
 @Component({
   selector: 'app-registrarse',
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, FormsModule, ReactiveFormsModule, MatIconModule, RouterLink, RouterLinkActive, RouterOutlet, MatButtonModule],
+  imports: [MatFormFieldModule, MatInputModule, FormsModule, CommonModule,
+    ReactiveFormsModule, MatIconModule, 
+    RouterLink, RouterLinkActive, 
+    RouterOutlet, MatButtonModule],
   templateUrl: './registrarse.component.html',
   styleUrl: './registrarse.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -30,6 +34,7 @@ export class RegistrarseComponent{
   readonly latitud = new FormControl('', [Validators.required]);
   readonly longitud = new FormControl('', [Validators.required]);
   readonly contacto = new FormControl('', [Validators.required]);
+  hide = true;
 
   nuevaEmpresa: Empresa = {
     id_empresa: 0,
@@ -45,32 +50,15 @@ export class RegistrarseComponent{
 
   errorMessage = signal('');
 
-  constructor(private router: Router, private empresasService:EmpresasService) {
-    merge(this.nombre.statusChanges, this.nombre.valueChanges)
-      .pipe(takeUntilDestroyed())
-      .subscribe(() => this.updateErrorMessage());
+  constructor(private router: Router, private empresasService:EmpresasService) {}
 
-    merge(this.email.statusChanges, this.email.valueChanges)
-      .pipe(takeUntilDestroyed())
-      .subscribe(() => this.updateErrorMessage());     
+  togglePasswordVisibility() {
+    this.hide = !this.hide;
   }
 
-  hide = signal(true);
-  clickEvent(event: MouseEvent) {
-    this.hide.set(!this.hide());
-    event.stopPropagation();
+  togglePasswordConfirmVisibility() {
+    this.hide = !this.hide;
   }
-
-  updateErrorMessage() {
-    if (this.email.hasError('required')) {
-      this.errorMessage.set('Este campo es obligatorio para ingresar');
-    } else if (this.email.hasError('email')) {
-      this.errorMessage.set('El campo ingresado no es valido');
-    } else {
-      this.errorMessage.set('');
-    }
-  }
-  
 
   terms: boolean = false;
 
@@ -94,7 +82,7 @@ export class RegistrarseComponent{
         console.error('Error al crear la empresa:', error);;
       }
     } else {
-      this.errorMessage.set('Las contraseñas no coinciden');
+      alert('Las contraseñas no coinciden');
     }
   }
   
