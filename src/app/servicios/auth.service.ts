@@ -3,6 +3,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 
+interface AuthResponse {
+  token: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,12 +17,23 @@ export class AutenticacionService {
 
   async iniciarSesion(email: string, password: string, userType: string): Promise<any> {
     try {
-      const respuesta = await firstValueFrom(this.http.post(`${this.apiUrl}/auth/iniciar-sesion`, { email, password, userType }));
-    return respuesta;
+      const respuesta: AuthResponse = await firstValueFrom(
+        this.http.post<AuthResponse>(`${this.apiUrl}/auth/iniciar-sesion`, { email, password, userType })
+      );
+      localStorage.setItem('token', respuesta.token);      
+      return respuesta;
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
       throw error;
     }
+  }
+
+  isAuthenticated(): boolean {
+    return !!localStorage.getItem('token');
+  }
+  
+  cerrarSesion(): void {
+    localStorage.removeItem('token');
   }
 }
 
