@@ -11,10 +11,12 @@ app.use(express.json());
 const productosRoutes = require('./routes/productos');
 const empresasRoutes = require('./routes/empresas');
 const authRoutes = require('./routes/auth');
+const negociosRoutes = require('./routes/negocios');
 
 app.use('/auth', authRoutes);
 app.use('/productos', productosRoutes);
 app.use('/empresas', empresasRoutes);
+app.use('/negocios', negociosRoutes);
 
 
 // Iniciar el servidor

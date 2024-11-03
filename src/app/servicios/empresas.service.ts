@@ -49,7 +49,7 @@ export class EmpresasService {
       throw new Error('Error al eliminar la empresa');
     }
 
-    return;  // No se espera ninguna respuesta del servidor al eliminar
+    return; 
   }
 
 }

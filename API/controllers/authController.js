@@ -23,11 +23,9 @@ exports.iniciarSesion = async (req, res) => {
         const user = userResult[0];  
 
         console.log('Usuario encontrado:', user);
-        console.log('Contraseña ingresada:', password);
-        console.log('Contraseña almacenada (hasheada):', user.contraseña);
 
         const match = await bcrypt.compare(password, user.contraseña);
-        console.log('Resultado de comparación:', match);
+        console.log('Resultado de comparación de contraseñas:', match);
 
         if (!match) {
             return res.status(401).json({ mensaje: 'Contraseña incorrecta' });
