@@ -43,7 +43,9 @@ export class ListaProductosComponent implements OnInit {
     descripcion: '',
     precio: 0,
     imagen_url: '',
-    empresa_id: 1
+    id_empresa: 1,
+    etiqueta: 'Nuevo',
+    descuento: 0.00
   };
   
 
@@ -99,8 +101,7 @@ export class ListaProductosComponent implements OnInit {
         return palabras.slice(0, limitePalabras).join(' ') + ' .....'; 
     }
     return texto; 
-  }
-
+    }
     // Verificación para bloquear acceso a Editar Cuenta si no está autenticado
     verificarAutenticacion(): void {
       this.isAuthenticated = this.authService.isAuthenticated();
@@ -111,5 +112,9 @@ export class ListaProductosComponent implements OnInit {
         this.router.navigate(['/iniciar-sesion']);
       }
     }
+
+  calcularPrecioDescuento(precio: number, descuento: number): number{
+    return this.productosService.calcularPrecioDescuento(precio,descuento);
+  }
 
 }

@@ -11,7 +11,7 @@ export class ProductosService {
 
   // Método para obtener todos los productos
   async getProductos(): Promise<Producto[]> {
-    const resp = await	fetch(this.apiUrl);
+    const resp = await fetch(this.apiUrl);
     const productos = await resp.json();
     return productos;
   }
@@ -40,10 +40,13 @@ export class ProductosService {
   }
 
   async actualizarProducto(id: number, producto: Producto): Promise<Producto> {
+    const token = localStorage.getItem('token');
+    console.log("Token: ", token);
     const resp = await fetch(`${this.apiUrl}/${id}`, {
       method: 'PUT',  // También puedes usar 'PATCH' si solo actualizas ciertos campos
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': token ? `Bearer ${token}` : ''
       },
       body: JSON.stringify(producto),
     });
@@ -68,14 +71,21 @@ export class ProductosService {
     return;  // No se espera ninguna respuesta del servidor al eliminar
   }
 
-    async getProductosPorEmpresa(idEmpresa: number): Promise<Producto[]> {
-      const resp = await fetch(`${this.apiUrl}?id_empresa=${idEmpresa}`);
-      const productos = await resp.json();
-      
-      if (!resp.ok) {
-        throw new Error('Error al obtener los productos por empresa');
-      }
-  
-      return productos;
+  async getProductosPorEmpresa(idEmpresa: number): Promise<Producto[]> {
+    const resp = await fetch(`${this.apiUrl}?id_empresa=${idEmpresa}`);
+    const productos = await resp.json();
+
+    if (!resp.ok) {
+      throw new Error('Error al obtener los productos por empresa');
     }
+
+    return productos;
+  }
+
+  calcularPrecioDescuento(precio: number, descuento?: number): number {
+    if (descuento) {
+      return precio - (precio * (descuento / 100))
+    }
+    return precio;
+  }
 }

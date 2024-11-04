@@ -34,10 +34,7 @@ exports.iniciarSesion = async (req, res) => {
         // Genera el token incluyendo el ID del usuario
         const token = jwt.sign({ id: user[idColumn] }, 'secreto', { expiresIn: '1h' });
 
-        res.json({
-            token,
-            userId: user[idColumn]  
-        });
+        res.json({ token, userId: user[idColumn], userType });
     } catch (error) {
         console.error('Error al iniciar sesión:', error);
         res.status(500).json({ mensaje: 'Error en el servidor' });

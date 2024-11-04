@@ -4,5 +4,7 @@ export interface Producto {
   descripcion: string;
   precio: number;
   imagen_url?: string;
-  empresa_id: number;
+  id_empresa: number;
+  etiqueta?: string;
+  descuento: number;
 }

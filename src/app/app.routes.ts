@@ -10,6 +10,7 @@ import { DetallesEmpresaComponent } from './paginas/detalles-empresa/detalles-em
 import { DetalleProductoComponent } from './paginas/detalle-producto/detalle-producto.component';
 import { CarritoComponent } from './paginas/carrito/carrito.component';
 import { PagoTarjetaComponent } from './paginas/pago-tarjeta/pago-tarjeta.component';
+import { EditarProductoComponent } from './paginas/editar-producto/editar-producto.component';
 import { EditarCuentaComponent } from './paginas/editar-cuenta/editar-cuenta.component';
 
 
@@ -24,6 +25,7 @@ export const routes: Routes = [
     { path: 'terminos-condiciones', component: TerminosCondicionesComponent },
     { path: 'detalles-empresa/:id', component: DetallesEmpresaComponent},
     { path: 'detalles-producto/:id', component: DetalleProductoComponent },
+    { path: 'productos/editar/:id', component: EditarProductoComponent },
     { path: 'carrito', component: CarritoComponent},
     {path: 'pago-tarjeta',component:PagoTarjetaComponent},
     { path: 'editar-cuenta', component: EditarCuentaComponent },
