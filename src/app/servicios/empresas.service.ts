@@ -10,6 +10,25 @@ export class EmpresasService {
 
   constructor() { }
 
+  // Obtener el token del localStorage
+  private getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
+  // Configuración base de headers
+  private getHeaders(): Headers {
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+    });
+    
+    const token = this.getToken();
+    if (token) {
+      headers.append('Authorization', `Bearer ${token}`);
+    }
+    
+    return headers;
+  }
+
   // Método para obtener todas las empresas
   async getEmpresas(): Promise<Empresa[]> {
     const resp = await	fetch(this.apiUrl);
@@ -38,6 +57,22 @@ export class EmpresasService {
 
     const nuevoEmpresa = await resp.json();
     return nuevoEmpresa;
+  }
+  
+  // Método para actualizar la información de un negocio
+  async updateEmpresa(id: number, empresa: Empresa): Promise<Empresa> {
+    const resp = await fetch(`${this.apiUrl}/${id}`, {
+      method: 'PUT',
+      headers: this.getHeaders(),
+      body: JSON.stringify(empresa),
+    });
+
+    if (!resp.ok) {
+      const error = await resp.json();
+      throw new Error(error.mensaje || 'Error al actualizar la empresa');
+    }
+
+    return await resp.json();
   }
 
   async eliminarEmpresa(id: number): Promise<void> {

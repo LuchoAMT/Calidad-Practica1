@@ -56,6 +56,95 @@ exports.obtenerNegocioPorId = async (req, res) => {
     }
 };
 
+exports.actualizarNegocio = async (req, res) => {
+    const negocioId = req.params.id_negocio;
+    const { nombre, informacion, correo, contraseña, latitud, longitud, contacto, foto } = req.body;
+
+    try {
+        // Primero verificamos si el negocio existe
+        const [negocioExistente] = await db.query(
+            'SELECT * FROM negocios WHERE id_negocio = ?',
+            [negocioId]
+        );
+
+        if (negocioExistente.length === 0) {
+            return res.status(404).json({ mensaje: 'Negocio no encontrado' });
+        }
+
+        // Preparamos los campos a actualizar
+        let updateFields = [];
+        let updateValues = [];
+
+        if (nombre) {
+            updateFields.push('nombre = ?');
+            updateValues.push(nombre);
+        }
+        if (informacion) {
+            updateFields.push('informacion = ?');
+            updateValues.push(informacion);
+        }
+        if (correo) {
+            updateFields.push('correo = ?');
+            updateValues.push(correo);
+        }
+        if (contraseña) {
+            const saltRounds = 10;
+            const hashedPassword = await bcrypt.hash(contraseña, saltRounds);
+            updateFields.push('contraseña = ?');
+            updateValues.push(hashedPassword);
+        }
+        if (latitud) {
+            updateFields.push('latitud = ?');
+            updateValues.push(latitud);
+        }
+        if (longitud) {
+            updateFields.push('longitud = ?');
+            updateValues.push(longitud);
+        }
+        if (contacto) {
+            updateFields.push('contacto = ?');
+            updateValues.push(contacto);
+        }
+        if (foto) {
+            updateFields.push('foto = ?');
+            updateValues.push(foto);
+        }
+
+        // Si no hay campos para actualizar
+        if (updateFields.length === 0) {
+            return res.status(400).json({ mensaje: 'No se proporcionaron campos para actualizar' });
+        }
+
+        // Construimos la consulta SQL
+        const query = `
+            UPDATE negocios 
+            SET ${updateFields.join(', ')}
+            WHERE id_negocio = ?
+        `;
+
+        // Añadimos el id_negocio a los valores
+        updateValues.push(negocioId);
+
+        // Ejecutamos la actualización
+        const [result] = await db.query(query, updateValues);
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ mensaje: 'No se pudo actualizar el negocio' });
+        }
+
+        res.json({
+            mensaje: 'Negocio actualizado exitosamente',
+            negocioId: negocioId
+        });
+
+    } catch (err) {
+        console.error('Error al actualizar el negocio:', err);
+        res.status(500).json({
+            mensaje: 'Error al actualizar el negocio',
+            error: err.message
+        });
+    }
+};
 
 // Eliminar una negocio
 exports.eliminarNegocio = async (req, res) => {

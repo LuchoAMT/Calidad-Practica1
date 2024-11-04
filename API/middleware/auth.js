@@ -1,13 +1,16 @@
 const jwt = require('jsonwebtoken');
 
 exports.verificarToken = (req, res, next) => {
-    const token = req.headers['authorization'];
-    if (!token) return res.status(403).json({ mensaje: 'Token no proporcionado' });
+    const authHeader = req.headers['authorization'];
+    if (!authHeader) return res.status(403).json({ mensaje: 'Token no proporcionado' });
 
-    jwt.verify(token.split(' ')[1], 'secreto', (err, decoded) => {
-        if (err) return res.status(500).json({ mensaje: 'Fallo en la autenticación' });
-        req.usuarioId = decoded.id;  // Extraemos el ID del usuario autenticado
-        console.log("Usuario ID extraido del token: ", req.usuarioId);
+    const token = authHeader.split(' ')[1];
+    if (!token) return res.status(403).json({ mensaje: 'Formato de token inválido' });
+
+    jwt.verify(token, 'secreto', (err, decoded) => {
+        if (err) return res.status(401).json({ mensaje: 'Token inválido o expirado' });
+        req.usuarioId = decoded.id;
+        console.log("Usuario ID extraído del token: ", req.usuarioId);
         next();
     });
 };

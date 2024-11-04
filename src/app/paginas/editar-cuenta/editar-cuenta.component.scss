@@ -12,38 +12,48 @@ form {
     border-radius: 10px;
 }
 
-form img{
-    margin-left: 5%;
-    margin-bottom: 2%;
+.inicio-cambios{
+    display: flex;
+    flex-direction: row;
 }
 
-.center-field{
-    width: 40%;
-    margin-left: 30%;
+.inicio-cambios > div {
+    flex: 1; 
 }
 
-h1,.form-2-fields a{
+.inicio-cambios h1{
+    margin: auto;
     font-family: "Noto-Serif",sans-serif;
     font-style: italic;
+    width:  fit-content;
+}
+
+.inicio-cambios img{
+    margin-top: 5%;
+    margin-left: 32.5%;
 }
 
 
-.form-2-fields mat-form-field{
-    margin: 0 3.5%;
-    width: 42.5%;
-}
-
-.links{
-    margin: 2.5% 0;
-    text-align: center;
+.inicio-cambios div:nth-child(2){
+    margin-top: 7.5%;
+    display: flex;
+    flex-direction: column;
 }
 
 mat-label, mat-form-field input{
     font-family: "Poppins",sans-serif;
 }
 
+mat-form-field{
+    margin: 0 3.5%;
+}
+
 mat-form-field .mdc-text-field--filled:not(.mdc-text-field--disabled){
     background-color: #D1BEB0;
+}
+
+.form-2-fields mat-form-field{
+    width: 42.5%;
 }
 
 #coords{
@@ -61,11 +71,8 @@ mat-form-field .mdc-text-field--filled:not(.mdc-text-field--disabled){
     width: max-content;
 }
 
-#terms{
-    margin-left: 12.5%;
-}
 
-#registrarse {
+#cambios-cuenta {
     width: 20%;
     margin: 0 40%;
     border-color: black;

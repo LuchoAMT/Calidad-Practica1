@@ -10,6 +10,25 @@ export class NegociosService {
 
   constructor() { }
 
+  // Obtener el token del localStorage
+  private getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
+  // Configuración base de headers
+  private getHeaders(): Headers {
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+    });
+    
+    const token = this.getToken();
+    if (token) {
+      headers.append('Authorization', `Bearer ${token}`);
+    }
+    
+    return headers;
+  }
+
   // Método para obtener todas las Negocios
   async getNegocios(): Promise<Negocio[]> {
     const resp = await	fetch(this.apiUrl);
@@ -38,6 +57,22 @@ export class NegociosService {
 
     const nuevoNegocio = await resp.json();
     return nuevoNegocio;
+  }
+
+  // Método para actualizar la información de un negocio
+  async updateNegocio(id: number, negocio: Negocio): Promise<Negocio> {
+    const resp = await fetch(`${this.apiUrl}/${id}`, {
+      method: 'PUT',
+      headers: this.getHeaders(),
+      body: JSON.stringify(negocio),
+    });
+
+    if (!resp.ok) {
+      const error = await resp.json();
+      throw new Error(error.mensaje || 'Error al actualizar el negocio');
+    }
+
+    return await resp.json();
   }
 
   async eliminarNegocio(id: number): Promise<void> {
