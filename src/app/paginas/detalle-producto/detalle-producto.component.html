@@ -15,10 +15,18 @@
     <div class="description producto-detalles">
       <h1 class="producto-nombre">{{producto?.nombre}}</h1>
       <h2 class="producto-precio">{{producto?.precio}} Bs.</h2>
+      <div *ngIf="producto?.descuento">
+        <h2 class="producto-precio">Descuento:</h2>
+        <h2 class="producto-precio">{{ producto?.descuento }}%</h2>
+        <h2 class="producto-precio">Precio con descuento</h2>
+        <h2 class="producto-precio">{{ calcularPrecioDescuento(producto?.precio!, producto?.descuento!) }} Bs</h2>
+      </div>
       <div class="category">
         <p class="producto-descripcion">{{producto?.descripcion}}</p>
       </div>
       <button mat-button (click)="agregarAlCarrito()" class="boton-agregar">Añadir al carrito</button>
+      <!-- Botón de edición, visible solo si el usuario es el propietario -->
+      <button *ngIf="esPropietario" mat-button [routerLink]="['/productos/editar', producto?.id_producto]" class="boton-agregar">Editar Producto</button>
     </div>
   </article>
 </section>

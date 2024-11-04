@@ -39,6 +39,12 @@
                 <div class="price">
                     <p>Precio:</p>
                     <span>{{ producto.precio }} Bs.</span>
+                    @if (producto.descuento > 0) {
+                      <p>Descuento:</p>
+                      <span>{{ producto.descuento }}%</span>
+                      <p>Precio con descuento:</p>
+                      <span>{{ calcularPrecioDescuento(producto.precio, producto.descuento) }} Bs.</span>
+                    }
                 </div>
                     <button mat-flat-button [routerLink]="['/detalles-producto', producto.id_producto]">Más detalles</button>
             </div>

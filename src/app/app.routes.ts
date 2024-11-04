@@ -11,6 +11,7 @@ import { DetalleProductoComponent } from './paginas/detalle-producto/detalle-pro
 import { PerfilNegocioComponent } from './paginas/perfil-negocio/perfil-negocio.component';
 import { CarritoComponent } from './paginas/carrito/carrito.component';
 import { PagoTarjetaComponent } from './paginas/pago-tarjeta/pago-tarjeta.component';
+import { EditarProductoComponent } from './paginas/editar-producto/editar-producto.component';
 
 
 export const routes: Routes = [
@@ -25,6 +26,7 @@ export const routes: Routes = [
     { path: 'terminos-condiciones', component: TerminosCondicionesComponent },
     { path: 'detalles-empresa/:id', component: DetallesEmpresaComponent},
     { path: 'detalles-producto/:id', component: DetalleProductoComponent },
+    { path: 'productos/editar/:id', component: EditarProductoComponent },
     { path: 'carrito', component: CarritoComponent},
     {path: 'pago-tarjeta',component:PagoTarjetaComponent},
     { path: '**', component: PaginaNoEncontradaComponent },

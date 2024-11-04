@@ -2,13 +2,13 @@ const db = require('../db');  // Conexión a la base de datos
 
 // Crear un nuevo producto
 exports.crearProducto = async (req, res) => {
-    const { nombre, descripcion, precio, stock } = req.body;
+    const { nombre, descripcion, precio, imagen_url} = req.body;
     const empresaId = req.usuarioId;  // ID de la empresa autenticado
 
-    const query = 'INSERT INTO productos (nombre, descripcion, precio, stock, id_empresa) VALUES (?, ?, ?, ?, ?)';
+    const query = 'INSERT INTO productos (nombre, descripcion, precio, imagen_url, id_empresa) VALUES (?, ?, ?, ?, ?)';
 
     try {
-        const [result] = await db.query(query, [nombre, descripcion, precio, stock, empresaId]);
+        const [result] = await db.query(query, [nombre, descripcion, precio, imagen_url, empresaId]);
         res.status(201).json({ mensaje: 'Producto creado con éxito' });
     } catch (err) {
         return res.status(500).json({ error: err.message });
@@ -58,13 +58,18 @@ exports.obtenerPorductoPorId = async (req, res) => {
 
 // Actualizar un producto
 exports.actualizarProducto = async (req, res) => {
-    const { nombre, descripcion, precio, stock } = req.body;
+    const { nombre, descripcion, precio, imagen_url, etiqueta, descuento } = req.body;
     const productoId = req.params.id;
+    console.log("Producto ID: ", productoId);
+    console.log("empresa ID: ", req.usuarioId);
 
-    const query = 'UPDATE productos SET nombre = ?, descripcion = ?, precio = ?, stock = ? WHERE id_producto = ? AND id_empresa = ?';
+    const query = 'UPDATE productos SET nombre = ?, descripcion = ?, precio = ?, imagen_url = ?, etiqueta = ?, descuento = ? WHERE id_producto = ? AND id_empresa = ?';
 
     try {
-        const [result] = await db.query(query, [nombre, descripcion, precio, stock, productoId, req.usuarioId]);
+        const [result] = await db.query(query, [nombre, descripcion, precio, imagen_url, etiqueta, descuento, productoId, req.usuarioId]);
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ mensaje: 'Producto no encontrado o no tiene permiso para editarlo' })
+        }
         res.json({ mensaje: 'Producto actualizado con éxito' });
     } catch (err) {
         return res.status(500).json({ error: err.message });
