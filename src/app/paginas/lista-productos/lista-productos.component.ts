@@ -3,18 +3,22 @@ import { ProductosService } from '../../servicios/productos.service';
 import { EmpresasService } from '../../servicios/empresas.service';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { AsyncPipe} from '@angular/common';
-import { Producto } from '../../interfaces/producto';
-import { Empresa } from '../../interfaces/empresa';
-import { RouterLink, ActivatedRoute } from '@angular/router';
+import { Router,RouterLink, ActivatedRoute } from '@angular/router';
 //imports de angular material
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatSnackBar } from '@angular/material/snack-bar';
 //otros imports
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+//Imports interfaces y servicios
+import { Producto } from '../../interfaces/producto';
+import { Empresa } from '../../interfaces/empresa';
+import { AutenticacionService } from '../../servicios/auth.service';
+
 
 @Component({
   selector: 'app-lista-productos',
@@ -31,6 +35,7 @@ export class ListaProductosComponent implements OnInit {
   empresas: Empresa[] = []; //lista de empresas
   empresaSeleccionada: string |  null = null;
   idEmpresa: number | null = null;
+  isAuthenticated: boolean = false;
 
   nuevoProducto: Producto = {
     id_producto: 0,
@@ -42,7 +47,15 @@ export class ListaProductosComponent implements OnInit {
   };
   
 
-  constructor(private productosService: ProductosService,private empresasService: EmpresasService, private route: ActivatedRoute) {
+  constructor(
+    private productosService: ProductosService,
+    private empresasService: EmpresasService, 
+    private route: ActivatedRoute,
+    private router: Router,
+    private snackBar: MatSnackBar,
+    private authService: AutenticacionService) {
+      this.isAuthenticated = this.authService.isAuthenticated();
+
         this.productosFiltrados = this.mycontrol.valueChanges.pipe(
           startWith(''),
           map(prod => (prod ? this._filtrarProductos(prod) : this.productos.slice())),
@@ -86,6 +99,17 @@ export class ListaProductosComponent implements OnInit {
         return palabras.slice(0, limitePalabras).join(' ') + ' .....'; 
     }
     return texto; 
-}
+  }
+
+    // Verificación para bloquear acceso a Editar Cuenta si no está autenticado
+    verificarAutenticacion(): void {
+      this.isAuthenticated = this.authService.isAuthenticated();
+      if (!this.isAuthenticated) {
+        this.snackBar.open('Debes iniciar sesión para acceder a esta sección.', 'Cerrar', {
+          duration: 3000,
+        });
+        this.router.navigate(['/iniciar-sesion']);
+      }
+    }
 
 }

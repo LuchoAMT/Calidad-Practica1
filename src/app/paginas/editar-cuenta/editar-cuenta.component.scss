@@ -1,0 +1,73 @@
+
+// Sección creacion de cuenta
+form {
+    display: flex;
+    flex-direction: column;
+    background-color: #EBBC6F;
+    border: 2px solid;
+    gap: 20px;  
+    max-width: 60%;
+    margin: 5% auto;
+    padding: 1.5% 3%;
+    border-radius: 10px;
+}
+
+form img{
+    margin-left: 5%;
+    margin-bottom: 2%;
+}
+
+.center-field{
+    width: 40%;
+    margin-left: 30%;
+}
+
+h1,.form-2-fields a{
+    font-family: "Noto-Serif",sans-serif;
+    font-style: italic;
+}
+
+
+.form-2-fields mat-form-field{
+    margin: 0 3.5%;
+    width: 42.5%;
+}
+
+.links{
+    margin: 2.5% 0;
+    text-align: center;
+}
+
+mat-label, mat-form-field input{
+    font-family: "Poppins",sans-serif;
+}
+
+mat-form-field .mdc-text-field--filled:not(.mdc-text-field--disabled){
+    background-color: #D1BEB0;
+}
+
+#coords{
+    display: flex;
+    gap: 5%;
+    margin: 0 4.5%;
+    margin-right: 1%;
+    align-items: center;
+}
+
+#coords p{
+    font-size: 20px;
+    font-style: italic;
+    font-family: 'Noto-Serif',sans-serif;
+    width: max-content;
+}
+
+#terms{
+    margin-left: 12.5%;
+}
+
+#registrarse {
+    width: 20%;
+    margin: 0 40%;
+    border-color: black;
+    color: black;
+}

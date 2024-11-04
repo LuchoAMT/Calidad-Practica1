@@ -30,13 +30,19 @@ button {
 .extra-options {
   display: flex;
   justify-content: space-between;
-  margin-top: 10px;
+  margin-top: 3%;
+  text-align: center;
 }
 
 .link {
   color: #007BFF;
   text-decoration: none;
   cursor: pointer;
+}
+
+.extra-options span{
+  margin-right: 3.5%;
+  width: 45%;
 }
 
 .link:hover {

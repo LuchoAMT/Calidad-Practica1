@@ -1,8 +1,8 @@
 <!-- Sección form -->
-<form (ngSubmit)="crearRegistro()" novalidate>
-    <h1>Registrarse</h1>
+<form novalidate>
+    <h1>Editar Cuenta</h1>
     <!-- div nombre completo y correo-->
-    <img src="assets/images/registro.svg" alt="Solicitar URL de imagen" style="width: 100px;" />
+    <img src="assets/images/registro.svg" alt="Solicitar URL de imagen" style="cursor: pointer; width: 100px;" />
     <mat-form-field appearance="fill" class="center-field">
         <mat-label>Tipo de Usuario</mat-label>
         <mat-select [formControl]="userType" required>
@@ -46,15 +46,6 @@
             </button>
             <mat-error *ngIf="password.invalid && password.touched">Ingresa tu contraseña</mat-error>
         </mat-form-field>
-
-        <mat-form-field appearance="fill">
-            <mat-label>Confirma tu Contraseña</mat-label>
-            <input matInput [type]="hide ? 'password' : 'text'" [formControl]="password_confirm" required name="confirmar contraseña">
-            <button mat-icon-button matSuffix (click)="togglePasswordConfirmVisibility()" [attr.aria-label]="'Hide password'" type="button">
-              <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
-            </button>
-            <mat-error *ngIf="password_confirm.invalid && password_confirm.touched">Ingresa la confirmación de tu contraseña</mat-error>
-        </mat-form-field>
     </div>
     <!-- div descripcion y contacto-->
     <div class="form-2-fields">
@@ -92,15 +83,8 @@
             <p>Longitud: {{ selectedCoordinates.lng }}</p>
         </div>
     </div>
-    <div class="links">
-    <input type="checkbox" id="terms" [(ngModel)]="termsAccepted" required name="terminos y condiciones"/>
-    <label for="terms">
-        <a [routerLink]="['/terminos-condiciones']" routerLinkActive="active">Acepto los términos y condiciones</a>
-    </label>
-    </div>
-
     <!-- creación de cuenta-->
-    <button mat-stroked-button (click)="crearRegistro()" id="registrarse">Registrarse</button>
+    <button mat-stroked-button id="registrarse">Aplicar Cambios</button>
 </form>
   
   

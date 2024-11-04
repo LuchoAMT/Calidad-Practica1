@@ -8,9 +8,9 @@ import { IniciarSesionComponent } from './paginas/iniciar-sesion/iniciar-sesion.
 import { TerminosCondicionesComponent } from './paginas/terminos-condiciones/terminos-condiciones.component';
 import { DetallesEmpresaComponent } from './paginas/detalles-empresa/detalles-empresa.component';
 import { DetalleProductoComponent } from './paginas/detalle-producto/detalle-producto.component';
-import { PerfilNegocioComponent } from './paginas/perfil-negocio/perfil-negocio.component';
 import { CarritoComponent } from './paginas/carrito/carrito.component';
 import { PagoTarjetaComponent } from './paginas/pago-tarjeta/pago-tarjeta.component';
+import { EditarCuentaComponent } from './paginas/editar-cuenta/editar-cuenta.component';
 
 
 export const routes: Routes = [
@@ -21,11 +21,11 @@ export const routes: Routes = [
     { path: 'empresas', component: ListaEmpresasComponent },
     { path: 'registrarse', component: RegistrarseComponent },
     { path: 'iniciar-sesion', component: IniciarSesionComponent },
-    { path: 'perfil-negocio', component: PerfilNegocioComponent },
     { path: 'terminos-condiciones', component: TerminosCondicionesComponent },
     { path: 'detalles-empresa/:id', component: DetallesEmpresaComponent},
     { path: 'detalles-producto/:id', component: DetalleProductoComponent },
     { path: 'carrito', component: CarritoComponent},
     {path: 'pago-tarjeta',component:PagoTarjetaComponent},
+    { path: 'editar-cuenta', component: EditarCuentaComponent },
     { path: '**', component: PaginaNoEncontradaComponent },
 ];

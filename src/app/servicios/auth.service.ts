@@ -5,6 +5,7 @@ import { firstValueFrom } from 'rxjs';
 
 interface AuthResponse {
   token: string;
+  userId: string; 
 }
 
 @Injectable({
@@ -20,7 +21,8 @@ export class AutenticacionService {
       const respuesta: AuthResponse = await firstValueFrom(
         this.http.post<AuthResponse>(`${this.apiUrl}/auth/iniciar-sesion`, { email, password, userType })
       );
-      localStorage.setItem('token', respuesta.token);      
+      localStorage.setItem('token', respuesta.token); 
+      localStorage.setItem('userId', respuesta.userId);      
       return respuesta;
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
@@ -31,9 +33,14 @@ export class AutenticacionService {
   isAuthenticated(): boolean {
     return !!localStorage.getItem('token');
   }
+
+  getUserId(): string | null {
+    return localStorage.getItem('userId');
+  }
   
   cerrarSesion(): void {
     localStorage.removeItem('token');
+    localStorage.removeItem('userId');
   }
 }
 

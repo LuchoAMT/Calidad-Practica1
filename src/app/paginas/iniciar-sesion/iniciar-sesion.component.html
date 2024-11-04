@@ -27,10 +27,11 @@
   </mat-form-field>
 
   <button type="submit" mat-stroked-button [disabled]="email.invalid || password.invalid || userType.invalid">Iniciar Sesión</button>
-</form>
-
   <!-- Enlaces adicionales -->
   <div class="extra-options">
     <a (click)="forgotPassword()" class="link">¿Te olvidaste tu contraseña?</a>
-    <span>No tengo una cuenta. </span><a routerLink="/registrarse" class="link">Registrar</a>
+    <span>No tengo cuenta:</span><a routerLink="/registrarse" class="link">Registrarse</a>
   </div>
+</form>
+
+

@@ -31,9 +31,13 @@ exports.iniciarSesion = async (req, res) => {
             return res.status(401).json({ mensaje: 'Contraseña incorrecta' });
         }
 
+        // Genera el token incluyendo el ID del usuario
         const token = jwt.sign({ id: user[idColumn] }, 'secreto', { expiresIn: '1h' });
 
-        res.json({ token });
+        res.json({
+            token,
+            userId: user[idColumn]  
+        });
     } catch (error) {
         console.error('Error al iniciar sesión:', error);
         res.status(500).json({ mensaje: 'Error en el servidor' });

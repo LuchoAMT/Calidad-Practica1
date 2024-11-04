@@ -11,7 +11,7 @@
         <mat-autocomplete #auto="matAutocomplete">
           @for (producto of productosFiltrados | async; track producto) {
             <!-- detalles del producto del autocompletado -->
-            <a [routerLink]="['/detalles-producto', producto.id_producto]">
+            <a [routerLink]="['/detalles-producto', producto.id_producto]" (click)="verificarAutenticacion()">
               <mat-option [value]="producto.nombre">
                 <img alt="" class="search-option-img" [src]="producto.imagen_url" height="75px">
                 <span>{{producto.nombre}}</span> |
@@ -40,7 +40,7 @@
                     <p>Precio:</p>
                     <span>{{ producto.precio }} Bs.</span>
                 </div>
-                    <button mat-flat-button [routerLink]="['/detalles-producto', producto.id_producto]">Más detalles</button>
+                    <button mat-flat-button [routerLink]="['/detalles-producto', producto.id_producto]" (click)="verificarAutenticacion()">Más detalles</button>
             </div>
         </mat-card-content>
     </mat-card>

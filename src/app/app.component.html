@@ -31,10 +31,12 @@
           <mat-menu #menu="matMenu">
             <button mat-menu-item [routerLink]="['/registrarse']" routerLinkActive="active">Registrarse</button>
             <button mat-menu-item [routerLink]="['/iniciar-sesion']" routerLinkActive="active">Iniciar sesion</button>
+            <button mat-menu-item [routerLink]="['/editar-cuenta']" (click)="verificarAutenticacion()" routerLinkActive="active">
+              Editar Cuenta
+            </button>
             <button mat-menu-item *ngIf="isAuthenticated" (click)="cerrarSesion()">Cerrar sesión</button>
-            <button mat-menu-item [routerLink]="['/perfil-negocio']" routerLinkActive="active">Mi cuenta</button>
           </mat-menu>
-          <button mat-button [routerLink]="['/carrito']" routerLinkActive="active">Carrito ({{ carritoCount }})</button>
+          <button mat-button [routerLink]="['/carrito']" (click)="verificarAutenticacion()" routerLinkActive="active">Carrito ({{ carritoCount }})</button>
         </div>
     </section>
   </header>

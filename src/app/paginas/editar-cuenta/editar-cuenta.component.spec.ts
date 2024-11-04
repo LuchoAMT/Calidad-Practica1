@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PerfilNegocioComponent } from './perfil-negocio.component';
+import { EditarCuentaComponent } from './editar-cuenta.component';
 
-describe('PerfilNegocioComponent', () => {
-  let component: PerfilNegocioComponent;
-  let fixture: ComponentFixture<PerfilNegocioComponent>;
+describe('EditarCuentaComponent', () => {
+  let component: EditarCuentaComponent;
+  let fixture: ComponentFixture<EditarCuentaComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PerfilNegocioComponent]
+      imports: [EditarCuentaComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PerfilNegocioComponent);
+    fixture = TestBed.createComponent(EditarCuentaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -20,5 +20,4 @@ describe('PerfilNegocioComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  
 });
