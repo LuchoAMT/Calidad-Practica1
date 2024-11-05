@@ -12,6 +12,7 @@ import { CarritoComponent } from './paginas/carrito/carrito.component';
 import { PagoTarjetaComponent } from './paginas/pago-tarjeta/pago-tarjeta.component';
 import { EditarProductoComponent } from './paginas/editar-producto/editar-producto.component';
 import { EditarCuentaComponent } from './paginas/editar-cuenta/editar-cuenta.component';
+import { MisionVisionComponent } from './paginas/mision-vision/mision-vision.component';
 
 
 export const routes: Routes = [
@@ -23,6 +24,7 @@ export const routes: Routes = [
     { path: 'registrarse', component: RegistrarseComponent },
     { path: 'iniciar-sesion', component: IniciarSesionComponent },
     { path: 'terminos-condiciones', component: TerminosCondicionesComponent },
+    { path: 'mision-vision', component: MisionVisionComponent },
     { path: 'detalles-empresa/:id', component: DetallesEmpresaComponent},
     { path: 'detalles-producto/:id', component: DetalleProductoComponent },
     { path: 'productos/editar/:id', component: EditarProductoComponent },
