@@ -1,0 +1,21 @@
+<div class="detail-company">
+    <div class="detail-section">
+        <img id="Logo" src="https://via.placeholder.com/150" alt="Logo de la Empresa">
+        <div class="data">
+            <h1>Negocios Ejemplo S.A.</h1>
+            <p>🌟 Bienvenidos a <strong>Negocios Ejemplo S.A.</strong>, donde ofrecemos los mejores productos para
+                satisfacer sus necesidades. Nuestra misión es proporcionar calidad y servicio excepcionales a todos
+                nuestros clientes.</p>
+            <p>✉️ <strong>Correo:</strong> <a href="mailto:contacto@negocioejemplo.com">contactoanegocioejemplo.com</a>
+            </p>
+            <p>📞 <strong>Contacto:</strong> +591 123 456 789</p>
+            <p>📍 <strong>Ubicación:</strong> Latitud -17.7833, Longitud -63.1822</p>
+        </div>
+    </div>
+    <div class="detail-location">
+        <h3>Ubicación</h3>
+        <google-map [height]="'300px'" [width]="'500px'" [center]="center" [zoom]="zoom">
+            <map-circle [center]="center" [options]="circleOptions"></map-circle>
+        </google-map>
+    </div>
+</div>
