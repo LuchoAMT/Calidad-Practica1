@@ -13,6 +13,8 @@ import { PagoTarjetaComponent } from './paginas/pago-tarjeta/pago-tarjeta.compon
 import { EditarProductoComponent } from './paginas/editar-producto/editar-producto.component';
 import { EditarCuentaComponent } from './paginas/editar-cuenta/editar-cuenta.component';
 import { MisionVisionComponent } from './paginas/mision-vision/mision-vision.component';
+import { DetalleNegocioComponent } from './paginas/detalle-negocio/detalle-negocio.component';
+import { InvoiceComponent } from './paginas/invoice/invoice.component';
 
 
 export const routes: Routes = [
