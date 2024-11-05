@@ -1,37 +1,36 @@
-
-
 <section class="detail">
   <div class="container">
-    <form class="credit-card-form">
+    <form class="credit-card-form" (ngSubmit)="realizarPago()">
         <div class="form-group">
-            <label for="cardholderName">NOMBRE DEL TITULAR</label>
-            <input type="text" id="cardholderName" name="cardholderName" required>
+          <label for="nombreTitular">NOMBRE DEL TITULAR</label>
+          <input type="text" id="nombreTitular" [(ngModel)]="nombreTitular" name="nombreTitular" required>
         </div>
 
+
+
+      <div class="form-group">
+        <label for="cardNumber">NÚMERO DE TARJETA</label>
+        <input type="text" id="cardNumber" name="cardNumber" required>
+      </div>
+
+      <div class="form-row">
         <div class="form-group">
-            <label for="cardNumber">NÚMERO DE TARJETA</label>
-            <input type="text" id="cardNumber" name="cardNumber" required>
-        </div>
-
-        <div class="form-row">
-            <div class="form-group">
-                <label for="expirationMonth">MES EXPIRACIÓN</label>
-                <input type="text" id="expirationMonth" name="expirationMonth" required>
-            </div>
-
-            <div class="form-group">
-                <label for="expirationYear">AÑO EXPIRACIÓN</label>
-                <input type="text" id="expirationYear" name="expirationYear" required>
-            </div>
+          <label for="expirationMonth">MES EXPIRACIÓN</label>
+          <input type="text" id="expirationMonth" name="expirationMonth" required>
         </div>
 
         <div class="form-group">
-            <label for="securityCode">CÓDIGO DE SEGURIDAD</label>
-            <input type="text" id="securityCode" name="securityCode" required>
+          <label for="expirationYear">AÑO EXPIRACIÓN</label>
+          <input type="text" id="expirationYear" name="expirationYear" required>
         </div>
+      </div>
 
-        <button type="submit" class="pay-button">PAGAR</button>
+      <div class="form-group">
+        <label for="securityCode">CÓDIGO DE SEGURIDAD</label>
+        <input type="text" id="securityCode" name="securityCode" required>
+      </div>
+
+      <button type="submit" class="pay-button">PAGAR</button>
     </form>
   </div>
-
 </section>

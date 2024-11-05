@@ -13,6 +13,7 @@ import { PagoTarjetaComponent } from './paginas/pago-tarjeta/pago-tarjeta.compon
 import { EditarProductoComponent } from './paginas/editar-producto/editar-producto.component';
 import { EditarCuentaComponent } from './paginas/editar-cuenta/editar-cuenta.component';
 import { MisionVisionComponent } from './paginas/mision-vision/mision-vision.component';
+import { InvoiceComponent } from './paginas/invoice/invoice.component';
 
 
 export const routes: Routes = [
@@ -31,5 +32,6 @@ export const routes: Routes = [
     { path: 'carrito', component: CarritoComponent},
     {path: 'pago-tarjeta',component:PagoTarjetaComponent},
     { path: 'editar-cuenta', component: EditarCuentaComponent },
+    { path: 'invoice', component: InvoiceComponent },
     { path: '**', component: PaginaNoEncontradaComponent },
 ];

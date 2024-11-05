@@ -7,8 +7,8 @@ import { Producto } from '../interfaces/producto';
 })
 
 export class CarritoService {
-  private carritoCount = new BehaviorSubject<number>(0);  
-  carritoCount$ = this.carritoCount.asObservable();  
+  private carritoCount = new BehaviorSubject<number>(0);
+  carritoCount$ = this.carritoCount.asObservable();
 
   private carritoItems: { [id_producto: number]: { producto: Producto, cantidad: number } } = {};
 
@@ -30,7 +30,7 @@ export class CarritoService {
 
   agregarAlCarrito(producto: Producto) {
     const itemExistente = this.carritoItems[producto.id_producto];
-    
+
     if (itemExistente) {
       itemExistente.cantidad += 1;
     } else {
@@ -38,7 +38,7 @@ export class CarritoService {
     }
 
     const totalProductos = this.carritoCount.value + 1;
-    this.carritoCount.next(totalProductos); 
+    this.carritoCount.next(totalProductos);
     this.guardarCarritoEnStorage();
   }
 
@@ -46,7 +46,7 @@ export class CarritoService {
     const itemExistente = this.carritoItems[id_producto];
     if (itemExistente) {
       const totalProductos = this.carritoCount.value - itemExistente.cantidad;
-      this.carritoCount.next(totalProductos);  
+      this.carritoCount.next(totalProductos);
 
       delete this.carritoItems[id_producto];
       this.guardarCarritoEnStorage();
@@ -55,7 +55,7 @@ export class CarritoService {
 
   vaciarCarrito() {
     this.carritoItems = {};
-    this.carritoCount.next(0);  
+    this.carritoCount.next(0);
     this.guardarCarritoEnStorage();
   }
 
@@ -64,7 +64,7 @@ export class CarritoService {
   }
 
   getTotal(): number {
-    return Object.values(this.carritoItems).reduce((total, item) => 
+    return Object.values(this.carritoItems).reduce((total, item) =>
       total + (item.producto.precio * item.cantidad), 0);
   }
 
@@ -79,5 +79,24 @@ export class CarritoService {
 
       this.guardarCarritoEnStorage();
     }
+  }
+  private orderDetails: any;
+
+  setOrderDetails(details: any) {
+    this.orderDetails = details;
+  }
+
+  getOrderDetails() {
+    return this.orderDetails;
+  }
+
+  private nombreCliente: string = '';
+
+  setNombreCliente(nombre: string) {
+    this.nombreCliente = nombre;
+  }
+
+  getNombreCliente(): string {
+    return this.nombreCliente;
   }
 }
