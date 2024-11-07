@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { Negocio } from '../../interfaces/negocio'; // Asegúrate de tener la interfaz adecuada
-import { NegociosService } from '../../servicios/negocios.service'; // Servicio para obtener datos de negocios
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { GoogleMapsModule } from '@angular/google-maps';
-import { GoogleMap } from '@angular/google-maps';
+// Negocios 
+import { Negocio } from '../../interfaces/negocio'; 
+import { NegociosService } from '../../servicios/negocios.service'; 
 
 @Component({
   selector: 'app-detalle-negocio',
@@ -15,7 +15,7 @@ import { GoogleMap } from '@angular/google-maps';
   styleUrls: ['./detalle-negocio.component.scss']
 })
 export class DetalleNegocioComponent implements OnInit {
-  negocio: Negocio | undefined; // Cambia "Empresa" a "Negocio"
+  negocio: Negocio | undefined;
   center: google.maps.LatLngLiteral = { lat: -17.399945139000618, lng: -66.15775054829115 };
   zoom = 15;
 
@@ -29,21 +29,19 @@ export class DetalleNegocioComponent implements OnInit {
     strokeWeight: 2,
   };
 
-  @ViewChild(GoogleMap) map!: GoogleMap;
-
   constructor(
     private route: ActivatedRoute,
-    private negociosService: NegociosService, // Servicio para obtener datos de negocios
+    private negociosService: NegociosService,
   ) {}
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.params['id']);
-    this.cargarNegocio(id); // Cambia a cargarNegocio
+    this.cargarNegocio(id);
   }
 
-  async cargarNegocio(id: number) { // Cambia a cargarNegocio
+  async cargarNegocio(id: number) { 
     try {
-      this.negocio = await this.negociosService.getNegocio(id); // Cambia a getNegocio
+      this.negocio = await this.negociosService.getNegocio(id);
 
       if (this.negocio) {
         const latitud = Number(this.negocio.latitud);
@@ -64,4 +62,17 @@ export class DetalleNegocioComponent implements OnInit {
       console.error('Error al cargar el negocio:', error);
     }
   }
+
+  moveMap(event: google.maps.MapMouseEvent) {
+    if (event.latLng) {
+      this.center = event.latLng.toJSON(); // Actualiza el centro del mapa al hacer clic
+    }
+  }
+  
+  move(event: google.maps.MapMouseEvent) {
+    if (event.latLng) {
+      console.log('Posición del mouse:', event.latLng.toJSON()); // Muestra la posición del mouse en el mapa
+    }
+  }  
+
 }

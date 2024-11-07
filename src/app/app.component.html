@@ -2,9 +2,9 @@
   <div class="marquee-content">
     <div>
       <img src="assets/images/offers.svg" alt="Oferta de la pagina">
-      <p>¡Solo por hoy, 20% de descuento en todos nuestros productos!</p>
+      <p>¡Solo por hoy, descuentos en productos seleccionados!</p>
       <img src="assets/images/offers.svg" alt="Oferta de la pagina">
-      <p>¡Solo por hoy, 20% de descuento en todos nuestros productos!</p>
+      <p>¡Solo por hoy, descuentos en productos seleccionados!</p>
       <img src="assets/images/offers.svg" alt="Oferta de la pagina">
     </div>
   </div>
@@ -26,22 +26,18 @@
       </a>
     </div>
     <section class="account-container">
-        <div class="nav">
-          <button mat-button [matMenuTriggerFor]="menu">Cuenta</button>
-          <mat-menu #menu="matMenu">
-            <button mat-menu-item [routerLink]="['/registrarse']" routerLinkActive="active">Registrarse</button>
-            <button mat-menu-item [routerLink]="['/iniciar-sesion']" routerLinkActive="active">Iniciar sesion</button>
-            <button mat-menu-item [routerLink]="['/editar-cuenta']" (click)="verificarAutenticacion()" routerLinkActive="active">
-              Editar Cuenta
-            </button>
-            <button mat-menu-item [routerLink]="['/detalle-negocio']" (click)="verificarAutenticacion()" routerLinkActive="active">
-              Mi cuenta
-            </button>
-            <button mat-menu-item *ngIf="isAuthenticated" (click)="cerrarSesion()">Cerrar sesión</button>
-          </mat-menu>
-          <button mat-button [routerLink]="['/carrito']" (click)="verificarAutenticacion()" routerLinkActive="active">Carrito ({{ carritoCount }})</button>
-        </div>
-    </section>
+      <div class="nav">
+        <button mat-button [matMenuTriggerFor]="menu">Cuenta</button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item [routerLink]="['/registrarse']" routerLinkActive="active">Registrarse</button>
+          <button mat-menu-item [routerLink]="['/iniciar-sesion']" routerLinkActive="active">Iniciar sesión</button>
+          <button mat-menu-item [routerLink]="['/editar-cuenta']" (click)="verificarAutenticacion()" routerLinkActive="active">Editar Cuenta</button>
+          <button mat-menu-item [routerLink]="['/detalle-negocio', userId]"  *ngIf="isAuthenticated && UsuarioNegocio" routerLinkActive="active">Mi cuenta</button>
+          <button mat-menu-item *ngIf="isAuthenticated" (click)="cerrarSesion()">Cerrar sesión</button>
+        </mat-menu>
+        <button mat-button [routerLink]="['/carrito']" routerLinkActive="active">Carrito ({{ carritoCount }})</button>
+      </div>
+    </section>    
   </header>
   <!-- seccion contenido -->
   <router-outlet></router-outlet>

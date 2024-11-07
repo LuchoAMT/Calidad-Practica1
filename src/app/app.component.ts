@@ -1,5 +1,5 @@
-import { Component} from '@angular/core';
-import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Component,OnInit} from '@angular/core';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import { CarritoService } from './servicios/carrito.service';
@@ -16,30 +16,36 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrl: './app.component.scss'
 })
 
-export class AppComponent{
+export class AppComponent implements OnInit {
   title = 'Proyecto_Grupo_1';
-
   carritoCount: number = 0;
   isAuthenticated: boolean = false;
+  UsuarioNegocio: boolean = false; 
+  userId: string | null = null;
   
   constructor(
     private carritoService: CarritoService, 
     private authService: AutenticacionService, 
     private router: Router,
-    private snackBar: MatSnackBar  // Inyectamos MatSnackBar para mostrar la alerta
-  ) {
-    // Obtener el estado de autenticación al inicializar el componente
-    this.isAuthenticated = this.authService.isAuthenticated();
+    private snackBar: MatSnackBar
+  ) {}
 
-    // Suscribirse al observable del carrito para obtener el contador actualizado
+  ngOnInit() {
+    this.isAuthenticated = this.authService.isAuthenticated();
+    this.UsuarioNegocio = this.authService.esUsuarioNegocio();
+    this.userId = localStorage.getItem('userId')
+
+    this.authService.isAuthenticated$.subscribe(isAuth => {
+      this.isAuthenticated = isAuth;
+      this.UsuarioNegocio = this.authService.esUsuarioNegocio();
+    });
+
     this.carritoService.carritoCount$.subscribe(count => {
       this.carritoCount = count;
     });
   }
 
-  // Verificación para bloquear acceso a Editar Cuenta si no está autenticado
   verificarAutenticacion(): void {
-    this.isAuthenticated = this.authService.isAuthenticated();
     if (!this.isAuthenticated) {
       this.snackBar.open('Debes iniciar sesión para acceder a esta sección.', 'Cerrar', {
         duration: 3000,
@@ -49,8 +55,13 @@ export class AppComponent{
   }
 
   cerrarSesion() {
+    this.carritoService.vaciarCarrito(); 
+    sessionStorage.clear(); 
+
     this.authService.cerrarSesion();
+    
     this.isAuthenticated = false;
+    this.UsuarioNegocio = false;
     this.router.navigate(['/inicio']);
   }
 }

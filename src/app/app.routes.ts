@@ -31,7 +31,7 @@ export const routes: Routes = [
     { path: 'detalles-producto/:id', component: DetalleProductoComponent },
     { path: 'productos/editar/:id', component: EditarProductoComponent },
     { path: 'carrito', component: CarritoComponent},
-    { path: 'detalle-negocio', component: DetalleNegocioComponent},
+    { path: 'detalle-negocio/:id', component: DetalleNegocioComponent},
     {path: 'pago-tarjeta',component:PagoTarjetaComponent},
     { path: 'editar-cuenta', component: EditarCuentaComponent },
     { path: 'invoice', component: InvoiceComponent },

@@ -1,19 +1,20 @@
+<div class="button-container">
+    <a mat-stroked-button [routerLink]="['/inicio']" routerLinkActive="active"> Volver atrás </a>
+</div>
+
 <div class="detail-company">
     <div class="detail-section">
-        <img id="Logo" src="https://via.placeholder.com/150" alt="Logo de la Empresa">
+        <img id="Foto-Negocio" [src]="negocio?.foto"  alt="Logo de {{negocio?.nombre}}">
         <div class="data">
-            <h1>Negocios Ejemplo S.A.</h1>
-            <p>🌟 Bienvenidos a <strong>Negocios Ejemplo S.A.</strong>, donde ofrecemos los mejores productos para
-                satisfacer sus necesidades. Nuestra misión es proporcionar calidad y servicio excepcionales a todos
-                nuestros clientes.</p>
-            <p>✉️ <strong>Correo:</strong> <a href="mailto:contacto@negocioejemplo.com">contactoanegocioejemplo.com</a>
+            <h1>{{negocio?.nombre}}</h1>
+            <p>🌟 Bienvenidos a <strong>{{negocio?.nombre}} -> </strong>{{negocio?.informacion}}</p>
+            <p>✉️ <strong>Correo: </strong> <a href="mailto:{{negocio?.correo}}">{{negocio?.correo}}</a>
             </p>
-            <p>📞 <strong>Contacto:</strong> +591 123 456 789</p>
-            <p>📍 <strong>Ubicación:</strong> Latitud -17.7833, Longitud -63.1822</p>
+            <p>📞 <strong>Contacto:</strong> {{negocio?.contacto}}</p>
+            <p>📍 <strong>Latitud:</strong> {{negocio?.latitud}}, <strong>Longitud:</strong> {{negocio?.longitud}}</p>
         </div>
     </div>
-    <div class="detail-location">
-        <h3>Ubicación</h3>
+    <div class="detail-location" style="margin-left: 35%;">
         <google-map [height]="'300px'" [width]="'500px'" [center]="center" [zoom]="zoom">
             <map-circle [center]="center" [options]="circleOptions"></map-circle>
         </google-map>

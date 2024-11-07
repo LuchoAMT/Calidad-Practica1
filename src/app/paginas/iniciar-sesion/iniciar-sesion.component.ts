@@ -42,7 +42,7 @@ export class IniciarSesionComponent {
       const response = await this.authService.iniciarSesion(this.email.value!, this.password.value!, this.userType.value!);
       console.log('Respuesta del server: ', response);
       alert('Inicio de sesion exitoso');
-      this.router.navigate(['/empresas']);
+      this.router.navigate(['/inicio']);
     } catch (error) {
       console.error('Error al iniciar sesion', error);
       alert('Credenciales incorrectas');
