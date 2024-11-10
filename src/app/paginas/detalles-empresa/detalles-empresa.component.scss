@@ -30,6 +30,11 @@
     margin: 0 3%;
 }
 
+.detail-section:last-child{
+    gap: 10%;
+}
+
+
 .detail-company #Logo {
     width: 30%;
     height: 30%;
@@ -75,41 +80,25 @@
     text-align: center;
 }
 
-.detail-section img{
-    width: 50%;
-    height: auto;
-    margin: 0;
-    margin-left: 5%;
-    transition: transform 0.3s ease;
-
-}
-
 .detail-section a:nth-child(1){
     margin-bottom: 10%;
-}
-
-
-.detail-section img:hover{
-    transform:scale(1.3);
-}
-
-.detail-section a{
-    color: #275DAD;
-    font-family: 'Noto-Serif',sans-serif;
-    font-style: italic;
-    font-weight: 600;
-}
-
-.detail-section a:hover{
-    font-style: normal;
-}
+}   
 
 .data a{
     color: #141414;
 }
-.custom-map {
-  height: 200px; /* Cambia el tamaño según lo necesites */
-  width: 300px;  /* Cambia el tamaño según lo necesites */
+
+#contact{
+    margin-left: 7.5%;
+}
+
+
+#contact h2{
+    margin-top: 0;
+}
+
+.detail-section div:last-child{
+    margin-top: 3%;
 }
 
 @media (max-width: 768px) {
@@ -142,11 +131,6 @@
 
         line-height: 2;
         font-size: 15px;
-    }
-
-    .custom-map {
-      height: 100px; /* Cambia el tamaño según lo necesites */
-      width: 200px;  /* Cambia el tamaño según lo necesites */
     }
 
 }

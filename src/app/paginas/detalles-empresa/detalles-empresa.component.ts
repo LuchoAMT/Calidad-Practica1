@@ -8,10 +8,12 @@ import { CommonModule } from '@angular/common';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { GoogleMap } from '@angular/google-maps';
 
+import { QRCodeModule } from 'angularx-qrcode';
+
 @Component({
   selector: 'app-detalles-empresa',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive,MatButtonModule, GoogleMapsModule,CommonModule],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive,MatButtonModule, GoogleMapsModule,CommonModule, QRCodeModule],
   templateUrl: './detalles-empresa.component.html',
   styleUrl: './detalles-empresa.component.scss'
 })
@@ -20,6 +22,7 @@ export class DetallesEmpresaComponent implements OnInit {
   empresa: Empresa | undefined;
   center: google.maps.LatLngLiteral = { lat: -17.399945139000618, lng: -66.15775054829115 };
   zoom = 15;
+  linkQR: string = ''; 
 
   circleOptions: google.maps.CircleOptions = {
     center: this.center, 
@@ -59,11 +62,25 @@ export class DetallesEmpresaComponent implements OnInit {
         } else {
           console.error('Las coordenadas no son válidas:', latitud, longitud);
         }
+        this.actualizarQR();
       } else {
         console.error('La empresa no se encontró.');
       }
     } catch (error) {
       console.error('Error al cargar la empresa:', error);
+    }
+  }
+
+  actualizarQR() {
+    if (!this.empresa) return;
+
+    // Si el contacto es teléfono
+    if (/^\d+$/.test(this.empresa.contacto)) {
+      this.linkQR = `https://wa.me/${this.empresa.contacto}`;
+    } 
+    // Si el contacto es email
+    else if (/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(this.empresa.contacto)) {
+      this.linkQR = `mailto:${this.empresa.contacto}`;
     }
   }
 

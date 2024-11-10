@@ -15,9 +15,9 @@
       </div>
     </div>
     <div class="detail-section">
-      <div>
-        <img src="assets/images/social-media.svg" alt="Contacto"> 
-        <p>Para comunicarse con nosotros escribenos en el <a href="{{empresa?.contacto}}" target="_blank">siguiente link</a></p>
+      <div id="contact">
+        <h2>¡Contactanos!</h2>
+        <a href="{{linkQR}}" target="_blank"><qrcode [qrdata]="linkQR" [width]="300" errorCorrectionLevel="M"></qrcode></a>
       </div>
       <div>
         <google-map 

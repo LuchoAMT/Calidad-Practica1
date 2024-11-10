@@ -7,17 +7,20 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { Negocio } from '../../interfaces/negocio'; 
 import { NegociosService } from '../../servicios/negocios.service'; 
 
+import { QRCodeModule } from 'angularx-qrcode';
+
 @Component({
   selector: 'app-detalle-negocio',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, MatButtonModule, GoogleMapsModule, CommonModule],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, MatButtonModule, GoogleMapsModule, CommonModule, QRCodeModule],
   templateUrl: './detalle-negocio.component.html',
   styleUrls: ['./detalle-negocio.component.scss']
 })
 export class DetalleNegocioComponent implements OnInit {
   negocio: Negocio | undefined;
   center: google.maps.LatLngLiteral = { lat: -17.399945139000618, lng: -66.15775054829115 };
-  zoom = 15;
+  zoom = 16;
+  linkQR: string = ''; 
 
   circleOptions: google.maps.CircleOptions = {
     center: this.center,
@@ -55,11 +58,25 @@ export class DetalleNegocioComponent implements OnInit {
         } else {
           console.error('Las coordenadas no son válidas:', latitud, longitud);
         }
+        this.actualizarQR();
       } else {
         console.error('El negocio no se encontró.');
       }
     } catch (error) {
       console.error('Error al cargar el negocio:', error);
+    }
+  }
+
+  actualizarQR() {
+    if (!this.negocio) return;
+
+    // Si el contacto es teléfono
+    if (/^\d+$/.test(this.negocio.contacto)) {
+      this.linkQR = `https://wa.me/${this.negocio.contacto}`;
+    } 
+    // Si el contacto es email
+    else if (/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(this.negocio.contacto)) {
+      this.linkQR = `mailto:${this.negocio.contacto}`;
     }
   }
 
