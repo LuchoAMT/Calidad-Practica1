@@ -17,7 +17,7 @@ exports.crearProducto = async (req, res) => {
 
 // Obtener productos de la empresa autenticado o todos los productos si no hay filtro
 exports.obtenerProductosPorProveedor = async (req, res) => {
-    const empresaId = req.query.id_empresa; 
+    const empresaId = req.query.id_empresa;
 
     // Query con o sin filtro
     let query = 'SELECT * FROM productos';

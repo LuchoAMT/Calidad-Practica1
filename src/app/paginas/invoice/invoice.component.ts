@@ -26,17 +26,6 @@ export class InvoiceComponent implements OnInit {
   }
 
 
-  // generatePDF() {
-  //   const doc = new jsPDF();
-  //   doc.text('Factura', 10, 10);
-  //   doc.text('Cliente: ' + this.nombreCliente, 10, 20);
-  //   doc.text('Productos:', 10, 30);
-  //   this.productosCarrito.forEach((item, index) => {
-  //     doc.text(`${item.producto.nombre} - ${item.producto.precio} Bs. x ${item.cantidad}`, 10, 40 + (index * 10));
-  //   });
-  //   doc.text(`Total: ${this.total} Bs.`, 10, 50 + (this.productosCarrito.length * 10));
-  //   doc.save('factura.pdf');
-  // }
 
   generatePDF() {
     const data = document.getElementById('invoice'); // Asegúrate de que el ID coincida con el contenedor de la factura

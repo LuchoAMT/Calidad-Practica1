@@ -1,0 +1,42 @@
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
+  <!-- Position Column -->
+  <ng-container matColumnDef="id_pedido">
+    <th mat-header-cell *matHeaderCellDef>Codigo Pedido</th>
+    <td mat-cell *matCellDef="let element">{{element.id_pedido}}</td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="fecha_pedido">
+    <th mat-header-cell *matHeaderCellDef>Fecha Pedido</th>
+    <td mat-cell *matCellDef="let element">
+      {{ getFechaCorta(element.fecha_pedido) }}  <!-- Aplica formato a la fecha -->
+    </td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="estado_pedido">
+    <th mat-header-cell *matHeaderCellDef>Estado Pedido</th>
+    <td mat-cell *matCellDef="let element">{{element.estado_pedido}}</td>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="monto_total">
+    <th mat-header-cell *matHeaderCellDef>Monto Total</th>
+    <td mat-cell *matCellDef="let element">{{element.monto_total}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="productos">
+    <th mat-header-cell *matHeaderCellDef>Acciones</th>
+    <td mat-cell *matCellDef="let element">
+       <div *ngFor="let producto of element.productos">
+      {{producto.nombre}} - Cantidad: {{producto.cantidad}}
+     </div> </td>
+    <!-- <td mat-cell *matCellDef="let element"> <a routerLink= "/inicio" class="link" >Ver detalles</a></td> -->
+
+
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

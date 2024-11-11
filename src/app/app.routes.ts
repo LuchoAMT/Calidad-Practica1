@@ -15,6 +15,7 @@ import { EditarCuentaComponent } from './paginas/editar-cuenta/editar-cuenta.com
 import { MisionVisionComponent } from './paginas/mision-vision/mision-vision.component';
 import { DetalleNegocioComponent } from './paginas/detalle-negocio/detalle-negocio.component';
 import { InvoiceComponent } from './paginas/invoice/invoice.component';
+import { PedidosNegocioComponent } from './paginas/pedidos-negocio/pedidos-negocio.component';
 
 
 export const routes: Routes = [
@@ -35,5 +36,6 @@ export const routes: Routes = [
     {path: 'pago-tarjeta',component:PagoTarjetaComponent},
     { path: 'editar-cuenta', component: EditarCuentaComponent },
     { path: 'invoice', component: InvoiceComponent },
+    { path: 'pedidos-negocio/:id', component: PedidosNegocioComponent },
     { path: '**', component: PaginaNoEncontradaComponent },
 ];

@@ -1,0 +1,52 @@
+.demo-button-container {
+  display: flex;
+  justify-content:  center;
+  margin-bottom: 20px;
+
+  .demo-button {
+    background-color: #00796b;  // Color verde oscuro para los botones
+    color: #ffffff;             // Color blanco para el texto
+    font-weight: bold;
+
+    &:hover {
+      background-color: #004d40;  // Color verde más oscuro al pasar el mouse
+    }
+
+    &:disabled {
+      background-color: #b2dfdb;  // Color grisáceo para el botón desactivado
+      color: #757575;
+    }
+  }
+}
+.link {
+  color: #007BFF;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.demo-table {
+  width: 70%;  // Ajusta el porcentaje según el tamaño que desees
+  max-width: 600px;  // Máximo ancho para la tabla
+  margin: auto;
+  border-collapse: collapse;
+
+
+  th {
+    background-color:  #F79D84;  // Fondo oscuro en el encabezado de la tabla
+    color: rgb(41, 40, 40);
+    text-align: left;
+    padding: 10px;
+    font-weight: bold;
+  }
+
+  td {
+    background-color: #f2e7e0;  // Fondo claro para las celdas de datos
+    color: #000000;
+    padding: 10px;
+  }
+
+
+  .mat-elevation-z8 {
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);  // Sombra alrededor de la tabla
+  }
+}

@@ -36,3 +36,62 @@ exports.crearPedido = async (req, res) => {
         res.status(500).json({ error: 'Error al crear el pedido' });
     }
 };
+
+
+exports.obtenerPedidosPorNegocio = async (req, res) => {
+  const { id_negocio } = req.params;  // Se obtiene el id_negocio desde los parámetros de la URL
+
+  // Consulta SQL para obtener los pedidos del negocio
+  const query = `
+      SELECT
+    p.id_pedido,
+    p.fecha_pedido,
+    p.estado_pedido,
+    p.monto_total,
+    pp.id_producto,
+    pp.cantidad,
+    pp.precio,
+    pr.nombre AS producto_nombre
+FROM
+    pedidos p
+LEFT JOIN
+    pedido_producto pp ON p.id_pedido = pp.id_pedido
+LEFT JOIN
+    productos pr ON pp.id_producto = pr.id_producto
+WHERE
+    p.id_negocio = ?;
+
+
+  `;
+
+  try {
+      const [result] = await db.query(query, [id_negocio]);
+
+      // Organiza los productos para cada pedido
+      const pedidos = result.reduce((acc, row) => {
+          let pedido = acc.find(p => p.id_pedido === row.id_pedido);
+          if (!pedido) {
+              pedido = {
+                  id_pedido: row.id_pedido,
+                  fecha_pedido: row.fecha_pedido,
+                  estado_pedido: row.estado_pedido,
+                  monto_total: row.monto_total,
+                  productos: []
+              };
+              acc.push(pedido);
+          }
+          pedido.productos.push({
+              id_producto: row.id_producto,
+              nombre: row.producto_nombre,
+              cantidad: row.cantidad,
+              precio: row.precio
+          });
+          return acc;
+      }, []);
+
+      res.status(200).json(pedidos);
+  } catch (err) {
+      console.error('Error al obtener los pedidos:', err);
+      res.status(500).json({ error: 'Error al obtener los pedidos' });
+  }
+};
