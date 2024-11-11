@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Producto } from '../interfaces/producto';
 
 @Injectable({
@@ -11,6 +11,8 @@ export class CarritoService {
   carritoCount$ = this.carritoCount.asObservable();
 
   private carritoItems: { [id_producto: number]: { producto: Producto, cantidad: number } } = {};
+
+  private apiUrl = 'http://localhost:3000';
 
   constructor() {
     this.cargarCarritoDesdeStorage();
@@ -98,5 +100,34 @@ export class CarritoService {
 
   getNombreCliente(): string {
     return this.nombreCliente;
+  }
+
+  async crearPedido(id_negocio: number): Promise<any> {
+    const productos = this.getProductosCarrito().map(item => ({
+      id_producto: item.producto.id_producto,
+      cantidad: item.cantidad,
+      precio: item.producto.precio
+    }));
+
+    const pedido = { id_negocio, productos };
+
+    try {
+      const response = await fetch(`${this.apiUrl}/pedidos/nuevo`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(pedido)
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error en la solicitud: ${response.status} ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error('Error al crear pedido:', error);
+      throw error; // Relanzar el error para que el componente lo maneje
+    }
   }
 }

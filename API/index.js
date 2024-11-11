@@ -12,11 +12,13 @@ const productosRoutes = require('./routes/productos');
 const empresasRoutes = require('./routes/empresas');
 const authRoutes = require('./routes/auth');
 const negociosRoutes = require('./routes/negocios');
+const pedidosRoutes = require('./routes/pedidos');
 
 app.use('/auth', authRoutes);
 app.use('/productos', productosRoutes);
 app.use('/empresas', empresasRoutes);
 app.use('/negocios', negociosRoutes);
+app.use('/pedidos', pedidosRoutes);
 
 
 // Iniciar el servidor

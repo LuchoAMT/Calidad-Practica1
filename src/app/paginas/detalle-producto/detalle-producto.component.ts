@@ -38,7 +38,8 @@ export class DetalleProductoComponent {
       // Verifica si el usuario que inició sesión es el propietario del producto
       if (this.producto) {
         const userId = Number(localStorage.getItem('userId')); // Método que debes implementar en tu servicio de autenticación
-        this.esPropietario = this.producto.id_empresa === userId; // Compara con el id del propietario
+        const userType = localStorage.getItem('userType');
+        this.esPropietario = this.producto.id_empresa === userId && userType === 'empresa'; // Compara con el id del propietario
         console.log("local id: ", userId);
         console.log("producto empresa_id: ", this.producto.id_empresa);
         console.log(this.producto.id_empresa === userId);

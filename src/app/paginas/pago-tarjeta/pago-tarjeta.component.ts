@@ -16,10 +16,17 @@ export class PagoTarjetaComponent {
   constructor(private carritoService: CarritoService, private router: Router) {}
 
   // Método para manejar el envío del formulario
-  realizarPago() {
-    this.carritoService.setNombreCliente(this.nombreTitular); // Almacena el nombre en el servicio
+  async realizarPago() {
+    try {
+      this.carritoService.setNombreCliente(this.nombreTitular); // Almacena el nombre en el servicio
+      const idNegocio = Number(localStorage.getItem('userId'));
+      await this.carritoService.crearPedido(idNegocio);
 
-    this.router.navigate(['/invoice']); // Redirige a la página de la factura
+      this.router.navigate(['/invoice']); // Redirige a la página de la factura
+    } catch (err) {
+      console.error(err);
+    }
+    
 
   }
 

@@ -60,4 +60,17 @@ export class CarritoComponent {
   calcularTotalCarrito() {
     this.totalCarrito = this.carritoService.getTotal();
   }
+
+  async confirmarPedido() {
+    try {
+      const idNegocio = Number(localStorage.getItem('userId'));
+      const response = await this.carritoService.crearPedido(idNegocio);
+      
+      this.carritoService.vaciarCarrito();
+      this.productosCarrito = [];
+      this.calcularTotalCarrito();
+    } catch (err) {
+      console.error(err);
+    }
+  } 
 }
