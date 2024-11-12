@@ -12,33 +12,29 @@ form {
     border-radius: 10px;
 }
 
-.inicio-cambios{
-    display: flex;
-    flex-direction: row;
-}
 
-.inicio-cambios > div {
-    flex: 1; 
-}
-
-.inicio-cambios h1{
+.inicio-cambios h1 {
     margin: auto;
-    font-family: "Noto-Serif",sans-serif;
+    font-family: "Noto-Serif", sans-serif;
     font-style: italic;
-    width:  fit-content;
-}
-
-.inicio-cambios img{
-    margin-top: 5%;
-    margin-left: 32.5%;
-}
-
-
-.inicio-cambios div:nth-child(2){
-    margin-top: 7.5%;
-    display: flex;
-    flex-direction: column;
-}
+    width: fit-content;
+  }
+  
+  .image-link {
+    margin: 5% 0;
+    text-align: center;
+  }
+  
+  .image-form-container {
+    display: flex;       
+    justify-content: center; 
+    align-items: center;      
+    gap: 20px;              
+  }
+  
+  .image-link mat-form-field {
+    width: 45%;  
+  }
 
 mat-label, mat-form-field input{
     font-family: "Poppins",sans-serif;

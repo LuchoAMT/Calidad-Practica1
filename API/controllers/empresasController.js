@@ -3,8 +3,7 @@ const db = require('../db');  // Conexión a la base de datos
 
 // Crear una nueva empresa 
 exports.crearEmpresa = async (req, res) => {
-    const { nombre, descripcion, correo, contraseña, latitud, longitud, contacto, logo } = req.body;
-    const empresaId = req.usuarioId;  // ID de la empresa autenticada
+    const { nombre, descripcion, correo, contraseña, latitud, longitud, contacto, logo, QR_pago } = req.body;
 
     const saltRounds = 10;
 
@@ -12,16 +11,17 @@ exports.crearEmpresa = async (req, res) => {
         // Hasheamos la contraseña
         const hashedPassword = await bcrypt.hash(contraseña, saltRounds);
 
-        const query = 'INSERT INTO empresas (nombre, correo, contraseña, descripcion, latitud, longitud, contacto, logo, id_empresa) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        const query = 'INSERT INTO empresas (nombre, correo, contraseña, descripcion, latitud, longitud, contacto, logo, QR_pago) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
-        const [result] = await db.query(query, [nombre, correo, hashedPassword, descripcion, latitud, longitud, contacto, logo, empresaId]);
+        const [result] = await db.query(query, [nombre, correo, hashedPassword, descripcion, latitud, longitud, contacto, logo, QR_pago]);
 
+        // Respuesta exitosa
         res.status(201).json({ mensaje: 'Empresa creada con éxito' });
     } catch (err) {
         console.error('Error al crear la empresa:', err);
         return res.status(500).json({ error: err.message });
     }
-};
+}
 
 // Obtener productos de la empresa autenticado
 exports.obtenerEmpresas = async (req, res) => {
@@ -58,7 +58,7 @@ exports.obtenerEmpresaPorId = async (req, res) => {
 
 exports.actualizarEmpresa = async (req, res) => {
     const empresaId = req.params.id_empresa;
-    const { nombre, descripcion, correo, contraseña, latitud, longitud, contacto, logo } = req.body;
+    const { nombre, descripcion, correo, contraseña, latitud, longitud, contacto, logo, qr_pago } = req.body;
 
     try {
         // Primero verificamos si el empresa existe
@@ -108,6 +108,10 @@ exports.actualizarEmpresa = async (req, res) => {
         if (logo) {
             updateFields.push('logo = ?');
             updateValues.push(logo);
+        }
+        if (qr_pago) {
+            updateFields.push('QR_pago = ?');
+            updateValues.push(qr_pago);
         }
 
         // Si no hay campos para actualizar

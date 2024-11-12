@@ -16,6 +16,11 @@
         <input matInput [formControl]="logo" name="Logo o foto">
         <mat-error *ngIf="logo.invalid && logo.touched">Ingresa un link de imagen para tu logo</mat-error>
     </mat-form-field>
+    <mat-form-field *ngIf="userType.value === 'empresa'" appearance="fill" class="center-field">
+        Ingresa el link de tu pago por QR
+        <input matInput [formControl]="qr_pago">
+        <mat-error *ngIf="qr_pago.invalid && qr_pago.touched">Ingresa un link de QR de pago válido</mat-error>
+    </mat-form-field>       
     <div class="form-2-fields">
 
         <mat-form-field>

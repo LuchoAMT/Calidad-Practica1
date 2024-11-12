@@ -22,8 +22,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
   standalone: true,
   imports: [MatFormFieldModule, MatInputModule, FormsModule, CommonModule,
     MatSelectModule, ReactiveFormsModule, MatIconModule, 
-    RouterLink, RouterLinkActive, 
-    RouterOutlet, MatButtonModule, GoogleMapsModule],
+    RouterLink, RouterLinkActive, MatButtonModule, GoogleMapsModule],
   templateUrl: './registrarse.component.html',
   styleUrl: './registrarse.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -35,7 +34,8 @@ export class RegistrarseComponent{
   zoom = 15;
   selectedCoordinates: google.maps.LatLngLiteral = { lat: 0, lng: 0 }; 
 
-  readonly logo = new FormControl('', [Validators.required]);
+  readonly logo = new FormControl('', [Validators.required, Validators.pattern('https?://.+')]);
+  readonly qr_pago = new FormControl('', [Validators.required, Validators.pattern('https?://.+')]);
   readonly email = new FormControl('', [Validators.required, Validators.email]);
   readonly nombre = new FormControl('', [Validators.required]);
   readonly password = new FormControl('', [Validators.required]);
@@ -61,6 +61,7 @@ export class RegistrarseComponent{
     longitud: 0,
     contacto: '',
     logo: '',
+    QR_pago: ''
   };
 
   nuevoNegocio: Negocio = {
@@ -95,7 +96,8 @@ export class RegistrarseComponent{
       !this.password_confirm.value ||
       !this.informacion.value ||
       !this.contacto.value ||
-      (this.selectedCoordinates.lat === 0 && this.selectedCoordinates.lng === 0)
+      (this.selectedCoordinates.lat === 0 && this.selectedCoordinates.lng === 0) ||
+      (this.userType.value === 'empresa' && !this.qr_pago.value)
     ) {
       alert('Por favor, complete todos los campos y seleccione una ubicación en el mapa.');
       return;
@@ -132,6 +134,7 @@ export class RegistrarseComponent{
         longitud: this.selectedCoordinates.lng,
         contacto: this.contacto.value,
         logo: this.logo.value,
+        QR_pago: this.qr_pago.value ?? ''
       };
 
       try {

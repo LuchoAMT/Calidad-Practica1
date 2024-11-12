@@ -1,36 +1,55 @@
-<section class="detail">
-  <div class="container">
-    <form class="credit-card-form" (ngSubmit)="realizarPago()">
-        <div class="form-group">
-          <label for="nombreTitular">NOMBRE DEL TITULAR</label>
-          <input type="text" id="nombreTitular" [(ngModel)]="nombreTitular" name="nombreTitular" required>
-        </div>
+<h1>Elige tu método de pago</h1>
+<mat-tab-group animationDuration="1000ms">
 
-
-
-      <div class="form-group">
-        <label for="cardNumber">NÚMERO DE TARJETA</label>
-        <input type="text" id="cardNumber" name="cardNumber" required>
+  <mat-tab id="QR" label="QR">
+    <div class="deudas-container">
+      <div *ngFor="let deuda of deudasPorEmpresa" class="deuda">
+        <h2>{{ deuda.nombre }}</h2>
+        <p>Total a deber: {{ deuda.total_deuda }} Bs.</p>
+        <img [src]="deuda.QR_pago" alt="QR de pago de {{ deuda.nombre }}" class="qr-image" />
+        
+        <!-- Input para subir la imagen -->
+        <input type="file" (change)="onFileSelected($event, deuda)" accept="image/*" />
+        <button (click)="subirComprobante(deuda)">Sube el comprobante respectivo</button>
       </div>
+      <button type="button" class="pay-button" (click)="realizarPago()">PAGAR</button>
+    </div>   
+  </mat-tab>
 
-      <div class="form-row">
-        <div class="form-group">
-          <label for="expirationMonth">MES EXPIRACIÓN</label>
-          <input type="text" id="expirationMonth" name="expirationMonth" required>
-        </div>
+  <mat-tab label="Pago por Tarjeta">
+    <section class="detail">
+      <div class="container">
+        <form class="credit-card-form" (ngSubmit)="realizarPago()">
+          <div class="form-group">
+            <label for="nombreTitular">NOMBRE DEL TITULAR</label>
+            <input type="text" id="nombreTitular" [(ngModel)]="nombreTitular" name="nombreTitular" required>
+          </div>
 
-        <div class="form-group">
-          <label for="expirationYear">AÑO EXPIRACIÓN</label>
-          <input type="text" id="expirationYear" name="expirationYear" required>
-        </div>
+          <div class="form-group">
+            <label for="cardNumber">NÚMERO DE TARJETA</label>
+            <input type="text" id="cardNumber" name="cardNumber" required>
+          </div>
+    
+          <div class="form-row">
+            <div class="form-group">
+              <label for="expirationMonth">MES EXPIRACIÓN</label>
+              <input type="text" id="expirationMonth" name="expirationMonth" required>
+            </div>
+    
+            <div class="form-group">
+              <label for="expirationYear">AÑO EXPIRACIÓN</label>
+              <input type="text" id="expirationYear" name="expirationYear" required>
+            </div>
+          </div>
+    
+          <div class="form-group">
+            <label for="securityCode">CÓDIGO DE SEGURIDAD</label>
+            <input type="text" id="securityCode" name="securityCode" required>
+          </div>
+    
+          <button type="submit" class="pay-button">PAGAR</button>
+        </form>
       </div>
-
-      <div class="form-group">
-        <label for="securityCode">CÓDIGO DE SEGURIDAD</label>
-        <input type="text" id="securityCode" name="securityCode" required>
-      </div>
-
-      <button type="submit" class="pay-button">PAGAR</button>
-    </form>
-  </div>
-</section>
+    </section>
+  </mat-tab>
+</mat-tab-group>

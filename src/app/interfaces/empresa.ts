@@ -8,5 +8,6 @@ export interface Empresa {
   longitud: number;
   contacto: string;
   logo: string;
+  QR_pago: string;
 }
 

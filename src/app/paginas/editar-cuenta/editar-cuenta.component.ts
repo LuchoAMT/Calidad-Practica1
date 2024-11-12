@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { CommonModule} from '@angular/common'; 
 import {FormBuilder,FormGroup, Validators, ReactiveFormsModule} from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -24,8 +23,8 @@ import { GoogleMapsModule } from '@angular/google-maps';
   standalone: true,
   imports: [MatFormFieldModule, MatInputModule,MatIconModule,
     MatSelectModule, CommonModule, MatButtonModule,
-    RouterLink, RouterLinkActive,ReactiveFormsModule,
-    RouterOutlet, GoogleMapsModule,TextFieldModule],
+    ReactiveFormsModule,
+    GoogleMapsModule,TextFieldModule],
   templateUrl: './editar-cuenta.component.html',
   styleUrl: './editar-cuenta.component.scss'
 })
@@ -37,6 +36,7 @@ export class EditarCuentaComponent implements OnInit {
     hide = true;
     defaultImage: string = 'assets/images/registro.svg';
     imageUrl: string = this.defaultImage; 
+    imageQR: string = ''
 
     selectedCoordinates: google.maps.LatLngLiteral = { lat: 0, lng: 0 }; 
     center: google.maps.LatLngLiteral = { lat: 0, lng: 0 }; 
@@ -48,7 +48,6 @@ export class EditarCuentaComponent implements OnInit {
       private fb: FormBuilder, 
       private empresasService: EmpresasService, 
       private negociosService: NegociosService,
-      private http: HttpClient 
     ) {
       this.userType = localStorage.getItem('userType');
       this.userId = Number(localStorage.getItem('userId')) || 0; 
@@ -59,7 +58,8 @@ export class EditarCuentaComponent implements OnInit {
         confirmarContraseña: [''],
         contacto: [''],
         logo: [''], 
-        descripcion: [''] 
+        descripcion: [''], 
+        qr_pago: ['']
       });
     }
 
@@ -71,6 +71,10 @@ export class EditarCuentaComponent implements OnInit {
       }
         this.editarCuentaForm.get('logo')?.valueChanges.subscribe(value => {
         this.imageUrl = value || this.defaultImage; 
+      });
+
+      this.editarCuentaForm.get('qr_pago')?.valueChanges.subscribe(value => {
+        this.imageQR = value || '';  // Si no hay valor, usa una cadena vacía
       });
     }
 
@@ -84,15 +88,18 @@ export class EditarCuentaComponent implements OnInit {
       if (this.userType === 'empresa') {
         // Llama al servicio para obtener los datos de la empresa
         const empresa: Empresa = await this.empresasService.getEmpresa(this.userId);
+
         this.editarCuentaForm.patchValue({
           nombre: empresa.nombre,
           correo: empresa.correo,
           contacto: empresa.contacto, 
           logo: empresa.logo,
-          descripcion: empresa.descripcion
+          descripcion: empresa.descripcion,
+          qr_pago: empresa.QR_pago
         });
         this.imageUrl = empresa.logo || this.defaultImage;
         this.previousPassword = empresa.contraseña; 
+        this.imageQR = empresa.QR_pago || '';
 
         // Cargar coordenadas de la empresa
         this.selectedCoordinates.lat = Number(empresa.latitud); 
@@ -109,6 +116,7 @@ export class EditarCuentaComponent implements OnInit {
           descripcion: negocio.informacion
         });
         this.imageUrl = negocio.foto || this.defaultImage;
+        this.imageQR = '';
         this.previousPassword = negocio.contraseña;
 
         // Cargar coordenadas del negocio
@@ -160,7 +168,8 @@ export class EditarCuentaComponent implements OnInit {
               contacto: formData.contacto,
               logo: formData.logo,
               latitud: this.selectedCoordinates.lat,
-              longitud: this.selectedCoordinates.lng
+              longitud: this.selectedCoordinates.lng,
+              QR_pago: formData.qr_pago
             };
     
             await this.empresasService.updateEmpresa(this.userId, empresaActualizada);
