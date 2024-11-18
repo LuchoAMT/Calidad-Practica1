@@ -70,18 +70,78 @@ export class CarritoService {
       total + (item.producto.precio * item.cantidad), 0);
   }
 
-  actualizarProductoEnCarrito(id_producto: number, nuevaCantidad: number) {
+  async actualizarProductoEnCarrito(id_producto: number, nuevaCantidad: number, id_usuario: number): Promise<void> {
     const itemExistente = this.carritoItems[id_producto];
     if (itemExistente) {
       const diferencia = nuevaCantidad - itemExistente.cantidad;
       itemExistente.cantidad = nuevaCantidad;
-
+      this.carritoItems[id_producto].cantidad = nuevaCantidad;
       const totalProductos = this.carritoCount.value + diferencia;
       this.carritoCount.next(totalProductos);
 
       this.guardarCarritoEnStorage();
-    }
+
+      try {
+        const response = await fetch(`${this.apiUrl}/carritos/actualizar`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            id_usuario,
+            id_producto,
+            cantidad: nuevaCantidad,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`Error al actualizar el carrito: ${response.statusText}`);
+        }
+
+        console.log('Cantidad actualizada en el backend');
+      } catch (error) {
+        console.error('Error al actualizar el carrito en el backend:', error);
+      }
+    } 
   }
+
+  async agregarProductoAlCarrito(producto: Producto, id_usuario: number): Promise<void> {
+    if (this.carritoItems[producto.id_producto]) {
+      console.error('El producto ya existe en el carrito, considera usar actualizar.');
+      return;
+    }
+
+    this.carritoItems[producto.id_producto] = {
+      producto: producto,
+      cantidad: 1,
+    };
+
+    try {
+      const response = await fetch(`${this.apiUrl}/carritos/add`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id_usuario,
+          'id_producto': producto.id_producto,
+          cantidad: 1,
+        }),
+      });
+      console.log('response: ', response);
+      if (!response.ok) {
+        throw new Error(`Error al añadir producto al carrito en el backend: ${response.statusText}`);
+      }
+
+      console.log("producto añadido al carrito en backend");
+      const totalProductos = this.carritoCount.value + 1;
+      this.carritoCount.next(totalProductos);
+    } catch (error) {
+      console.error('Error al añadir producto al carrito en backend', error);
+    }
+
+  }
+
   private orderDetails: any;
 
   setOrderDetails(details: any) {
@@ -130,4 +190,42 @@ export class CarritoService {
       throw error; // Relanzar el error para que el componente lo maneje
     }
   }
+
+  async cargarCarritoDesdeBackend(id_usuario: number): Promise<void> {
+    try {
+      const response = await fetch(`${this.apiUrl}/carritos/${id_usuario}`);
+      if (!response.ok) {
+        throw new Error(`Error al cargar el carrito: ${response.statusText}`);
+      }
+  
+      const carritoBackend = await response.json();
+      console.log('Carrito recuperado del backend:', carritoBackend);
+  
+      // Sincronizar con el estado local
+      this.carritoItems = {};
+      let totalProductos = 0;
+  
+      carritoBackend.forEach((item: any) => {
+        this.carritoItems[item.id_producto] = {
+          producto: {
+            id_producto: item.id_producto,
+            id_empresa: item.id_empresa,
+            nombre: item.nombre,
+            descripcion: item.descripcion,
+            precio: item.precio,
+            imagen_url: item.imagen_url,
+            descuento: item.descuento
+          },
+          cantidad: item.cantidad,
+        };
+        totalProductos += item.cantidad;
+      });
+  
+      this.carritoCount.next(totalProductos);
+      this.guardarCarritoEnStorage();
+    } catch (error) {
+      console.error('Error al recuperar el carrito desde el backend:', error);
+    }
+  }
+  
 }

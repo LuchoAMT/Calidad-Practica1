@@ -20,8 +20,15 @@ export class CarritoComponent {
   constructor(private carritoService: CarritoService) {} 
 
   ngOnInit(): void {
-    this.cargarProductosCarrito();
-    this.calcularTotalCarrito();
+    const idUsuario = Number(localStorage.getItem('userId'));
+    const tipoUsuario = localStorage.getItem('userType');
+    if (idUsuario && tipoUsuario == 'negocio'){
+      this.carritoService.cargarCarritoDesdeBackend(idUsuario).then(() => {
+        this.cargarProductosCarrito();
+        this.calcularTotalCarrito();
+        console.log('productos carrito: ', this.productosCarrito);
+      });
+    }
   }
 
   cargarProductosCarrito() {
@@ -38,18 +45,25 @@ export class CarritoComponent {
   }
 
   incrementarCantidad(producto: Producto) {
-    this.carritoService.agregarAlCarrito(producto);
-    this.cargarProductosCarrito();
-    this.calcularTotalCarrito();
+    const idUsuario = Number(localStorage.getItem('userId'));
+    const item = this.productosCarrito.find(p => p.producto.id_producto === producto.id_producto);
+    if(item){
+      this.carritoService.agregarAlCarrito(producto);
+      this.carritoService.actualizarProductoEnCarrito(producto.id_producto, item.cantidad, idUsuario);
+      this.cargarProductosCarrito();
+      this.calcularTotalCarrito();
+    }   
   }
 
   decrementarCantidad(producto: Producto) {
     const item = this.productosCarrito.find(p => p.producto.id_producto === producto.id_producto);
+    const idUsuario = Number(localStorage.getItem('userId'));
     if (item) {
       if (item.cantidad > 1) {
-        this.carritoService.actualizarProductoEnCarrito(producto.id_producto, item.cantidad - 1);
+        this.carritoService.actualizarProductoEnCarrito(producto.id_producto, item.cantidad - 1, idUsuario);
       } else {
         // Si la cantidad es 1, eliminar el producto del carrito
+        this.carritoService.actualizarProductoEnCarrito(producto.id_producto, item.cantidad - 1, idUsuario);
         this.carritoService.eliminarDelCarrito(producto.id_producto);
       }
       this.cargarProductosCarrito();

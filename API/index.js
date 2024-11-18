@@ -13,13 +13,14 @@ const empresasRoutes = require('./routes/empresas');
 const authRoutes = require('./routes/auth');
 const negociosRoutes = require('./routes/negocios');
 const pedidosRoutes = require('./routes/pedidos');
+const carritosRoutes = require('./routes/carritos');
 
 app.use('/auth', authRoutes);
 app.use('/productos', productosRoutes);
 app.use('/empresas', empresasRoutes);
 app.use('/negocios', negociosRoutes);
 app.use('/pedidos', pedidosRoutes);
-
+app.use('/carritos', carritosRoutes);
 
 // Iniciar el servidor
 app.listen(port, () => {

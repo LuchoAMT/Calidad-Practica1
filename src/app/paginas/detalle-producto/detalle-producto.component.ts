@@ -51,8 +51,9 @@ export class DetalleProductoComponent {
   }
 
   agregarAlCarrito() {
+    const idUsuario = Number(localStorage.getItem('userId'));
     if (this.producto) { 
-      this.carritoService.agregarAlCarrito(this.producto);
+      this.carritoService.agregarProductoAlCarrito(this.producto, idUsuario);
     } else {
       console.error('Producto no está definido');
     }  
