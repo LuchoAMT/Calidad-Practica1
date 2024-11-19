@@ -44,6 +44,21 @@ mat-form-field{
     margin: 0 3.5%;
 }
 
+#img-edicion{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+#img-edicion mat-label{
+    font-family: "Poppins",sans-serif;
+    font-size: 18px;
+}
+
+#img-edicion input{
+    margin-top: 5%;
+}
+
 mat-form-field .mdc-text-field--filled:not(.mdc-text-field--disabled){
     background-color: #D1BEB0;
 }

@@ -3,15 +3,19 @@ const db = require('../db');  // Conexión a la base de datos
 
 // Crear una nueva empresa 
 exports.crearEmpresa = async (req, res) => {
-    const { nombre, descripcion, correo, contraseña, latitud, longitud, contacto, logo, QR_pago } = req.body;
+    const { nombre, descripcion, correo, contrasenia, latitud, longitud, contacto, QR_pago } = req.body;
+    const logo = req.file ? req.file.buffer : null; // Obtener el buffer de la imagen
+
+    console.log('Body recibido:', req.body);
+    console.log('Archivo recibido:', req.file);
 
     const saltRounds = 10;
 
     try {
         // Hasheamos la contraseña
-        const hashedPassword = await bcrypt.hash(contraseña, saltRounds);
+        const hashedPassword = await bcrypt.hash(contrasenia, saltRounds);
 
-        const query = 'INSERT INTO empresas (nombre, correo, contraseña, descripcion, latitud, longitud, contacto, logo, QR_pago) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        const query = 'INSERT INTO empresas (nombre, correo, contrasenia, descripcion, latitud, longitud, contacto, logo, QR_pago) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
         const [result] = await db.query(query, [nombre, correo, hashedPassword, descripcion, latitud, longitud, contacto, logo, QR_pago]);
 
@@ -58,7 +62,8 @@ exports.obtenerEmpresaPorId = async (req, res) => {
 
 exports.actualizarEmpresa = async (req, res) => {
     const empresaId = req.params.id_empresa;
-    const { nombre, descripcion, correo, contraseña, latitud, longitud, contacto, logo, qr_pago } = req.body;
+    const { nombre, descripcion, correo, contrasenia, latitud, longitud, contacto, qr_pago } = req.body;
+    const logo = req.file ? req.file.buffer : null; // Obtener la imagen si existe
 
     try {
         // Primero verificamos si el empresa existe
@@ -87,10 +92,10 @@ exports.actualizarEmpresa = async (req, res) => {
             updateFields.push('correo = ?');
             updateValues.push(correo);
         }
-        if (contraseña) {
+        if (contrasenia) {
             const saltRounds = 10;
-            const hashedPassword = await bcrypt.hash(contraseña, saltRounds);
-            updateFields.push('contraseña = ?');
+            const hashedPassword = await bcrypt.hash(contrasenia, saltRounds);
+            updateFields.push('contrasenia = ?');
             updateValues.push(hashedPassword);
         }
         if (latitud) {

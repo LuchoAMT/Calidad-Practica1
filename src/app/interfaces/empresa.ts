@@ -7,7 +7,7 @@ export interface Empresa {
   latitud: number;
   longitud: number;
   contacto: string;
-  logo: string;
+  logo: string | Blob; 
   QR_pago: string;
 }
 

@@ -42,13 +42,11 @@ export class EmpresasService {
     return empresa;
   }
 
-  async crearEmpresa(empresa: Empresa): Promise<Empresa> {
+  async crearEmpresa(formData: FormData): Promise<Empresa> {
     const resp = await fetch(this.apiUrl, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(empresa),
+      headers: this.getHeaders(),
+      body: formData, 
     });
 
     if (!resp.ok) {

@@ -24,7 +24,7 @@ exports.iniciarSesion = async (req, res) => {
 
         console.log('Usuario encontrado:', user);
 
-        const match = await bcrypt.compare(password, user.contraseña);
+        const match = await bcrypt.compare(password, user.contrasenia);
         console.log('Resultado de comparación de contraseñas:', match);
 
         if (!match) {

@@ -42,19 +42,17 @@ export class NegociosService {
     return Negocio;
   }
 
-  async crearNegocio(Negocio: Negocio): Promise<Negocio> {
+  // Método para crear un negocio, ahora acepta FormData
+  async crearNegocio(formData: FormData): Promise<Negocio> {
     const resp = await fetch(this.apiUrl, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(Negocio),
+      body: formData, // Usamos FormData directamente
     });
-
+  
     if (!resp.ok) {
       throw new Error('Error al crear el Negocio');
     }
-
+  
     const nuevoNegocio = await resp.json();
     return nuevoNegocio;
   }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule} from '@angular/common'; 
 import {FormBuilder,FormGroup, Validators, ReactiveFormsModule} from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { TextFieldModule } from '@angular/cdk/text-field'
 //Angular Material
 import {MatIconModule} from '@angular/material/icon';
@@ -34,8 +33,8 @@ export class EditarCuentaComponent implements OnInit {
     userType: string | null;
     userId: number;    
     hide = true;
-    defaultImage: string = 'assets/images/registro.svg';
-    imageUrl: string = this.defaultImage; 
+    selectedImage: File | null = null;
+    imageUrl: string = '';
     imageQR: string = ''
 
     selectedCoordinates: google.maps.LatLngLiteral = { lat: 0, lng: 0 }; 
@@ -69,14 +68,37 @@ export class EditarCuentaComponent implements OnInit {
       } else {
         console.error('Error: userId es null');
       }
-        this.editarCuentaForm.get('logo')?.valueChanges.subscribe(value => {
-        this.imageUrl = value || this.defaultImage; 
-      });
 
       this.editarCuentaForm.get('qr_pago')?.valueChanges.subscribe(value => {
-        this.imageQR = value || '';  // Si no hay valor, usa una cadena vacía
+        this.imageQR = value || '';  
       });
     }
+
+    onImageSelected(event: any): void {
+      const file: File = event.target.files[0];
+      if (file) {
+        this.selectedImage = file;
+        // Actualizar la vista con la imagen seleccionada
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.imageUrl = reader.result as string;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    blobToBase64(blob: Blob): Promise<string> {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          // Convertimos el resultado a base64
+          const base64 = reader.result as string;
+          resolve(base64.split(',')[1]);
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(blob); 
+      });
+    }    
 
     seleccionarPunto(event: google.maps.MapMouseEvent) {
       if (event.latLng) {
@@ -89,6 +111,16 @@ export class EditarCuentaComponent implements OnInit {
         // Llama al servicio para obtener los datos de la empresa
         const empresa: Empresa = await this.empresasService.getEmpresa(this.userId);
 
+        // Verificar si el logo es un Blob
+        if (empresa.logo && typeof empresa.logo === 'object' && empresa.logo instanceof Blob) {
+          // Si es un Blob, creamos un URL para él
+          this.imageUrl = URL.createObjectURL(empresa.logo); 
+        } else {
+          // Si no es un Blob (probablemente una URL o base64), asignarlo directamente
+          this.imageUrl = empresa.logo; 
+        }
+
+
         this.editarCuentaForm.patchValue({
           nombre: empresa.nombre,
           correo: empresa.correo,
@@ -97,25 +129,40 @@ export class EditarCuentaComponent implements OnInit {
           descripcion: empresa.descripcion,
           qr_pago: empresa.QR_pago
         });
-        this.imageUrl = empresa.logo || this.defaultImage;
+
         this.previousPassword = empresa.contraseña; 
         this.imageQR = empresa.QR_pago || '';
 
         // Cargar coordenadas de la empresa
         this.selectedCoordinates.lat = Number(empresa.latitud); 
         this.selectedCoordinates.lng = Number(empresa.longitud); 
+
         this.center = { lat: this.selectedCoordinates.lat, lng: this.selectedCoordinates.lng }; 
       } else if (this.userType === 'negocio') {
         // Llama al servicio para obtener los datos del negocio
         const negocio: Negocio = await this.negociosService.getNegocio(this.userId);
+
+        // Verificar si el logo es un Blob o Buffer
+        if (negocio.foto) {
+          if (negocio.foto instanceof Blob) {
+            this.imageUrl = URL.createObjectURL(negocio.foto);
+          } else if (Buffer.isBuffer(negocio.foto)) {
+            const blob = new Blob([negocio.foto], { type: 'image/jpeg' });
+            this.imageUrl = URL.createObjectURL(blob);
+          } else {
+            this.imageUrl = negocio.foto; // Asignar directamente si es una cadena
+          }
+        } else {
+          this.imageUrl = 'assets/images/registro.svg'; // Imagen por defecto
+        }
+        
         this.editarCuentaForm.patchValue({
           nombre: negocio.nombre,
           correo: negocio.correo,
           contacto: negocio.contacto,
-          logo: negocio.foto, 
           descripcion: negocio.informacion
         });
-        this.imageUrl = negocio.foto || this.defaultImage;
+
         this.imageQR = '';
         this.previousPassword = negocio.contraseña;
 
