@@ -3,11 +3,12 @@ import { CarritoService } from '../../servicios/carrito.service';
 import { jsPDF } from 'jspdf';
 import { CommonModule } from '@angular/common';
 import html2canvas from 'html2canvas';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-invoice',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,RouterLink],
   templateUrl: './invoice.component.html',
   styleUrls: ['./invoice.component.scss']
 })
