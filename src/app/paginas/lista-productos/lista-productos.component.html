@@ -1,54 +1,54 @@
 <section class="search-n-filter">
-    <form class="search-form">
-      <mat-form-field class="search-full-width">
-        <mat-label>¿Que productos buscas?</mat-label>
-        <!-- input de búsqueda -->
-        <input matInput
-          aria-label="Buscar"
-          [matAutocomplete]="auto"
-          [formControl]="mycontrol">
-        <!-- autocompletado -->
-        <mat-autocomplete #auto="matAutocomplete">
-          @for (producto of productosFiltrados | async; track producto) {
-            <!-- detalles del producto del autocompletado -->
-            <a [routerLink]="['/detalles-producto', producto.id_producto]" (click)="verificarAutenticacion()">
-              <mat-option [value]="producto.nombre">
-                <img alt="" class="search-option-img" [src]="producto.imagen_url" height="75px">
-                <span>{{producto.nombre}}</span> |
-                <small>Price: {{producto.precio}}</small>          
-              </mat-option>
-            </a>
-          }
-        </mat-autocomplete>
-      </mat-form-field>
-    </form>
+  <form class="search-form">
+    <mat-form-field class="search-full-width">
+      <mat-label>¿Que productos buscas?</mat-label>
+      <!-- input de búsqueda -->
+      <input matInput aria-label="Buscar" [matAutocomplete]="auto" [formControl]="mycontrol">
+      <!-- autocompletado -->
+      <mat-autocomplete #auto="matAutocomplete">
+        @for (producto of productosFiltrados | async; track producto) {
+        <!-- detalles del producto del autocompletado -->
+        <a [routerLink]="['/detalles-producto', producto.id_producto]" (click)="verificarAutenticacion()">
+          <mat-option [value]="producto.nombre">
+            <img alt="" class="search-option-img" [src]="producto.imagen_url" height="75px">
+            <span>{{producto.nombre}}</span> |
+            <small>Price: {{producto.precio}}</small>
+          </mat-option>
+        </a>
+        }
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
 </section>
 <div class="container">
-    @for(producto of productos; track producto.id_producto){
-    <mat-card class="container-product">
-        <mat-card-header>
-            <mat-card-title>{{ producto.nombre }}</mat-card-title>
-        </mat-card-header>
-        <div class="container-img">
-            <img mat-card-image [src]="producto.imagen_url" alt="Imagen del producto">
+  @for(producto of productos; track producto.id_producto){
+  <mat-card class="container-product">
+    <mat-card-header>
+      <mat-card-title>{{ producto.nombre }}</mat-card-title>
+    </mat-card-header>
+    <div class="container-img">
+      <img mat-card-image [src]="producto.imagen_url" alt="Imagen del producto">
+    </div>
+    <mat-card-content id="descripcion">
+      <p>{{ limitarDescripcion(producto.descripcion, 15) }}</p>
+    </mat-card-content>
+    <mat-card-content class="bottom-product">
+      <div class="bottom-container">
+        <div class="price">
+          <p>Precio:</p>
+          <span>{{ producto.precio }} Bs.</span>
+          @if (producto.descuento > 0) {
+          <p>Descuento:</p>
+          <span>{{ producto.descuento }}%</span>
+          <p>Precio con descuento:</p>
+          <span>{{ calcularPrecioDescuento(producto.precio, producto.descuento) }} Bs.</span>
+          }
         </div>
-        <mat-card-content id="descripcion">
-            <p>{{ limitarDescripcion(producto.descripcion, 15) }}</p>        </mat-card-content>
-        <mat-card-content class="bottom-product">
-            <div class="bottom-container">
-                <div class="price">
-                    <p>Precio:</p>
-                    <span>{{ producto.precio }} Bs.</span>
-                    @if (producto.descuento > 0) {
-                      <p>Descuento:</p>
-                      <span>{{ producto.descuento }}%</span>
-                      <p>Precio con descuento:</p>
-                      <span>{{ calcularPrecioDescuento(producto.precio, producto.descuento) }} Bs.</span>
-                    }
-                </div>
-                    <button mat-flat-button [routerLink]="['/detalles-producto', producto.id_producto]" (click)="verificarAutenticacion()">Más detalles</button>
-            </div>
-        </mat-card-content>
-    </mat-card>
-    }
+        <button mat-flat-button [routerLink]="['/detalles-producto', producto.id_producto]"
+          (click)="verificarAutenticacion()">Más detalles
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  }
 </div>

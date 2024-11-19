@@ -1,7 +1,7 @@
-import { Component,OnInit} from '@angular/core';
-import { Router, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatButtonModule} from '@angular/material/button';
+import { Component, OnInit } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
 import { CarritoService } from './servicios/carrito.service';
 import { AutenticacionService } from './servicios/auth.service';
 import { CommonModule } from '@angular/common';
@@ -11,7 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, RouterOutlet, MatButtonModule, MatMenuModule,GoogleMapsModule, CommonModule],
+  imports: [RouterLink, RouterLinkActive, RouterOutlet, MatButtonModule, MatMenuModule, GoogleMapsModule, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -20,15 +20,15 @@ export class AppComponent implements OnInit {
   title = 'Proyecto_Grupo_1';
   carritoCount: number = 0;
   isAuthenticated: boolean = false;
-  UsuarioNegocio: boolean = false; 
+  UsuarioNegocio: boolean = false;
   userId: string | null = null;
-  
+
   constructor(
-    private carritoService: CarritoService, 
-    private authService: AutenticacionService, 
+    private carritoService: CarritoService,
+    private authService: AutenticacionService,
     private router: Router,
     private snackBar: MatSnackBar
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.isAuthenticated = this.authService.isAuthenticated();
@@ -55,11 +55,11 @@ export class AppComponent implements OnInit {
   }
 
   cerrarSesion() {
-    this.carritoService.vaciarCarrito(); 
-    sessionStorage.clear(); 
+    this.carritoService.vaciarCarrito();
+    sessionStorage.clear();
 
     this.authService.cerrarSesion();
-    
+
     this.isAuthenticated = false;
     this.UsuarioNegocio = false;
     this.router.navigate(['/inicio']);

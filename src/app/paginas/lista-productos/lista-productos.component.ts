@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ProductosService } from '../../servicios/productos.service';
 import { EmpresasService } from '../../servicios/empresas.service';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { AsyncPipe} from '@angular/common';
-import { Router,RouterLink, ActivatedRoute } from '@angular/router';
+import { AsyncPipe } from '@angular/common';
+import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 //imports de angular material
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -20,10 +20,11 @@ import { Empresa } from '../../interfaces/empresa';
 import { AutenticacionService } from '../../servicios/auth.service';
 
 
+
 @Component({
   selector: 'app-lista-productos',
   standalone: true,
-  imports: [MatCardModule, MatFormFieldModule, ReactiveFormsModule,  MatInputModule, MatChipsModule,
+  imports: [MatCardModule, MatFormFieldModule, ReactiveFormsModule, MatInputModule, MatChipsModule,
     MatAutocompleteModule, AsyncPipe, RouterLink],
   templateUrl: './lista-productos.component.html',
   styleUrl: './lista-productos.component.scss'
@@ -33,7 +34,7 @@ export class ListaProductosComponent implements OnInit {
   productosFiltrados!: Observable<Producto[]>;
   productos: Producto[] = [];
   empresas: Empresa[] = []; //lista de empresas
-  empresaSeleccionada: string |  null = null;
+  empresaSeleccionada: string | null = null;
   idEmpresa: number | null = null;
   isAuthenticated: boolean = false;
 
@@ -47,21 +48,21 @@ export class ListaProductosComponent implements OnInit {
     etiqueta: 'Nuevo',
     descuento: 0.00
   };
-  
+
 
   constructor(
     private productosService: ProductosService,
-    private empresasService: EmpresasService, 
+    private empresasService: EmpresasService,
     private route: ActivatedRoute,
     private router: Router,
     private snackBar: MatSnackBar,
     private authService: AutenticacionService) {
-      this.isAuthenticated = this.authService.isAuthenticated();
+    this.isAuthenticated = this.authService.isAuthenticated();
 
-        this.productosFiltrados = this.mycontrol.valueChanges.pipe(
-          startWith(''),
-          map(prod => (prod ? this._filtrarProductos(prod) : this.productos.slice())),
-        );
+    this.productosFiltrados = this.mycontrol.valueChanges.pipe(
+      startWith(''),
+      map(prod => (prod ? this._filtrarProductos(prod) : this.productos.slice())),
+    );
   }
 
   private _filtrarProductos(value: string): Producto[] {
@@ -70,7 +71,7 @@ export class ListaProductosComponent implements OnInit {
     return this.productos.filter(prod => prod.nombre.toLowerCase().includes(filterValue));
   }
 
-  
+
   async obtenerProductos() {
     if (this.idEmpresa !== null) {
       this.productos = await this.productosService.getProductosPorEmpresa(this.idEmpresa);
@@ -96,25 +97,25 @@ export class ListaProductosComponent implements OnInit {
   }
 
   limitarDescripcion(texto: string, limitePalabras: number): string {
-    const palabras = texto.split(' '); 
+    const palabras = texto.split(' ');
     if (palabras.length > limitePalabras) {
-        return palabras.slice(0, limitePalabras).join(' ') + ' .....'; 
+      return palabras.slice(0, limitePalabras).join(' ') + ' .....';
     }
-    return texto; 
+    return texto;
+  }
+  // Verificación para bloquear acceso a Editar Cuenta si no está autenticado
+  verificarAutenticacion(): void {
+    this.isAuthenticated = this.authService.isAuthenticated();
+    if (!this.isAuthenticated) {
+      this.snackBar.open('Debes iniciar sesión para acceder a esta sección.', 'Cerrar', {
+        duration: 3000,
+      });
+      this.router.navigate(['/iniciar-sesion']);
     }
-    // Verificación para bloquear acceso a Editar Cuenta si no está autenticado
-    verificarAutenticacion(): void {
-      this.isAuthenticated = this.authService.isAuthenticated();
-      if (!this.isAuthenticated) {
-        this.snackBar.open('Debes iniciar sesión para acceder a esta sección.', 'Cerrar', {
-          duration: 3000,
-        });
-        this.router.navigate(['/iniciar-sesion']);
-      }
-    }
+  }
 
-  calcularPrecioDescuento(precio: number, descuento: number): number{
-    return this.productosService.calcularPrecioDescuento(precio,descuento);
+  calcularPrecioDescuento(precio: number, descuento: number): number {
+    return this.productosService.calcularPrecioDescuento(precio, descuento);
   }
 
 }

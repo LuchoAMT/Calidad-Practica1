@@ -1,110 +1,233 @@
-.container-cart-products{
-    background-image: url('../../../assets/images/GifMerka_2.gif');
-    background-size: cover; 
-    background-position: center; 
-    background-attachment: fixed; 
-    color: white;
+.container-cart-products {
+  background-image: url('../../../assets/images/GifMerka_2.gif');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: rgb(255, 255, 255);
+
 }
 
-.container-cart-products h2{
-  font-size: 25px;
+.container-cart-products .container-cart {
+  font-size: 30px;
   text-align: center;
+  background-color: black;
 }
 
 
-.header-cart{
-    display: flex;
-    background-color: #F79D84;
-    padding: 1%;
-    margin: 2% 7.5%;
-    border-radius: 10px;
-    border: 2px solid white;
-    gap: 4%;
-    align-items: center;
+.header-cart {
+  display: flex;
+  background-color: #F79D84;
+  padding: 1%;
+  margin: 2% 7.5%;
+  border-radius: 10px;
+  border: 2px solid white;
+  gap: 4%;
+  align-items: center;
 }
 
-.header-cart h3{
-    font-size: 15px;
-    margin: 0 5%;
+.header-cart h3 {
+  font-size: 20px;
+  margin: 0 5%;
 }
 
 .total-container {
-    display: flex;
-    justify-content: flex-end; 
-    align-items: center; 
-    padding: 1% 2%;
-    margin: 0 7.5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+ 
+  /* Imagen de fondo */
+  background-size: cover;
+  /* Asegura que la imagen cubra todo el contenedor */
+  background-position: center;
+  /* Centra la imagen */
+  border-radius: 15px;
+  padding: 30px;
+  margin-top: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  /* Sombra suave */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: white;
+  /* El texto será blanco para contrastar */
+  backdrop-filter: blur(10px);
+  /* Desenfoque del fondo para mejorar la legibilidad del texto */
 }
 
-.total-container p{
-    margin-right: 5%;
+.total-container:hover {
+  transform: translateY(-5px);
+  /* Efecto de elevación */
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.3);
+  /* Sombra más intensa al pasar el mouse */
 }
 
-.mat-mdc-outlined-button:not(:disabled){
-    color: white;
-    font-family: "Poppins", sans-serif;
-    border-color: white;
-  }
-  
-  .mat-mdc-outlined-button:hover{
-    background-color: #CCAD8F;
-  }
+.total-container p {
+  font-size: 1.8rem;
+  /* Aumenta el tamaño de la fuente para hacerlo más visible */
+  font-weight: bold;
+  /* Negrita para resaltar el total */
+  text-align: center;
+  margin-bottom: 20px;
+  /* Espacio entre el total y el botón */
+  padding: 15px 25px;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Fondo oscuro semitransparente para contraste */
+}
 
-  .container-cart-product {
+.total-container a {
+  padding: 15px 30px;
+  background-color: #FF6F61;
+  /* Color de fondo atractivo */
+  color: white;
+  text-decoration: none;
+  /* Elimina el subrayado del enlace */
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 25px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  /* Sombra sutil */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  /* Transición suave */
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.total-container a:hover {
+  background-color: #FF9A8B;
+  /* Color más claro al pasar el mouse */
+  transform: translateY(-2px);
+  /* Efecto de elevación en el botón */
+}
+
+.total-container a:active {
+  transform: translateY(1px);
+  /* Efecto de presionar el botón */
+}
+
+
+
+
+.mat-mdc-outlined-button:not(:disabled) {
+  color: white;
+  font-family: "Poppins", sans-serif;
+  border-color: white;
+}
+
+.mat-mdc-outlined-button:hover {
+  background-color: #CCAD8F;
+}
+
+.container-cart-product {
+  display: flex;
+  padding: 1% 2%;
+  margin: 1% 7.5%;
+  align-items: center;
+  gap: 5%;
+
+  .container-title,
+  .container-price,
+  .container-partial {
+    text-align: center;
+    background-color: #F79D84;
+    min-height: 100px;
     display: flex;
-    padding: 1% 2%; 
-    margin: 1% 7.5%;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    gap: 5%;
-    
-    .container-title, .container-price,.container-quantity,.container-partial{
-      text-align: center;
+    background: linear-gradient(135deg, #F79D84, #FF9E6B);
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .container-title:hover,
+  .container-price:hover,
+  .container-partial:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .container-quantity {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(135deg, #F79D84, #FF9E6B);
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .container-quantity:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  }
+
+
+  .superior {
+    margin-bottom: 10px;
+    color: #fff;
+  }
+
+  .inferior {
+    display: flex;
+    gap: 10px;
+  }
+
+
+  .container-img,
+  .container-price,
+  .container-quantity,
+  .container-partial {
+    flex-grow: 1;
+    flex-basis: 0;
+  }
+
+  .container-title {
+    width: 9.5%;
+  }
+
+  .container-title h2 {
+    margin: 0;
+    font-size: 20px;
+  }
+
+  p {
+    margin: 0;
+    font-size: 28px;
+  }
+
+  .container-img {
+    cursor: pointer;
+    height: 200px;
+
+    & img {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
-    .container-img,.container-price,.container-quantity,.container-partial{
-      flex-grow: 1; 
-      flex-basis: 0;
+    & img:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      border: 1px solid black;
     }
+  }
 
-    .container-title{
-      width: 9.5%;
-    }
+  img {
+    height: 100%;
+    border-radius: 10px;
+  }
 
-    .container-title h2 {
-      margin: 0;
-      font-size: 20px;     
-    }
+  .container-quantity button {
+    margin: 0 2%;
+    border: 1px solid black;
+    background-color: #F79D84;
+    color: black;
 
-    p {
-      margin: 0;
-      font-size: 28px; 
-    }
+  }
 
-    .container-img {
-      cursor: pointer; 
-      height: 200px;
-      
-      & img{
-        transition: transform 0.2s ease, box-shadow 0.2s ease; 
-      }
 
-      & img:hover {
-        transform: scale(1.1); 
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); 
-        border: 1px solid black;
-      }
-    }
-  
-    img {
-      height: 100%;
-      border-radius: 10px;
-    }
-
-    .container-quantity button{
-        margin: 0 2%;
-        border: 1px solid black;
-        background-color: #F79D84;
-        color: black;
-
-    }
 }

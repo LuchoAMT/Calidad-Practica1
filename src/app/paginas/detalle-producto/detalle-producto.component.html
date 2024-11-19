@@ -1,32 +1,36 @@
 <!-- Sección detalles -->
 <section class="detail">
-  <!-- Sección encabezado -->
+  <!-- Botón volver -->
   <div class="button-container">
-    <a mat-stroked-button [routerLink]="['/productos']" routerLinkActive="active"> Volver atrás</a>
+    <a mat-stroked-button [routerLink]="['/productos']" routerLinkActive="active" class="btn-back">Volver atrás</a>
   </div>
-  <!-- Sección contenido -->
+
+  <!-- Contenedor del producto -->
   <article class="container-detail producto-card">
-    <!-- imagen producto -->
-    <div class="img producto-imagen">
-      <img [src]="producto?.imagen_url" alt="Logo de {{producto?.nombre}}" width="400" height="400">
+    <!-- Imagen del producto -->
+    <div class="producto-imagen">
+      <img [src]="producto?.imagen_url" alt="Imagen de {{producto?.nombre}}" class="imagen">
     </div>
 
-    <!-- descripcion detallada del producto -->
-    <div class="description producto-detalles">
+    <!-- Descripción del producto -->
+    <div class="producto-detalles">
       <h1 class="producto-nombre">{{producto?.nombre}}</h1>
       <h2 class="producto-precio">{{producto?.precio}} Bs.</h2>
-      <div *ngIf="producto?.descuento">
-        <h2 class="producto-precio">Descuento:</h2>
-        <h2 class="producto-precio">{{ producto?.descuento }}%</h2>
-        <h2 class="producto-precio">Precio con descuento</h2>
-        <h2 class="producto-precio">{{ calcularPrecioDescuento(producto?.precio!, producto?.descuento!) }} Bs</h2>
+
+      <div *ngIf="producto?.descuento" class="producto-descuento">
+        <h3>Descuento:</h3>
+        <p>{{ producto?.descuento }}%</p>
+        <h3>Precio con descuento:</h3>
+        <p>{{ calcularPrecioDescuento(producto?.precio!, producto?.descuento!) }} Bs.</p>
       </div>
-      <div class="category">
-        <p class="producto-descripcion">{{producto?.descripcion}}</p>
+
+      <p class="producto-descripcion">{{producto?.descripcion}}</p>
+
+      <!-- Botones de acción -->
+      <div class="button-group">
+        <button mat-button (click)="agregarAlCarrito()" class="btn-primary">Añadir al carrito</button>
+        <button *ngIf="esPropietario" mat-button [routerLink]="['/productos/editar', producto?.id_producto]" class="btn-secondary">Editar Producto</button>
       </div>
-      <button mat-button (click)="agregarAlCarrito()" class="boton-agregar">Añadir al carrito</button>
-      <!-- Botón de edición, visible solo si el usuario es el propietario -->
-      <button *ngIf="esPropietario" mat-button [routerLink]="['/productos/editar', producto?.id_producto]" class="boton-agregar">Editar Producto</button>
     </div>
   </article>
 </section>

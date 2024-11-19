@@ -1,6 +1,6 @@
-.search-n-filter{
+.search-n-filter {
   display: flex;
-  justify-content: center; 
+  justify-content: center;
   gap: 15%;
   flex-wrap: wrap;
   margin-top: 3%;
@@ -33,9 +33,9 @@
 
 .container {
   background-image: url('../../../assets/images/GifMerka.gif');
-  background-size: cover; 
-  background-position: center; 
-  background-attachment: fixed; 
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -43,38 +43,39 @@
 }
 
 // seccion contenedor producto
-.container-product, mat-card img{
+.container-product,
+mat-card img {
   border-radius: 10px;
 }
 
 // seccion contenedor producto
-  .container-product {
-    width: 400px; 
-    height: fit-content; 
-    padding: 1%; 
-    border: 1px solid #343434;
-    background-color: #F0CD93;
-    box-sizing: border-box;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-    transition: transform 0.3s ease, box-shadow 0.3s ease; 
-    margin: 20px;
-    margin-bottom: 7.5%;
+.container-product {
+  width: 400px; /* Fijamos un ancho fijo para todos los productos */
+  height: 650px;
+  padding: 1%;
+  border: 1px solid #343434;
+  background-color: #F0CD93;
+  box-sizing: border-box;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin: 20px;
+  margin-bottom: 7.5%;
 }
 
 /* Efecto hover en las tarjetas */
 .container-product:hover {
-transform: translateY(-10px);
-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-.container-img{
-text-align: center;
+.container-img {
+  text-align: center;
 }
 
 .container-img img {
   width: 15rem;
-  height: auto;
-  object-fit: cover;
+  height: 15rem;
+  object-fit: contain;
   margin-top: 10%;
   margin-bottom: 5%;
 }
@@ -84,35 +85,41 @@ mat-card-content {
   overflow: hidden;
 }
 
-mat-card-title, button {
+mat-card-title,
+button {
   font-family: 'Noto-Serif', sans-serif;
   font-style: italic;
 }
 
-#descripcion{
-font-size: 15px;
+#descripcion {
+  font-size: 15px;
 }
 
 // seccion del fondo (precio y botón)
-
-.bottom-product .bottom-container{
+.bottom-product .bottom-container {
   margin-top: 5%;
   display: flex;
   justify-content: space-between;
+  align-items: flex-start; /* Alinea los elementos hacia la parte superior */
+  flex-wrap: nowrap; /* Evita que los elementos se ajusten a una nueva línea */
 }
 
-.price p{
+.price {
+  flex-grow: 1; /* Permite que el contenedor de precio crezca para ocupar el espacio disponible */
+  display: flex;
+  flex-direction: column; /* Apila los elementos dentro del contenedor */
+}
+
+.price p {
   font-size: 12px;
   margin: 0;
   margin-bottom: 10%;
 }
 
-.bottom-product a {
-  flex: 0.4;
-  margin: 0 2.5%;
-
+.button-container {
+  flex-shrink: 0; /* Evita que el contenedor del botón se encoja */
+  margin-left: 2.5%; /* Añade un margen izquierdo */
 }
-
 
 button {
   background-color: #0a2533;
@@ -120,10 +127,15 @@ button {
   padding: 2% 5%;
   font-size: 14px;
   transition: background-color 0.3s ease, transform 0.3s ease;
+  white-space: nowrap; /* Impide que el texto del botón se envuelva */
 }
 
 button[mat-flat-button]:hover {
-    background-color:  #120907;
-    transform: scale(1.05);
-    font-style: normal;
+  background-color: #120907;
+  transform: scale(1.05);
+  font-style: normal;
+}
+
+button.no-hover[mat-flat-button]:hover {
+  transform: none;
 }
