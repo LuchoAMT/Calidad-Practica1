@@ -3,18 +3,18 @@ const db = require('../db');  // Conexión a la base de datos
 
 // Crear un nuevo negocio 
 exports.crearNegocio = async (req, res) => {
-    const { nombre, informacion, correo, contraseña, latitud, longitud, contacto, foto } = req.body;
-    const negocioId = req.usuarioId;  // ID del negocio autenticado
+    const { nombre, informacion, correo, contrasenia, latitud, longitud, contacto } = req.body;
+    const foto = req.file ? req.file.buffer : null; // Obtener el buffer de la imagen
 
     const saltRounds = 10;
 
     try {
         // Hasheamos la contraseña
-        const hashedPassword = await bcrypt.hash(contraseña, saltRounds);
+        const hashedPassword = await bcrypt.hash(contrasenia, saltRounds);
 
-        const query = 'INSERT INTO negocios (nombre, correo, contraseña, informacion, latitud, longitud, contacto, foto, id_negocio) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
-
-        const [result] = await db.query(query, [nombre, correo, hashedPassword, informacion, latitud, longitud, contacto, foto, negocioId]);
+        const query = 'INSERT INTO negocios (nombre, correo, contrasenia, informacion, latitud, longitud, contacto, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+        const [result] = await db.query(query, [nombre, correo, hashedPassword, informacion, latitud, longitud, contacto, foto]);
+        
 
         res.status(201).json({ mensaje: 'negocio creado con éxito' });
     } catch (err) {
@@ -38,27 +38,30 @@ exports.obtenerNegocios = async (req, res) => {
 
 exports.obtenerNegocioPorId = async (req, res) => {
     const negocioId = req.params.id_negocio;
-    
+
     try {
-        // Usar await para manejar la promesa de la consulta
         const [results] = await db.query('SELECT * FROM negocios WHERE id_negocio = ?', [negocioId]);
 
-        // Verificar si se encontró la negocio
         if (results.length === 0) {
-            return res.status(404).send('negocio no encontrado.');
+            return res.status(404).send('Negocio no encontrado.');
         }
 
-        // Enviar la primera coincidencia
-        res.json(results[0]);
+        const negocio = results[0];
+
+        if (negocio.foto) {
+            negocio.foto = `data:image/png;base64,${negocio.foto.toString('base64')}`;
+        }
+        
+        res.json(negocio);
     } catch (err) {
-        // Manejo de errores
         return res.status(500).send('Error al consultar el negocio.');
     }
 };
 
 exports.actualizarNegocio = async (req, res) => {
     const negocioId = req.params.id_negocio;
-    const { nombre, informacion, correo, contraseña, latitud, longitud, contacto, foto } = req.body;
+    const { nombre, informacion, correo, contrasenia, latitud, longitud, contacto } = req.body;
+    const foto = req.file ? req.file.buffer : null; // Obtener la imagen si existe
 
     try {
         // Primero verificamos si el negocio existe
@@ -87,10 +90,10 @@ exports.actualizarNegocio = async (req, res) => {
             updateFields.push('correo = ?');
             updateValues.push(correo);
         }
-        if (contraseña) {
+        if (contrasenia) {
             const saltRounds = 10;
-            const hashedPassword = await bcrypt.hash(contraseña, saltRounds);
-            updateFields.push('contraseña = ?');
+            const hashedPassword = await bcrypt.hash(contrasenia, saltRounds);
+            updateFields.push('contrasenia = ?');
             updateValues.push(hashedPassword);
         }
         if (latitud) {
@@ -136,7 +139,6 @@ exports.actualizarNegocio = async (req, res) => {
             mensaje: 'Negocio actualizado exitosamente',
             negocioId: negocioId
         });
-
     } catch (err) {
         console.error('Error al actualizar el negocio:', err);
         res.status(500).json({

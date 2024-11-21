@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule} from '@angular/common'; 
 import {FormBuilder,FormGroup, Validators, ReactiveFormsModule} from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { TextFieldModule } from '@angular/cdk/text-field'
 //Angular Material
 import {MatIconModule} from '@angular/material/icon';
@@ -34,8 +33,9 @@ export class EditarCuentaComponent implements OnInit {
     userType: string | null;
     userId: number;    
     hide = true;
-    defaultImage: string = 'assets/images/registro.svg';
-    imageUrl: string = this.defaultImage; 
+    selectedImage: File | null = null;
+    selectedImageQR: File | null = null;
+    imageUrl: string = '';
     imageQR: string = ''
 
     selectedCoordinates: google.maps.LatLngLiteral = { lat: 0, lng: 0 }; 
@@ -69,13 +69,32 @@ export class EditarCuentaComponent implements OnInit {
       } else {
         console.error('Error: userId es null');
       }
-        this.editarCuentaForm.get('logo')?.valueChanges.subscribe(value => {
-        this.imageUrl = value || this.defaultImage; 
-      });
+    }
 
-      this.editarCuentaForm.get('qr_pago')?.valueChanges.subscribe(value => {
-        this.imageQR = value || '';  // Si no hay valor, usa una cadena vacía
-      });
+    onImageSelected(event: any): void {
+      const file: File = event.target.files[0];
+      if (file) {
+        this.selectedImage = file;
+    
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.imageUrl = reader.result as string;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    onImageSelectedQR(event: any): void {
+      const fileQR: File = event.target.files[0];
+      if (fileQR) {
+        this.selectedImageQR = fileQR;
+    
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.imageQR = reader.result as string;
+        };
+        reader.readAsDataURL(fileQR);
+      }
     }
 
     seleccionarPunto(event: google.maps.MapMouseEvent) {
@@ -85,46 +104,53 @@ export class EditarCuentaComponent implements OnInit {
     }
 
     async cargarDatosUsuario(): Promise<void> {
-      if (this.userType === 'empresa') {
-        // Llama al servicio para obtener los datos de la empresa
-        const empresa: Empresa = await this.empresasService.getEmpresa(this.userId);
-
-        this.editarCuentaForm.patchValue({
-          nombre: empresa.nombre,
-          correo: empresa.correo,
-          contacto: empresa.contacto, 
-          logo: empresa.logo,
-          descripcion: empresa.descripcion,
-          qr_pago: empresa.QR_pago
-        });
-        this.imageUrl = empresa.logo || this.defaultImage;
-        this.previousPassword = empresa.contraseña; 
-        this.imageQR = empresa.QR_pago || '';
-
-        // Cargar coordenadas de la empresa
-        this.selectedCoordinates.lat = Number(empresa.latitud); 
-        this.selectedCoordinates.lng = Number(empresa.longitud); 
-        this.center = { lat: this.selectedCoordinates.lat, lng: this.selectedCoordinates.lng }; 
-      } else if (this.userType === 'negocio') {
-        // Llama al servicio para obtener los datos del negocio
-        const negocio: Negocio = await this.negociosService.getNegocio(this.userId);
-        this.editarCuentaForm.patchValue({
-          nombre: negocio.nombre,
-          correo: negocio.correo,
-          contacto: negocio.contacto,
-          logo: negocio.foto, 
-          descripcion: negocio.informacion
-        });
-        this.imageUrl = negocio.foto || this.defaultImage;
-        this.imageQR = '';
-        this.previousPassword = negocio.contraseña;
-
-        // Cargar coordenadas del negocio
-        this.selectedCoordinates.lat = Number(negocio.latitud); 
-        this.selectedCoordinates.lng = Number(negocio.longitud); 
-        this.center = { lat: this.selectedCoordinates.lat, lng: this.selectedCoordinates.lng }; 
+      try {
+        if (this.userType === 'empresa') {
+          // Llama al servicio para obtener los datos de la empresa
+          const empresa: Empresa = await this.empresasService.getEmpresa(this.userId);
+    
+          this.editarCuentaForm.patchValue({
+            nombre: empresa.nombre,
+            correo: empresa.correo,
+            contacto: empresa.contacto,
+            descripcion: empresa.descripcion,
+            qr_pago: empresa.QR_pago
+          });
+    
+          this.imageUrl = empresa.logo;
+          this.imageQR = empresa.QR_pago;
+          this.previousPassword = empresa.contraseña; 
+    
+          // Cargar coordenadas de la empresa
+          this.selectedCoordinates.lat = Number(empresa.latitud);
+          this.selectedCoordinates.lng = Number(empresa.longitud);
+    
+          this.center = { lat: this.selectedCoordinates.lat, lng: this.selectedCoordinates.lng };
+        } else if (this.userType === 'negocio') {
+          // Llama al servicio para obtener los datos del negocio
+          const negocio: Negocio = await this.negociosService.getNegocio(this.userId);
+    
+          this.editarCuentaForm.patchValue({
+            nombre: negocio.nombre,
+            correo: negocio.correo,
+            contacto: negocio.contacto,
+            descripcion: negocio.informacion
+          });
+    
+          this.imageUrl = negocio.foto;
+          this.imageQR = '';
+          this.previousPassword = negocio.contraseña;
+    
+          // Cargar coordenadas del negocio
+          this.selectedCoordinates.lat = Number(negocio.latitud);
+          this.selectedCoordinates.lng = Number(negocio.longitud);
+    
+          this.center = { lat: this.selectedCoordinates.lat, lng: this.selectedCoordinates.lng };
+        }
+      } catch (error) {
+        console.error('Error al cargar los datos del usuario:', error);
       }
-    }
+    }    
 
     togglePasswordVisibility() {
       this.hide = !this.hide;
@@ -132,57 +158,49 @@ export class EditarCuentaComponent implements OnInit {
     
     async onSubmit(): Promise<void> {
       if (this.editarCuentaForm.valid) {
-        const formData = this.editarCuentaForm.value;
-        
-        if (formData.nuevaContraseña && formData.nuevaContraseña !== formData.confirmarContraseña) {
-          console.error('Las contraseñas no coinciden');
-          return;
-        }
+          const formData = new FormData();
+
+          const formValues = this.editarCuentaForm.value; 
+          
+          formData.append('nombre', formValues.nombre || '');
+          formData.append('correo', formValues.correo || '');
+          formData.append('contacto', formValues.contacto || '');
+          formData.append('descripcion', formValues.descripcion || '');
+          formData.append('latitud', this.selectedCoordinates.lat.toString());
+          formData.append('longitud', this.selectedCoordinates.lng.toString());
+
+          if (formValues.nuevaContraseña) {
+            formData.append('nuevaContraseña', formValues.nuevaContraseña);
+          }
+
     
         try {
           if (this.userType === 'negocio') {
-            const negocioActualizado: Negocio = {
-              id_negocio: this.userId,
-              nombre: formData.nombre,
-              correo: formData.correo,
-              contraseña: formData.nuevaContraseña || this.previousPassword,
-              contacto: formData.contacto,
-              foto: formData.logo,
-              informacion: formData.descripcion,
-              latitud: this.selectedCoordinates.lat,
-              longitud: this.selectedCoordinates.lng
-            };
-    
-            await this.negociosService.updateNegocio(this.userId, negocioActualizado);
+            if (this.selectedImage) {
+              formData.append('foto', this.selectedImage);
+            }
+
+            await this.negociosService.updateNegocio(this.userId, formData);
             alert('Negocio actualizado con éxito');
-            window.location.reload(); 
-
-
+            window.location.reload();
           } else if (this.userType === 'empresa') {
-            const empresaActualizada: Empresa = {
-              id_empresa: this.userId,
-              nombre: formData.nombre,
-              correo: formData.correo,
-              contraseña: formData.nuevaContraseña || this.previousPassword,
-              descripcion: formData.descripcion,
-              contacto: formData.contacto,
-              logo: formData.logo,
-              latitud: this.selectedCoordinates.lat,
-              longitud: this.selectedCoordinates.lng,
-              QR_pago: formData.qr_pago
-            };
-    
-            await this.empresasService.updateEmpresa(this.userId, empresaActualizada);
-            alert('Empresa actualizada con éxito');
-            window.location.reload(); 
+            if (this.selectedImage) {
+              formData.append('logo', this.selectedImage);
+            }
 
+            if (this.selectedImageQR) {
+              formData.append('QR_pago', this.selectedImageQR);
+            }
+
+            await this.empresasService.updateEmpresa(this.userId, formData);
+            alert('Empresa actualizada con éxito');
+            window.location.reload();
           }
         } catch (error) {
           console.error('Error al actualizar:', error);
           alert('Error al actualizar la información. Por favor, intente nuevamente.');
         }
       } else {
-        console.error('Formulario inválido');
         alert('Por favor, complete todos los campos requeridos correctamente.');
       }
     }

@@ -1,5 +1,5 @@
 <!-- Sección form -->
-<form (ngSubmit)="crearRegistro()" novalidate>
+<form (ngSubmit)="crearRegistro()" novalidate >
     <h1>Registrarse</h1>
     <!-- div nombre completo y correo-->
     <img src="assets/images/registro.svg" alt="Solicitar URL de imagen" style="width: 100px;" />
@@ -11,16 +11,14 @@
         </mat-select>
         <mat-error *ngIf="userType.invalid && userType.touched">Selecciona un tipo de usuario</mat-error>
     </mat-form-field> 
-    <mat-form-field id="img-registro" class="center-field">
-        Ingresa el link de tu imagen:
-        <input matInput [formControl]="logo" name="Logo o foto">
-        <mat-error *ngIf="logo.invalid && logo.touched">Ingresa un link de imagen para tu logo</mat-error>
-    </mat-form-field>
-    <mat-form-field *ngIf="userType.value === 'empresa'" appearance="fill" class="center-field">
-        Ingresa el link de tu pago por QR
-        <input matInput [formControl]="qr_pago">
-        <mat-error *ngIf="qr_pago.invalid && qr_pago.touched">Ingresa un link de QR de pago válido</mat-error>
-    </mat-form-field>       
+    <div id="img-registro" class="center-field">
+        <mat-label>Selecciona tu imagen</mat-label>
+        <input type="file" (change)="onFileSelected($event)" accept=".png,.jpeg,.webp" />
+    </div>
+    <div *ngIf="userType.value === 'empresa'" id="img-registro" class="center-field">
+        <mat-label>Selecciona tu QR de pago</mat-label>
+        <input type="file" (change)="onFileSelectedQR($event)" accept=".png,.jpeg,.webp" />
+    </div>
     <div class="form-2-fields">
 
         <mat-form-field>
@@ -105,7 +103,7 @@
     </div>
 
     <!-- creación de cuenta-->
-    <button mat-stroked-button (click)="crearRegistro()" id="registrarse">Registrarse</button>
+    <button mat-stroked-button type="submit" id="registrarse">Registrarse</button>
 </form>
   
   

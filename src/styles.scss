@@ -32,18 +32,6 @@
 
 // Estilos de la página
 
-html, body {
-    height: 100%; 
-}
-
-
-body{
-    margin: 0;
-    color: #120D31;
-    background-color:  #EBD2BE;
-    font-family: 'Poppins' , sans-serif;
-}
-
 a{
     text-decoration: none;
 }
@@ -53,7 +41,4 @@ a:visited, a:-webkit-any-link {
 }
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: 'Poppins', sans-serif; color: #120D31; background-color:  #EBD2BE;}
