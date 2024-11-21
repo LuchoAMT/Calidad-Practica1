@@ -32,7 +32,6 @@
     zoom = 15;
     selectedCoordinates: google.maps.LatLngLiteral = { lat: 0, lng: 0 }; 
 
-    readonly qr_pago = new FormControl('', [Validators.required, Validators.pattern('https?://.+')]);
     readonly email = new FormControl('', [Validators.required, Validators.email]);
     readonly nombre = new FormControl('', [Validators.required]);
     readonly password = new FormControl('', [Validators.required]);
@@ -47,6 +46,7 @@
     hide = true;
     termsAccepted: boolean = false; 
     selectedFile: File | null = null;
+    selectedFileQR: File | null = null;
 
     constructor(private router: Router, private empresasService:EmpresasService, private negociosService:NegociosService) {}
 
@@ -67,6 +67,26 @@
         }
     
         this.selectedFile = file;
+      }
+    }
+
+    onFileSelectedQR(event: Event) {
+      const input = event.target as HTMLInputElement;
+      if (input.files && input.files.length) {
+        const fileQR = input.files[0];
+    
+        // Validar tipo y tamaño del archivo (opcional)
+        const validTypes = ['image/png', 'image/jpeg', 'image/webp'];
+        if (!validTypes.includes(fileQR.type)) {
+          alert('Por favor, selecciona un archivo de imagen válido (png, jpg, webp).');
+          return;
+        }
+        if (fileQR.size > 5 * 1024 * 1024) { 
+          alert('El archivo seleccionado es demasiado grande. Máximo 5MB.');
+          return;
+        }
+    
+        this.selectedFileQR = fileQR;
       }
     }
 
@@ -116,9 +136,10 @@
     
       // Asignar datos de acuerdo con el usuario seleccionado
       if (this.userType.value === 'empresa') {
-        // Verificar que el campo QR_pago esté completo
-        if (!this.qr_pago.value) {
-          alert('Por favor, ingrese un link de QR de pago válido.');
+
+        
+        if (!this.selectedFileQR) {
+          alert('Por favor, seleccione una imagen para el pago por QR.');
           return;
         }
     
@@ -132,7 +153,7 @@
         formData.append('longitud', this.selectedCoordinates.lng.toString());
         formData.append('contacto', this.contacto.value);
         formData.append('logo', this.selectedFile!);
-        formData.append('QR_pago', this.qr_pago.value);
+        formData.append('QR_pago', this.selectedFileQR!);
     
         try {
           const empresaCreada = await this.empresasService.crearEmpresa(formData);

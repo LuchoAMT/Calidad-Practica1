@@ -1,5 +1,5 @@
 import { Component,OnInit,ViewChild  } from '@angular/core';
-import { ActivatedRoute,RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { ActivatedRoute,RouterLink, RouterLinkActive} from '@angular/router';
 import { Empresa } from '../../interfaces/empresa';
 import { EmpresasService } from '../../servicios/empresas.service';
 import {MatButtonModule} from '@angular/material/button';
@@ -13,7 +13,7 @@ import { QRCodeModule } from 'angularx-qrcode';
 @Component({
   selector: 'app-detalles-empresa',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive,MatButtonModule, GoogleMapsModule,CommonModule, QRCodeModule],
+  imports: [RouterLink, RouterLinkActive,MatButtonModule, GoogleMapsModule,CommonModule, QRCodeModule],
   templateUrl: './detalles-empresa.component.html',
   styleUrl: './detalles-empresa.component.scss'
 })

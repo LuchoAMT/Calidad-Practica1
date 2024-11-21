@@ -1,7 +1,7 @@
 <div class="container">
   @for(empresa of empresas; track empresa.id_empresa){
   <mat-card  class="company">
-    <img mat-card-image [src]="empresa.logo" alt="Imagen de la empresa">
+    <img mat-card-image [src]="empresa?.logo" alt="Imagen de la empresa"/>
     <div class="company-name-bk"></div>
     <mat-card-content  class="company-name">
       <mat-card-title>{{ empresa.nombre }}</mat-card-title>

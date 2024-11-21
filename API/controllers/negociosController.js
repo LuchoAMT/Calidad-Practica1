@@ -38,20 +38,22 @@ exports.obtenerNegocios = async (req, res) => {
 
 exports.obtenerNegocioPorId = async (req, res) => {
     const negocioId = req.params.id_negocio;
-    
+
     try {
-        // Usar await para manejar la promesa de la consulta
         const [results] = await db.query('SELECT * FROM negocios WHERE id_negocio = ?', [negocioId]);
 
-        // Verificar si se encontró la negocio
         if (results.length === 0) {
-            return res.status(404).send('negocio no encontrado.');
+            return res.status(404).send('Negocio no encontrado.');
         }
 
-        // Enviar la primera coincidencia
-        res.json(results[0]);
+        const negocio = results[0];
+
+        if (negocio.foto) {
+            negocio.foto = `data:image/png;base64,${negocio.foto.toString('base64')}`;
+        }
+        
+        res.json(negocio);
     } catch (err) {
-        // Manejo de errores
         return res.status(500).send('Error al consultar el negocio.');
     }
 };

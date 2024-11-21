@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
@@ -12,7 +12,7 @@ import { QRCodeModule } from 'angularx-qrcode';
 @Component({
   selector: 'app-detalle-negocio',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, MatButtonModule, GoogleMapsModule, CommonModule, QRCodeModule],
+  imports: [RouterLink, RouterLinkActive, MatButtonModule, GoogleMapsModule, CommonModule, QRCodeModule],
   templateUrl: './detalle-negocio.component.html',
   styleUrls: ['./detalle-negocio.component.scss']
 })

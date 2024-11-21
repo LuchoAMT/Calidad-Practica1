@@ -17,17 +17,16 @@ export class NegociosService {
 
   // Configuración base de headers
   private getHeaders(): Headers {
-    const headers = new Headers({
-      'Content-Type': 'application/json',
-    });
-    
+    const headers = new Headers();
+  
     const token = this.getToken();
     if (token) {
       headers.append('Authorization', `Bearer ${token}`);
     }
-    
-    return headers;
+  
+    return headers; 
   }
+  
 
   // Método para obtener todas las Negocios
   async getNegocios(): Promise<Negocio[]> {
@@ -42,11 +41,11 @@ export class NegociosService {
     return Negocio;
   }
 
-  // Método para crear un negocio, ahora acepta FormData
+  // Método para crear un negocio
   async crearNegocio(formData: FormData): Promise<Negocio> {
     const resp = await fetch(this.apiUrl, {
       method: 'POST',
-      body: formData, // Usamos FormData directamente
+      body: formData,
     });
   
     if (!resp.ok) {
@@ -58,18 +57,18 @@ export class NegociosService {
   }
 
   // Método para actualizar la información de un negocio
-  async updateNegocio(id: number, negocio: Negocio): Promise<Negocio> {
+  async updateNegocio(id: number, formData: FormData): Promise<Negocio> {
     const resp = await fetch(`${this.apiUrl}/${id}`, {
       method: 'PUT',
       headers: this.getHeaders(),
-      body: JSON.stringify(negocio),
+      body: formData, 
     });
-
+  
     if (!resp.ok) {
       const error = await resp.json();
       throw new Error(error.mensaje || 'Error al actualizar el negocio');
     }
-
+  
     return await resp.json();
   }
 

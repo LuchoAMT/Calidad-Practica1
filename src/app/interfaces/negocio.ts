@@ -7,5 +7,5 @@ export interface Negocio {
   latitud: number;
   longitud: number;
   contacto: string;
-  foto: string | Blob; 
+  foto: string; 
 }

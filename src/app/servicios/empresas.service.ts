@@ -17,17 +17,16 @@ export class EmpresasService {
 
   // Configuración base de headers
   private getHeaders(): Headers {
-    const headers = new Headers({
-      'Content-Type': 'application/json',
-    });
-    
+    const headers = new Headers();
+  
     const token = this.getToken();
     if (token) {
       headers.append('Authorization', `Bearer ${token}`);
     }
-    
-    return headers;
+  
+    return headers; 
   }
+  
 
   // Método para obtener todas las empresas
   async getEmpresas(): Promise<Empresa[]> {
@@ -58,20 +57,21 @@ export class EmpresasService {
   }
   
   // Método para actualizar la información de un negocio
-  async updateEmpresa(id: number, empresa: Empresa): Promise<Empresa> {
+  async updateEmpresa(id: number, formData: FormData): Promise<Empresa> {
     const resp = await fetch(`${this.apiUrl}/${id}`, {
       method: 'PUT',
       headers: this.getHeaders(),
-      body: JSON.stringify(empresa),
+      body: formData,
     });
-
+  
     if (!resp.ok) {
       const error = await resp.json();
       throw new Error(error.mensaje || 'Error al actualizar la empresa');
     }
-
+  
     return await resp.json();
   }
+  
 
   async eliminarEmpresa(id: number): Promise<void> {
     const resp = await fetch(`${this.apiUrl}/${id}`, {

@@ -10,7 +10,7 @@ const { crearEmpresa, obtenerEmpresas, obtenerEmpresaPorId, eliminarEmpresa, act
 const router = express.Router();
 
 // Crear una empresa
-router.post('/', upload.single('logo'), crearEmpresa); 
+router.post('/', upload.fields([{ name: 'logo' }, { name: 'QR_pago' }]), crearEmpresa);
 
 // Obtener las empresas
 router.get('/', obtenerEmpresas);
@@ -19,7 +19,7 @@ router.get('/', obtenerEmpresas);
 router.get('/:id_empresa', obtenerEmpresaPorId);
 
 // Actualizar una empresa
-router.put('/:id_empresa', verificarToken, upload.single('logo'), actualizarEmpresa);
+router.put('/:id_empresa', verificarToken, upload.fields([{ name: 'logo' }, { name: 'QR_pago' }]), actualizarEmpresa);
 
 // Eliminar una empresa
 router.delete('/:id_empresa', verificarToken, eliminarEmpresa);

@@ -34,6 +34,7 @@ export class EditarCuentaComponent implements OnInit {
     userId: number;    
     hide = true;
     selectedImage: File | null = null;
+    selectedImageQR: File | null = null;
     imageUrl: string = '';
     imageQR: string = ''
 
@@ -68,17 +69,13 @@ export class EditarCuentaComponent implements OnInit {
       } else {
         console.error('Error: userId es null');
       }
-
-      this.editarCuentaForm.get('qr_pago')?.valueChanges.subscribe(value => {
-        this.imageQR = value || '';  
-      });
     }
 
     onImageSelected(event: any): void {
       const file: File = event.target.files[0];
       if (file) {
         this.selectedImage = file;
-        // Actualizar la vista con la imagen seleccionada
+    
         const reader = new FileReader();
         reader.onload = () => {
           this.imageUrl = reader.result as string;
@@ -87,18 +84,18 @@ export class EditarCuentaComponent implements OnInit {
       }
     }
 
-    blobToBase64(blob: Blob): Promise<string> {
-      return new Promise((resolve, reject) => {
+    onImageSelectedQR(event: any): void {
+      const fileQR: File = event.target.files[0];
+      if (fileQR) {
+        this.selectedImageQR = fileQR;
+    
         const reader = new FileReader();
-        reader.onloadend = () => {
-          // Convertimos el resultado a base64
-          const base64 = reader.result as string;
-          resolve(base64.split(',')[1]);
+        reader.onload = () => {
+          this.imageQR = reader.result as string;
         };
-        reader.onerror = reject;
-        reader.readAsDataURL(blob); 
-      });
-    }    
+        reader.readAsDataURL(fileQR);
+      }
+    }
 
     seleccionarPunto(event: google.maps.MapMouseEvent) {
       if (event.latLng) {
@@ -107,71 +104,53 @@ export class EditarCuentaComponent implements OnInit {
     }
 
     async cargarDatosUsuario(): Promise<void> {
-      if (this.userType === 'empresa') {
-        // Llama al servicio para obtener los datos de la empresa
-        const empresa: Empresa = await this.empresasService.getEmpresa(this.userId);
-
-        // Verificar si el logo es un Blob
-        if (empresa.logo && typeof empresa.logo === 'object' && empresa.logo instanceof Blob) {
-          // Si es un Blob, creamos un URL para él
-          this.imageUrl = URL.createObjectURL(empresa.logo); 
-        } else {
-          // Si no es un Blob (probablemente una URL o base64), asignarlo directamente
-          this.imageUrl = empresa.logo; 
+      try {
+        if (this.userType === 'empresa') {
+          // Llama al servicio para obtener los datos de la empresa
+          const empresa: Empresa = await this.empresasService.getEmpresa(this.userId);
+    
+          this.editarCuentaForm.patchValue({
+            nombre: empresa.nombre,
+            correo: empresa.correo,
+            contacto: empresa.contacto,
+            descripcion: empresa.descripcion,
+            qr_pago: empresa.QR_pago
+          });
+    
+          this.imageUrl = empresa.logo;
+          this.imageQR = empresa.QR_pago;
+          this.previousPassword = empresa.contraseña; 
+    
+          // Cargar coordenadas de la empresa
+          this.selectedCoordinates.lat = Number(empresa.latitud);
+          this.selectedCoordinates.lng = Number(empresa.longitud);
+    
+          this.center = { lat: this.selectedCoordinates.lat, lng: this.selectedCoordinates.lng };
+        } else if (this.userType === 'negocio') {
+          // Llama al servicio para obtener los datos del negocio
+          const negocio: Negocio = await this.negociosService.getNegocio(this.userId);
+    
+          this.editarCuentaForm.patchValue({
+            nombre: negocio.nombre,
+            correo: negocio.correo,
+            contacto: negocio.contacto,
+            descripcion: negocio.informacion
+          });
+    
+          this.imageUrl = negocio.foto;
+          this.imageQR = '';
+          this.previousPassword = negocio.contraseña;
+    
+          // Cargar coordenadas del negocio
+          this.selectedCoordinates.lat = Number(negocio.latitud);
+          this.selectedCoordinates.lng = Number(negocio.longitud);
+    
+          this.center = { lat: this.selectedCoordinates.lat, lng: this.selectedCoordinates.lng };
         }
-
-
-        this.editarCuentaForm.patchValue({
-          nombre: empresa.nombre,
-          correo: empresa.correo,
-          contacto: empresa.contacto, 
-          logo: empresa.logo,
-          descripcion: empresa.descripcion,
-          qr_pago: empresa.QR_pago
-        });
-
-        this.previousPassword = empresa.contraseña; 
-        this.imageQR = empresa.QR_pago || '';
-
-        // Cargar coordenadas de la empresa
-        this.selectedCoordinates.lat = Number(empresa.latitud); 
-        this.selectedCoordinates.lng = Number(empresa.longitud); 
-
-        this.center = { lat: this.selectedCoordinates.lat, lng: this.selectedCoordinates.lng }; 
-      } else if (this.userType === 'negocio') {
-        // Llama al servicio para obtener los datos del negocio
-        const negocio: Negocio = await this.negociosService.getNegocio(this.userId);
-
-        // Verificar si el logo es un Blob o Buffer
-        if (negocio.foto) {
-          if (negocio.foto instanceof Blob) {
-            this.imageUrl = URL.createObjectURL(negocio.foto);
-          } else if (Buffer.isBuffer(negocio.foto)) {
-            const blob = new Blob([negocio.foto], { type: 'image/jpeg' });
-            this.imageUrl = URL.createObjectURL(blob);
-          } else {
-            this.imageUrl = negocio.foto; // Asignar directamente si es una cadena
-          }
-        } else {
-          this.imageUrl = 'assets/images/registro.svg'; // Imagen por defecto
-        }
-        
-        this.editarCuentaForm.patchValue({
-          nombre: negocio.nombre,
-          correo: negocio.correo,
-          contacto: negocio.contacto,
-          descripcion: negocio.informacion
-        });
-
-        this.imageQR = '';
-        this.previousPassword = negocio.contraseña;
-
-        // Cargar coordenadas del negocio
-        this.selectedCoordinates.lat = Number(negocio.latitud); 
-        this.selectedCoordinates.lng = Number(negocio.longitud); 
-        this.center = { lat: this.selectedCoordinates.lat, lng: this.selectedCoordinates.lng }; 
+      } catch (error) {
+        console.error('Error al cargar los datos del usuario:', error);
       }
-    }
+    }    
 
     togglePasswordVisibility() {
       this.hide = !this.hide;
@@ -179,57 +158,49 @@ export class EditarCuentaComponent implements OnInit {
     
     async onSubmit(): Promise<void> {
       if (this.editarCuentaForm.valid) {
-        const formData = this.editarCuentaForm.value;
-        
-        if (formData.nuevaContraseña && formData.nuevaContraseña !== formData.confirmarContraseña) {
-          console.error('Las contraseñas no coinciden');
-          return;
-        }
+          const formData = new FormData();
+
+          const formValues = this.editarCuentaForm.value; 
+          
+          formData.append('nombre', formValues.nombre || '');
+          formData.append('correo', formValues.correo || '');
+          formData.append('contacto', formValues.contacto || '');
+          formData.append('descripcion', formValues.descripcion || '');
+          formData.append('latitud', this.selectedCoordinates.lat.toString());
+          formData.append('longitud', this.selectedCoordinates.lng.toString());
+
+          if (formValues.nuevaContraseña) {
+            formData.append('nuevaContraseña', formValues.nuevaContraseña);
+          }
+
     
         try {
           if (this.userType === 'negocio') {
-            const negocioActualizado: Negocio = {
-              id_negocio: this.userId,
-              nombre: formData.nombre,
-              correo: formData.correo,
-              contraseña: formData.nuevaContraseña || this.previousPassword,
-              contacto: formData.contacto,
-              foto: formData.logo,
-              informacion: formData.descripcion,
-              latitud: this.selectedCoordinates.lat,
-              longitud: this.selectedCoordinates.lng
-            };
-    
-            await this.negociosService.updateNegocio(this.userId, negocioActualizado);
+            if (this.selectedImage) {
+              formData.append('foto', this.selectedImage);
+            }
+
+            await this.negociosService.updateNegocio(this.userId, formData);
             alert('Negocio actualizado con éxito');
-            window.location.reload(); 
-
-
+            window.location.reload();
           } else if (this.userType === 'empresa') {
-            const empresaActualizada: Empresa = {
-              id_empresa: this.userId,
-              nombre: formData.nombre,
-              correo: formData.correo,
-              contraseña: formData.nuevaContraseña || this.previousPassword,
-              descripcion: formData.descripcion,
-              contacto: formData.contacto,
-              logo: formData.logo,
-              latitud: this.selectedCoordinates.lat,
-              longitud: this.selectedCoordinates.lng,
-              QR_pago: formData.qr_pago
-            };
-    
-            await this.empresasService.updateEmpresa(this.userId, empresaActualizada);
-            alert('Empresa actualizada con éxito');
-            window.location.reload(); 
+            if (this.selectedImage) {
+              formData.append('logo', this.selectedImage);
+            }
 
+            if (this.selectedImageQR) {
+              formData.append('QR_pago', this.selectedImageQR);
+            }
+
+            await this.empresasService.updateEmpresa(this.userId, formData);
+            alert('Empresa actualizada con éxito');
+            window.location.reload();
           }
         } catch (error) {
           console.error('Error al actualizar:', error);
           alert('Error al actualizar la información. Por favor, intente nuevamente.');
         }
       } else {
-        console.error('Formulario inválido');
         alert('Por favor, complete todos los campos requeridos correctamente.');
       }
     }

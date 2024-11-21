@@ -4,21 +4,21 @@
           <h1>Editar Cuenta</h1>
           <div class="image-link">
             <div class="image-form-container">
-              <img *ngIf="imageUrl;" [src]="imageUrl" loading="lazy" alt="Imagen de logo" style="width: 250px;" />            
+              <img *ngIf="imageUrl;" [src]="imageUrl" loading="lazy" alt="Imagen actual del negocio o empresa" style="width: 250px;" />            
               <div id="img-edicion" class="center-field">
                 <mat-label>Edita tu imagen</mat-label>
-                <input type="file" accept=".png,.jpg,.jpeg,.webp" (change)="onImageSelected($event)">
+                <input type="file" accept=".png,.jpeg,.webp" (change)="onImageSelected($event)">
               </div>
             </div>
-          </div>          
-      
-          <div class="image-link">
+          </div>
+          
+          <div *ngIf="userType === 'empresa'" class="image-link">
             <div class="image-form-container">
-              <img *ngIf="imageQR" [src]="imageQR" loading="lazy" alt="Imagen QR" style="width: 300px;" />
-              <mat-form-field *ngIf="userType === 'empresa'" appearance="fill" class="center-field">
-                <mat-label>QR Pago</mat-label>
-                <input matInput formControlName="qr_pago">
-              </mat-form-field>
+              <img *ngIf="imageQR" [src]="imageQR" loading="lazy" alt="Imagen actual del QR" style="width: 250px;" />            
+              <div id="img-edicion" class="center-field">
+                <mat-label>Edita tu QR de pago</mat-label>
+                <input type="file" accept=".png,.jpeg,.webp" (change)="onImageSelectedQR($event)">
+              </div>
             </div>
           </div>
         </div>

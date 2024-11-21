@@ -13,13 +13,12 @@
     </mat-form-field> 
     <div id="img-registro" class="center-field">
         <mat-label>Selecciona tu imagen</mat-label>
-        <input type="file" (change)="onFileSelected($event)" accept=".png,.jpg,.jpeg,.webp" />
+        <input type="file" (change)="onFileSelected($event)" accept=".png,.jpeg,.webp" />
     </div>
-    <mat-form-field *ngIf="userType.value === 'empresa'" appearance="fill" class="center-field">
-        Ingresa el link de tu pago por QR
-        <input matInput [formControl]="qr_pago">
-        <mat-error *ngIf="qr_pago.invalid && qr_pago.touched">Ingresa un link de QR de pago válido</mat-error>
-    </mat-form-field>       
+    <div *ngIf="userType.value === 'empresa'" id="img-registro" class="center-field">
+        <mat-label>Selecciona tu QR de pago</mat-label>
+        <input type="file" (change)="onFileSelectedQR($event)" accept=".png,.jpeg,.webp" />
+    </div>
     <div class="form-2-fields">
 
         <mat-form-field>
