@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, RouterLink, RouterLinkActive} from '@angular/router';
 import { Producto } from '../../interfaces/producto';
 import { ProductosService } from '../../servicios/productos.service';
 import {MatButtonModule} from '@angular/material/button';
@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-detalle-producto',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, MatButtonModule, CommonModule],
+  imports: [RouterLink, RouterLinkActive, MatButtonModule, CommonModule],
   templateUrl: './detalle-producto.component.html',
   styleUrl: './detalle-producto.component.scss'
 })

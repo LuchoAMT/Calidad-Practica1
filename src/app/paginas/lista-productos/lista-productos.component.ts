@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductosService } from '../../servicios/productos.service';
-import { EmpresasService } from '../../servicios/empresas.service';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { AsyncPipe } from '@angular/common';
 import { Router, RouterLink, ActivatedRoute } from '@angular/router';
@@ -52,7 +51,6 @@ export class ListaProductosComponent implements OnInit {
 
   constructor(
     private productosService: ProductosService,
-    private empresasService: EmpresasService,
     private route: ActivatedRoute,
     private router: Router,
     private snackBar: MatSnackBar,
@@ -90,9 +88,15 @@ export class ListaProductosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe(async params => {
       this.idEmpresa = params['id_empresa'] ? Number(params['id_empresa']) : null;
-      this.obtenerProductos();
+      const filtroDescuento = params['descuento'] === 'true'; // Verifica si se activó el filtro de descuento
+      await this.obtenerProductos();
+
+      if (filtroDescuento) {
+        // Filtra productos con descuento > 0
+        this.productos = this.productos.filter(producto => producto.descuento > 0);
+      }
     });
   }
 

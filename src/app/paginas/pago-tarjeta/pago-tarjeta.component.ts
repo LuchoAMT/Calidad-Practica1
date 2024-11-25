@@ -9,6 +9,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { Producto } from '../../interfaces/producto';
 import { Empresa } from '../../interfaces/empresa';
 import { EmpresasService } from '../../servicios/empresas.service';
+import { ProductosService } from '../../servicios/productos.service';
 
 @Component({
   selector: 'app-pago-tarjeta',
@@ -25,7 +26,7 @@ export class PagoTarjetaComponent {
   deudasPorEmpresa: { id_empresa: number, total_deuda: number, nombre: string, QR_pago: string }[] = [];
   imagenesComprobantes: { [key: number]: File } = {};
 
-  constructor(private carritoService: CarritoService, private router: Router, private empresaService: EmpresasService) {}
+  constructor(private carritoService: CarritoService, private router: Router, private empresaService: EmpresasService,  private productosService: ProductosService) {}
 
   ngOnInit(): void {
     this.productosCarrito = this.carritoService.getProductosCarrito();
@@ -38,7 +39,12 @@ export class PagoTarjetaComponent {
   
     for (const item of this.productosCarrito) {
       const producto: Producto = item.producto;
-      const totalProducto = producto.precio * item.cantidad;
+
+      const precioFinal = producto.descuento > 0 
+      ? this.productosService.calcularPrecioDescuento(producto.precio, producto.descuento)
+      : producto.precio;
+
+      const totalProducto = precioFinal * item.cantidad;
       const id_empresa = producto.id_empresa;
   
       const empresa = this.empresas.find(e => e.id_empresa === id_empresa);
@@ -49,7 +55,7 @@ export class PagoTarjetaComponent {
           deudas[id_empresa] = {
             total_deuda: totalProducto,
             nombre: empresa.nombre,
-            QR_pago: empresa.QR_pago
+            QR_pago: empresa.QR_pago,
           };
         }
       }
@@ -60,7 +66,7 @@ export class PagoTarjetaComponent {
       id_empresa: Number(id_empresa),
       total_deuda: deudas[Number(id_empresa)].total_deuda,
       nombre: deudas[Number(id_empresa)].nombre,
-      QR_pago: deudas[Number(id_empresa)].QR_pago
+      QR_pago: deudas[Number(id_empresa)].QR_pago,
     }));
   }
 

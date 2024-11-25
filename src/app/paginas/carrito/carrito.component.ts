@@ -1,14 +1,16 @@
-import { Component, Input } from '@angular/core';
+import { Component} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { Producto } from '../../interfaces/producto';
 import { CarritoService } from '../../servicios/carrito.service';
+import { ProductosService } from '../../servicios/productos.service';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-carrito',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, MatButtonModule],
+  imports: [RouterLink, RouterLinkActive, MatButtonModule, CommonModule],
   templateUrl: './carrito.component.html',
   styleUrl: './carrito.component.scss'
 })
@@ -17,7 +19,7 @@ export class CarritoComponent {
   productosCarrito: { producto: Producto, cantidad: number }[] = [];
   totalCarrito: number = 0;
 
-  constructor(private carritoService: CarritoService) {} 
+  constructor(private carritoService: CarritoService, private productoService: ProductosService) {} 
 
   ngOnInit(): void {
     const idUsuario = Number(localStorage.getItem('userId'));
@@ -35,7 +37,12 @@ export class CarritoComponent {
     this.productosCarrito = this.carritoService.getProductosCarrito();
   }
 
-  // Método para obtener el total de los productos en el carrito
+  getPrecioFinal(producto: Producto): number {
+    return producto.descuento > 0 
+      ? this.productoService.calcularPrecioDescuento(producto.precio, producto.descuento) 
+      : producto.precio;
+  }
+
   getTotal(): number {
     return this.carritoService.getTotal();  
   }
@@ -72,7 +79,12 @@ export class CarritoComponent {
   }
 
   calcularTotalCarrito() {
-    this.totalCarrito = this.carritoService.getTotal();
+    this.totalCarrito = this.productosCarrito.reduce((total, item) => {
+      const precioFinal = item.producto.descuento > 0 
+        ? this.productoService.calcularPrecioDescuento(item.producto.precio, item.producto.descuento)
+        : item.producto.precio;
+      return total + (precioFinal * item.cantidad);
+    }, 0);
   }
 
   async confirmarPedido() {

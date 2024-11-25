@@ -17,12 +17,10 @@
       <h1 class="producto-nombre">{{producto?.nombre}}</h1>
       <h2 class="producto-precio">{{producto?.precio}} Bs.</h2>
 
-      <div *ngIf="producto?.descuento" class="producto-descuento">
-        <h3>Descuento:</h3>
-        <p>{{ producto?.descuento }}%</p>
+      <div *ngIf="(producto?.descuento ?? 0) > 0" class="producto-descuento">
         <h3>Precio con descuento:</h3>
-        <p>{{ calcularPrecioDescuento(producto?.precio!, producto?.descuento!) }} Bs.</p>
-      </div>
+        <p>{{ calcularPrecioDescuento(producto?.precio ?? 0, producto?.descuento ?? 0) }} Bs. ({{ producto?.descuento ?? 0 }}%)</p>
+      </div>                
 
       <p class="producto-descripcion">{{producto?.descripcion}}</p>
 

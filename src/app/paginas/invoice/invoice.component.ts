@@ -14,22 +14,34 @@ import { RouterLink } from '@angular/router';
 })
 export class InvoiceComponent implements OnInit {
   productosCarrito: { producto: any, cantidad: number }[] = [];
-  total: number = 0;
   currentDate: Date = new Date(); // Agrega esta línea
   nombreCliente: string = '';
   constructor(private carritoService: CarritoService) {}
 
   ngOnInit(): void {
-    this.productosCarrito = this.carritoService.getProductosCarrito();
-    this.total = this.carritoService.getTotal();
+    this.productosCarrito = this.carritoService.getProductosCarrito().map(item => {
+      item.producto.descuento = item.producto.descuento ?? 0;
+      return item;
+    });    
     this.nombreCliente = this.carritoService.getNombreCliente();
     console.log('Nombre del cliente:', this.nombreCliente);
   }
 
+  calcularPrecioDescuento(precio: number, descuento: number): number {
+    return precio - (precio * descuento) / 100;
+  }
 
+  calcularTotal(): number {
+    return this.productosCarrito.reduce((total, item) => {
+      const precioFinal = item.producto.descuento > 0 
+        ? this.calcularPrecioDescuento(item.producto.precio, item.producto.descuento) 
+        : item.producto.precio;
+      return total + precioFinal * item.cantidad;
+    }, 0);
+  }
 
   generatePDF() {
-    const data = document.getElementById('invoice'); // Asegúrate de que el ID coincida con el contenedor de la factura
+    const data = document.getElementById('invoice'); 
 
     if (data) {
       html2canvas(data).then(canvas => {

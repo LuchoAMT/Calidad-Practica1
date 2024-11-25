@@ -7,7 +7,7 @@
   <div class="invoice-details">
     <h2>Detalles de la Factura</h2>
     <p><strong>Fecha:</strong> {{ currentDate | date: 'dd/MM/yyyy' }}</p>
-    <p><strong>Cliente:</strong> {{ nombreCliente }}</p> <!-- Muestra el nombre del cliente -->
+    <p><strong>Cliente:</strong> {{ nombreCliente }}</p>
   </div>
 
   <table class="invoice-table">
@@ -22,15 +22,34 @@
     <tbody>
       <tr *ngFor="let item of productosCarrito">
         <td>{{ item.producto.nombre }}</td>
-        <td>{{ item.producto.precio }} Bs.</td>
+        <td>         
+          <p>
+            <span *ngIf="item.producto.descuento > 0; else precioSinDescuento" class="descuento">
+              {{ calcularPrecioDescuento(item.producto.precio, item.producto.descuento) }} Bs.
+              <small>({{ item.producto.descuento }}%)</small>
+            </span>
+            <ng-template #precioSinDescuento>
+              {{ item.producto.precio }} Bs.
+            </ng-template>
+          </p>
+        </td>
         <td>{{ item.cantidad }}</td>
-        <td>{{ item.producto.precio * item.cantidad }} Bs.</td>
+        <td>
+          <p>
+            <span *ngIf="item.producto.descuento > 0; else totalSinDescuento">
+              {{ calcularPrecioDescuento(item.producto.precio, item.producto.descuento) * item.cantidad }} Bs.
+            </span>
+            <ng-template #totalSinDescuento>
+              {{ item.producto.precio * item.cantidad }} Bs.
+            </ng-template>
+          </p>
+        </td>
       </tr>
     </tbody>
   </table>
 
   <div class="invoice-total">
-    <h2>Total: {{ total }} Bs.</h2>
+    <h2>Total: {{ calcularTotal() }} Bs.</h2>
   </div>
 
 

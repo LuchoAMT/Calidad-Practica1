@@ -1,12 +1,14 @@
 <div class="marquee">
   <div class="marquee-content">
-    <div>
-      <img src="assets/images/offers.svg" alt="Oferta de la pagina">
-      <p>¡Solo por hoy, descuentos en productos seleccionados!</p>
-      <img src="assets/images/offers.svg" alt="Oferta de la pagina">
-      <p>¡Solo por hoy, descuentos en productos seleccionados!</p>
-      <img src="assets/images/offers.svg" alt="Oferta de la pagina">
-    </div>
+    <a [routerLink]="['/productos']" [queryParams]="{ descuento: true }" routerLinkActive="active">
+      <div>
+        <img src="assets/images/offers.svg" alt="Oferta de la pagina">
+        <p>¡Solo por hoy, descuentos en productos seleccionados!</p>
+        <img src="assets/images/offers.svg" alt="Oferta de la pagina">
+        <p>¡Solo por hoy, descuentos en productos seleccionados!</p>
+        <img src="assets/images/offers.svg" alt="Oferta de la pagina">
+      </div>
+    </a>
   </div>
 </div>
 <!-- seccion header -->
@@ -64,7 +66,7 @@
           <ul>
             <li><a [routerLink]="['/productos']">Productos</a></li>
             <li><a [routerLink]="['/empresas']">Empresas</a></li>
-            <li><a [routerLink]="['/productos']" routerLinkActive="active">Ofertas</a></li>
+            <li><a [routerLink]="['/productos']" [queryParams]="{ descuento: true }" routerLinkActive="active">Ofertas</a></li>
             <li><a [routerLink]="['/terminos-condiciones']" routerLinkActive="active">Terminos y condiciones</a></li>
             <li><a [routerLink]="['/mision-vision']" routerLinkActive="active">Misión-Visión</a></li>
           </ul>
