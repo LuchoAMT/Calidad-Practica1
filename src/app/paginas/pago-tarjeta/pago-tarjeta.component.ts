@@ -19,7 +19,8 @@ import { ProductosService } from '../../servicios/productos.service';
   styleUrls: ['./pago-tarjeta.component.scss']
 })
 export class PagoTarjetaComponent {
-  nombreTitular: string = ''; 
+  nombreTitular: string = '';
+  nitCi: string = '';
   productosCarrito: { producto: any, cantidad: number }[] = [];
   empresas: Empresa[] = [];
   qrPagos: string[] = [];
@@ -30,23 +31,23 @@ export class PagoTarjetaComponent {
 
   ngOnInit(): void {
     this.productosCarrito = this.carritoService.getProductosCarrito();
-    console.log('Productos en el carrito:', this.productosCarrito); 
+    console.log('Productos en el carrito:', this.productosCarrito);
     this.obtenerQrPagos();
   }
 
   calcularDeudasPorEmpresa(): void {
     const deudas: { [id_empresa: number]: { total_deuda: number, nombre: string, QR_pago: string } } = {};
-  
+
     for (const item of this.productosCarrito) {
       const producto: Producto = item.producto;
 
-      const precioFinal = producto.descuento > 0 
+      const precioFinal = producto.descuento > 0
       ? this.productosService.calcularPrecioDescuento(producto.precio, producto.descuento)
       : producto.precio;
 
       const totalProducto = precioFinal * item.cantidad;
       const id_empresa = producto.id_empresa;
-  
+
       const empresa = this.empresas.find(e => e.id_empresa === id_empresa);
       if (empresa) {
         if (deudas[id_empresa]) {
@@ -60,7 +61,7 @@ export class PagoTarjetaComponent {
         }
       }
     }
-  
+
     // Convertir el objeto de deudas a un array
     this.deudasPorEmpresa = Object.keys(deudas).map(id_empresa => ({
       id_empresa: Number(id_empresa),
@@ -72,8 +73,8 @@ export class PagoTarjetaComponent {
 
   async obtenerQrPagos(): Promise<void> {
     const idsEmpresas = this.productosCarrito.map(producto => producto.producto.id_empresa);
-    const idsUnicos = Array.from(new Set(idsEmpresas)); 
-    
+    const idsUnicos = Array.from(new Set(idsEmpresas));
+
     for (const id of idsUnicos) {
       try {
         const empresa: Empresa = await this.empresaService.getEmpresa(id);
@@ -114,13 +115,14 @@ export class PagoTarjetaComponent {
       // Si estás usando el método de pago por tarjeta
       if (this.nombreTitular) {
         this.carritoService.setNombreCliente(this.nombreTitular); // Almacena el nombre en el servicio
+        this.carritoService.setNitCi(this.nitCi);
       }
 
       const idNegocio = Number(localStorage.getItem('userId'));
       await this.carritoService.crearPedido(idNegocio);
 
       // Redirigir a la página de factura
-      this.router.navigate(['/invoice']); 
+      this.router.navigate(['/invoice']);
     } catch (err) {
       console.error(err);
     }

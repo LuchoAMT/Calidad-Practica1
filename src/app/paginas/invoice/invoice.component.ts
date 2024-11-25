@@ -8,40 +8,37 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-invoice',
   standalone: true,
-  imports: [CommonModule,RouterLink],
+  imports: [CommonModule, RouterLink],
   templateUrl: './invoice.component.html',
   styleUrls: ['./invoice.component.scss']
 })
 export class InvoiceComponent implements OnInit {
   productosCarrito: { producto: any, cantidad: number }[] = [];
-  currentDate: Date = new Date(); // Agrega esta línea
+  total: number = 0;
+  currentDate: Date = new Date(); // Fecha actual
+  currentTime: string = ''; // Hora actual
   nombreCliente: string = '';
+  nitCi: string = ''; // NIT o CI del cliente
+
   constructor(private carritoService: CarritoService) {}
 
   ngOnInit(): void {
-    this.productosCarrito = this.carritoService.getProductosCarrito().map(item => {
-      item.producto.descuento = item.producto.descuento ?? 0;
-      return item;
-    });    
+    this.productosCarrito = this.carritoService.getProductosCarrito();
+    this.total = this.carritoService.getTotal();
     this.nombreCliente = this.carritoService.getNombreCliente();
+    this.nitCi = this.carritoService.getNitCi(); // Obtener el NIT o CI del servicio
+    this.updateTime(); // Inicializar la hora actual
     console.log('Nombre del cliente:', this.nombreCliente);
   }
 
-  calcularPrecioDescuento(precio: number, descuento: number): number {
-    return precio - (precio * descuento) / 100;
-  }
-
-  calcularTotal(): number {
-    return this.productosCarrito.reduce((total, item) => {
-      const precioFinal = item.producto.descuento > 0 
-        ? this.calcularPrecioDescuento(item.producto.precio, item.producto.descuento) 
-        : item.producto.precio;
-      return total + precioFinal * item.cantidad;
-    }, 0);
+  // Método para actualizar la hora actual
+  updateTime(): void {
+    const now = new Date();
+    this.currentTime = now.toLocaleTimeString(); // Formato de hora local (ej. 12:34:56)
   }
 
   generatePDF() {
-    const data = document.getElementById('invoice'); 
+    const data = document.getElementById('invoice'); // Asegúrate de que el ID coincida con el contenedor de la factura
 
     if (data) {
       html2canvas(data).then(canvas => {
@@ -60,5 +57,18 @@ export class InvoiceComponent implements OnInit {
         pdf.save('factura.pdf'); // Nombre del archivo PDF
       });
     }
+  }
+  calcularPrecioDescuento(precio: number, descuento: number): number {
+    return precio - (precio * descuento) / 100;
+  }
+
+  calcularTotal(): number {
+    return this.productosCarrito.reduce((total, item) => {
+      const precioFinal = item.producto.descuento > 0
+        ? this.calcularPrecioDescuento(item.producto.precio, item.producto.descuento)
+        : item.producto.precio;
+      return total + precioFinal * item.cantidad;
+    }, 0);
+
   }
 }

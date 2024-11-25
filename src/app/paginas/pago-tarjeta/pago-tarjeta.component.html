@@ -10,6 +10,10 @@
             <h3>Datos Factura (Nombre)</h3>
             <input type="text" id="nombreTitular" [(ngModel)]="nombreTitular" name="nombreTitular" required>
           </div>
+          <div class="form-group">
+            <h3>NIT o CI:</h3>
+            <input type="text" id="nitCi" [(ngModel)]="nitCi" name="nitCi" required>
+          </div>
         </form>
         <h2>{{ deuda.nombre }}</h2>
         <p>Total a deber: {{ deuda.total_deuda }} Bs.</p>

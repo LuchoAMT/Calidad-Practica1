@@ -102,7 +102,7 @@ export class CarritoService {
       } catch (error) {
         console.error('Error al actualizar el carrito en el backend:', error);
       }
-    } 
+    }
   }
 
   async agregarProductoAlCarrito(producto: Producto, id_usuario: number): Promise<void> {
@@ -162,6 +162,16 @@ export class CarritoService {
     return this.nombreCliente;
   }
 
+  private nitCi: string = '';
+
+  setNitCi(nitCi: string) {
+    this.nitCi = nitCi;
+  }
+
+  getNitCi(): string {
+    return this.nitCi;
+  }
+
   async crearPedido(id_negocio: number): Promise<any> {
     const productos = this.getProductosCarrito().map(item => ({
       id_producto: item.producto.id_producto,
@@ -197,14 +207,14 @@ export class CarritoService {
       if (!response.ok) {
         throw new Error(`Error al cargar el carrito: ${response.statusText}`);
       }
-  
+
       const carritoBackend = await response.json();
       console.log('Carrito recuperado del backend:', carritoBackend);
-  
+
       // Sincronizar con el estado local
       this.carritoItems = {};
       let totalProductos = 0;
-  
+
       carritoBackend.forEach((item: any) => {
         this.carritoItems[item.id_producto] = {
           producto: {
@@ -220,12 +230,12 @@ export class CarritoService {
         };
         totalProductos += item.cantidad;
       });
-  
+
       this.carritoCount.next(totalProductos);
       this.guardarCarritoEnStorage();
     } catch (error) {
       console.error('Error al recuperar el carrito desde el backend:', error);
     }
   }
-  
+
 }
