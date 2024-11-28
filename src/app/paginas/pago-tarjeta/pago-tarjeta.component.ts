@@ -110,21 +110,48 @@ export class PagoTarjetaComponent {
   }
 
   // Método para manejar el envío del formulario
-  async realizarPago() {
-    try {
-      // Si estás usando el método de pago por tarjeta
-      if (this.nombreTitular) {
-        this.carritoService.setNombreCliente(this.nombreTitular); // Almacena el nombre en el servicio
-        this.carritoService.setNitCi(this.nitCi);
-      }
+  // async realizarPago() {
+  //   try {
+  //     // Si estás usando el método de pago por tarjeta
+  //     if (this.nombreTitular) {
+  //       this.carritoService.setNombreCliente(this.nombreTitular); // Almacena el nombre en el servicio
+  //       this.carritoService.setNitCi(this.nitCi);
+  //     }
 
-      const idNegocio = Number(localStorage.getItem('userId'));
-      await this.carritoService.crearPedido(idNegocio);
+  //     const idNegocio = Number(localStorage.getItem('userId'));
+  //     await this.carritoService.crearPedido(idNegocio);
 
-      // Redirigir a la página de factura
-      this.router.navigate(['/invoice']);
-    } catch (err) {
-      console.error(err);
+  //     // Redirigir a la página de factura
+  //     this.router.navigate(['/invoice']);
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // }
+  // Método para manejar el envío del formulario
+async realizarPago() {
+  try {
+    // Verificar que todos los comprobantes estén subidos
+    const faltanComprobantes = this.deudasPorEmpresa.some(deuda => !this.imagenesComprobantes[deuda.id_empresa]);
+
+    if (faltanComprobantes) {
+      alert('Falta subir Comprobante de Pago para una o más empresas.');
+      return; // Detener la ejecución si faltan comprobantes
     }
+
+    // Si estás usando el método de pago por tarjeta
+    if (this.nombreTitular) {
+      this.carritoService.setNombreCliente(this.nombreTitular); // Almacena el nombre en el servicio
+      this.carritoService.setNitCi(this.nitCi);
+    }
+
+    const idNegocio = Number(localStorage.getItem('userId'));
+    await this.carritoService.crearPedido(idNegocio);
+
+    // Redirigir a la página de factura
+    this.router.navigate(['/invoice']);
+  } catch (err) {
+    console.error(err);
   }
+}
+
 }
