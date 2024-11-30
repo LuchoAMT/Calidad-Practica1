@@ -7,6 +7,15 @@
 
 }
 
+.division_2,.division_3{
+  display: flex;
+}
+
+.division_3{
+  gap: 10%;
+  flex-grow: 1;
+}
+
 .container-cart-products .container-cart {
   font-size: 30px;
   text-align: center;
@@ -26,7 +35,6 @@
 }
 
 .header-cart h3 {
-  font-size: 20px;
   margin: 0 5%;
 }
 
@@ -35,77 +43,54 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
- 
-  /* Imagen de fondo */
   background-size: cover;
-  /* Asegura que la imagen cubra todo el contenedor */
   background-position: center;
-  /* Centra la imagen */
   border-radius: 15px;
   padding: 30px;
   margin-top: 20px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  /* Sombra suave */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   color: white;
-  /* El texto será blanco para contrastar */
   backdrop-filter: blur(10px);
-  /* Desenfoque del fondo para mejorar la legibilidad del texto */
 }
 
 .total-container:hover {
   transform: translateY(-5px);
-  /* Efecto de elevación */
   box-shadow: 0 6px 30px rgba(0, 0, 0, 0.3);
-  /* Sombra más intensa al pasar el mouse */
 }
 
 .total-container p {
   font-size: 1.8rem;
-  /* Aumenta el tamaño de la fuente para hacerlo más visible */
   font-weight: bold;
-  /* Negrita para resaltar el total */
   text-align: center;
   margin-bottom: 20px;
-  /* Espacio entre el total y el botón */
   padding: 15px 25px;
   border-radius: 8px;
   background-color: rgba(0, 0, 0, 0.5);
-  /* Fondo oscuro semitransparente para contraste */
 }
 
 .total-container a {
   padding: 15px 30px;
   background-color: #FF6F61;
-  /* Color de fondo atractivo */
   color: white;
   text-decoration: none;
-  /* Elimina el subrayado del enlace */
   font-size: 1.2rem;
   font-weight: bold;
   border-radius: 25px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  /* Sombra sutil */
   transition: background-color 0.3s ease, transform 0.3s ease;
-  /* Transición suave */
   cursor: pointer;
   margin-top: 10px;
 }
 
 .total-container a:hover {
   background-color: #FF9A8B;
-  /* Color más claro al pasar el mouse */
   transform: translateY(-2px);
-  /* Efecto de elevación en el botón */
 }
 
 .total-container a:active {
   transform: translateY(1px);
-  /* Efecto de presionar el botón */
 }
-
-
-
 
 .mat-mdc-outlined-button:not(:disabled) {
   color: white;
@@ -188,7 +173,7 @@
   }
 
   .container-title {
-    width: 9.5%;
+    width: 40%;
   }
 
   .container-title h2 {
@@ -228,6 +213,50 @@
     color: black;
 
   }
+}
 
+@media (max-width: 800px) {
 
+  .header-cart,.division_2,.division_3{
+    flex-direction: column;
+  }
+
+  .container-cart-product{
+    margin: 10% 7.5%;
+  }
+
+  .container-cart-product .container-title{
+    margin-left: 5%;
+    margin-top: 10%;
+    width: 80%;
+  }
+
+  .division_3{
+    align-items: center;
+    text-align: center;
+  }
+  
+  .division_3 div{
+    margin: 2% 0;
+    width: 70%;
+  }
+
+  .container-cart-product .inferior{
+    display: block;
+    gap: 0;
+  }
+
+  .container-cart-product .inferior button{
+    margin-bottom: 7.5%;
+  }
+}
+
+@media (max-width: 500px) {
+
+    .container-cart-product .container-price,
+    .container-cart-product .container-quantity,
+    .container-cart-product .container-partial{
+      flex-basis: 100%;
+      margin-bottom: 10%;
+    }
 }

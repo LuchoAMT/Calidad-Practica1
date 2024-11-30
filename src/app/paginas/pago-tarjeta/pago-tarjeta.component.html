@@ -1,30 +1,25 @@
-<h1>Pago</h1>
-<mat-tab-group animationDuration="1000ms">
-
-
-  <mat-tab id="QR" label="QR">
-    <div class="deudas-container">
-      <div *ngFor="let deuda of deudasPorEmpresa" class="deuda">
-        <form class="credit-card-form" (ngSubmit)="realizarPago()">
-          <div class="form-group">
-            <h3>Datos Factura (Nombre)</h3>
-            <input type="text" id="nombreTitular" [(ngModel)]="nombreTitular" name="nombreTitular" required>
-          </div>
-          <div class="form-group">
-            <h3>NIT o CI:</h3>
-            <input type="text" id="nitCi" [(ngModel)]="nitCi" name="nitCi" required>
-          </div>
-        </form>
-        <h2>{{ deuda.nombre }}</h2>
-        <p>Total a deber: {{ deuda.total_deuda }} Bs.</p>
-        <img [src]="deuda.QR_pago" alt="QR de pago de {{ deuda.nombre }}" class="qr-image" />
-
-        <!-- Input para subir la imagen -->
-        <input type="file" (change)="onFileSelected($event, deuda)" accept="image/*" />
-        <button (click)="subirComprobante(deuda)">Sube el comprobante respectivo</button>
+<div class="deudas-container">
+  <h1>Pago por QR</h1>
+  <div *ngFor="let deuda of deudasPorEmpresa" class="deuda">
+    <form class="credit-card-form" (ngSubmit)="realizarPago()">
+      <div class="form-group">
+        <h3>Datos Factura (Nombre)</h3>
+        <input type="text" id="nombreTitular" [(ngModel)]="nombreTitular" name="nombreTitular" required>
       </div>
+      <div class="form-group">
+        <h3>NIT o CI:</h3>
+        <input type="text" id="nitCi" [(ngModel)]="nitCi" name="nitCi" required>
+      </div>
+    </form>
+    <h2>{{ deuda.nombre }}</h2>
+    <p>Total a deber: {{ deuda.total_deuda }} Bs.</p>
+    <img [src]="deuda.QR_pago" alt="QR de pago de {{ deuda.nombre }}" class="qr-image" />
 
-      <button type="button" class="pay-button" (click)="realizarPago()">PAGAR</button>
-    </div>
-  </mat-tab>
-</mat-tab-group>
+    <!-- Input para subir la imagen -->
+    <input type="file" (change)="onFileSelected($event, deuda)" accept="image/*" />
+    <button (click)="subirComprobante(deuda)" class="receipt">Sube el comprobante respectivo</button>
+  </div>
+
+  <button type="button" class="pay-button" (click)="realizarPago()">PAGAR</button>
+</div>
+

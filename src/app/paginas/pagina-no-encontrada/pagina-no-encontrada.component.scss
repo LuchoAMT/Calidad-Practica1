@@ -23,3 +23,17 @@ h1 {
 .mat-mdc-outlined-button:hover{
     background-color: #CCAD8F;
 }
+
+@media only screen and (max-width: 500px) { 
+    .container-not-found{
+        margin: 40% 0;
+    }
+
+    h1{
+        font-size: 1rem;
+    }
+
+    .container-not-found img{
+        margin-bottom: 0
+    }
+}

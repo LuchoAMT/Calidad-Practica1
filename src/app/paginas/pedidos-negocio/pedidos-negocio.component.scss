@@ -50,3 +50,23 @@
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);  // Sombra alrededor de la tabla
   }
 }
+
+@media (max-width: 500px) {
+  .demo-table {
+    margin: 10% 0;
+    max-width: 400px;
+    font-size: 14px;
+  }
+
+  .demo-table th, .demo-table td{
+    padding: 5px;
+  }
+
+  #cod_pedido{
+    width: fit-content;
+  }
+
+  mat-mdc-cell mdc-data-table__cell cdk-cell acciones cdk-column-productos mat-column-productos ng-star-inserted{
+    font-size: 10px;
+  }
+}

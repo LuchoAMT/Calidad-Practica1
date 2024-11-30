@@ -86,31 +86,89 @@
 }
 
 
-@media (max-width: 768px) {
-    .detail-section {
-        flex-direction: column;
+@media (max-width: 800px) {
+
+    .button-container{
+        margin-top: 5%;
     }
 
-    .detail-company #Logo {
+    .detail-section{
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
+
+    .detail-company{
+        margin: 5%;
+        margin-bottom: 10%;
+    }
+
+    .detail-company #Foto-Negocio {
         width: 80%;
         height: 80%;
-        margin-left: 7.5%;
+        margin-top: 10%;
+        margin-bottom: 5%;
     }
 
-    .data {
-        align-items: block;
-        flex-direction: column;
-        align-items: center;
+    .data{
         text-align: center;
+        margin: 0 7.5%;
     }
 
-    .data h1 {
+    .detail-section:nth-child(2) div{
+        margin: 0% 5%;
+        justify-content: center;
+    }
+
+    .data h1{
         font-size: 20px;
     }
 
-    .data p {
+    .data h2{
+        font-size: 20px;
+        margin-top: 10%;
+    }
+
+    .data a{
+        width: 80%;
+        margin: 5% 0;
+    }
+
+    .data p{
+
         line-height: 2;
         font-size: 15px;
+    }
+
+    #contact{
+        margin: 5% 0;
+    }
+
+}
+
+@media (max-width: 500px) {
+
+    .button-container{
+        margin-top: 10%;
+    }
+
+
+    .detail-company{
+        margin: 10% 5%;
+        margin-bottom: 15%;
+    }
+
+    .detail-section:nth-child(2) div{
+        margin: 10% 5%;
+        justify-content: center;
+    }
+
+    #contact{
+        margin: 10% 0;
+    }
+
+    #contact a{
+        margin-bottom: 10%;
     }
 
 }

@@ -22,3 +22,9 @@ p{
     margin-left: 7.5%;
     padding-right: 15%;
 }
+
+@media (max-width: 500px) {
+    #terms-conditions{
+      margin: 12.5% 7.5%;
+    }
+}

@@ -92,14 +92,17 @@ button[mat-flat-button]:hover {
 
 }
 
-@media (max-width: 425px) {
+@media (max-width: 500px) {
 
   .container{
-    margin: 12.5% 5%;
+    margin: 12.5% 0;
+    gap: 20%;
+    padding: 25% 0;
   }
 
   .company{
     width: 85%;
+    margin-left: 8%;
   }
 
 }

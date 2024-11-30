@@ -4,11 +4,11 @@
     <h2 class="title-cart">Carrito de compras</h2>
   </div>
   <div class="header-cart">
-    <h3>Imagen</h3>
-    <h3>Nombre</h3>
-    <h3>Precio Unitario</h3>
-    <h3>Cantidad</h3>
-    <h3>Total Parcial</h3>
+      <h3>Imagen</h3>
+      <h3>Nombre</h3>
+      <h3>Precio Unitario</h3>
+      <h3>Cantidad</h3>
+      <h3>Total Parcial</h3>
   </div>
   <!-- seccion contenedor producto -->
 
@@ -16,40 +16,44 @@
   @for(producto_carrito of productosCarrito; track producto_carrito.producto.id_producto){
   <section class="container-cart-product">
     <!-- imagen producto -->
-    <div class="container-img" [routerLink]="['/detalles-producto', producto_carrito.producto.id_producto]"
-      routerLinkActive="active">
-      <img [src]="producto_carrito.producto.imagen_url" alt="{{producto_carrito.producto.nombre}}">
-    </div>
-    <!-- nombre-->
-    <div class="container-title">
-      <h2 class="title">{{producto_carrito.producto.nombre}}</h2>
+     <div class="division_2">
+      <div class="container-img" [routerLink]="['/detalles-producto', producto_carrito.producto.id_producto]"
+        routerLinkActive="active">
+        <img [src]="producto_carrito.producto.imagen_url" alt="{{producto_carrito.producto.nombre}}">
+      </div>
+      <!-- nombre-->
+      <div class="container-title">
+        <h2 class="title">{{producto_carrito.producto.nombre}}</h2>
+      </div>
     </div>
     <!-- precio-->
-    <div class="container-price">
-      <p>
-        <span *ngIf="producto_carrito.producto.descuento > 0; else precioSinDescuento" class="descuento">
-          {{ getPrecioFinal(producto_carrito.producto) }} Bs.
-        </span>
-        <ng-template #precioSinDescuento>
-          {{ producto_carrito.producto.precio }} Bs.
-        </ng-template>
-      </p>
-    </div>    
-    <!-- cantidad -->
-    <div class="container-quantity">
-      <div class="superior">
-        <p>{{producto_carrito.cantidad}}</p>
+    <div class="division_3">
+      <div class="container-price">
+        <p>
+          <span *ngIf="producto_carrito.producto.descuento > 0; else precioSinDescuento" class="descuento">
+            {{ getPrecioFinal(producto_carrito.producto) }} Bs.
+          </span>
+          <ng-template #precioSinDescuento>
+            {{ producto_carrito.producto.precio }} Bs.
+          </ng-template>
+        </p>
+      </div>    
+      <!-- cantidad -->
+      <div class="container-quantity">
+        <div class="superior">
+          <p>{{producto_carrito.cantidad}}</p>
+        </div>
+        <div class="inferior">
+          <button mat-flat-button (click)="incrementarCantidad(producto_carrito.producto)">+</button>
+          <button mat-flat-button (click)="decrementarCantidad(producto_carrito.producto)">-</button>
+        </div>
       </div>
-      <div class="inferior">
-        <button mat-flat-button (click)="incrementarCantidad(producto_carrito.producto)">+</button>
-        <button mat-flat-button (click)="decrementarCantidad(producto_carrito.producto)">-</button>
+      <!-- total parcial -->
+      <div class="container-partial">
+        <p>
+          {{ getPrecioFinal(producto_carrito.producto) * producto_carrito.cantidad }} Bs.
+        </p>
       </div>
-    </div>
-    <!-- total parcial -->
-    <div class="container-partial">
-      <p>
-        {{ getPrecioFinal(producto_carrito.producto) * producto_carrito.cantidad }} Bs.
-      </p>
     </div>
   </section>
   }

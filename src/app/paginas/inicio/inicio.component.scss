@@ -89,6 +89,7 @@ mat-panel-title{
 @media only screen and (max-width: 768px) {
     h1{
         font-size: 30px;
+        margin-bottom: 0;
     }
 
     .presentation-container p,.about-us-container p{
@@ -109,10 +110,11 @@ mat-panel-title{
     }
   }
 
-  @media only screen and (max-width: 425px) { 
+  @media only screen and (max-width: 500px) { 
     .presentation-container{
         background-size: contain; 
         background-repeat: no-repeat; 
+        border-bottom: solid 2px #5E503F;
     }
 
     .presentation-container h1{
@@ -122,6 +124,7 @@ mat-panel-title{
     .presentation-container p{
         font-size: 14px;
         margin-bottom: 0;
+        width: 100%;
     }
 
     .about-us-container{
@@ -132,25 +135,36 @@ mat-panel-title{
         margin-top: 0;
     }
 
+    #text-about-us {
+        border-top: none;
+        border-bottom: none ;
+    }
+
     video{
         width: 90%;
     }
 
-    .FAQ-container div{
-        flex-direction: column;
+    .FAQ-container{
+        border-top: solid 2px #5E503F;
+        border-bottom: solid 2px #5E503F;
     }
 
-    .FAQ-container hr:nth-child(4){
+    .FAQ-container div{
+        flex-direction: column;
+        margin: 0 10%;
+    }
+
+    hr{
         height: 0px;
         margin: 0;
     }
 
     .FAQ-container mat-expansion-panel{
-        margin: 10% 0%;
-        padding: 8% 4%;
+        margin: 5% 0%;
+        padding: 6% 2%;
     }
 
     .FAQ-container mat-panel-title{
-        font-size: 12px;
+        font-size: 14px;
     }
 }

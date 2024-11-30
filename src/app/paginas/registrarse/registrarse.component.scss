@@ -1,90 +1,133 @@
 
 // Sección creacion de cuenta
-    form {
-        display: flex;
-        flex-direction: column;
-        background-color: #EBBC6F;
-        border: 2px solid;
-        gap: 20px;  
-        max-width: 60%;
-        margin: 5% auto;
-        padding: 1.5% 3%;
-        border-radius: 10px;
+form {
+    display: flex;
+    flex-direction: column;
+    background-color: #EBBC6F;
+    border: 2px solid;
+    gap: 20px;  
+    max-width: 60%;
+    margin: 5% auto;
+    padding: 1.5% 3%;
+    border-radius: 10px;
+}
+
+form img{
+    margin-left:44%;
+    margin-bottom: 2%;
+}
+
+.center-field{
+    width: 40%;
+    margin-left: 30%;
+}
+
+#img-registro{
+    text-align: center;
+}
+
+#img-registro mat-label{
+    font-family: "Poppins",sans-serif;
+    font-size: 25px;
+}
+
+#img-registro input{
+    margin-top: 5%;
+}
+
+h1,.form-2-fields a{
+    font-family: "Noto-Serif",sans-serif;
+    font-style: italic;
+}
+
+h1,h4 {
+    text-align: center;   
+}
+
+
+.form-2-fields mat-form-field{
+    margin: 0 3.5%;
+    width: 42.5%;
+}
+
+.links{
+    margin: 2.5% 0;
+    text-align: center;
+}
+
+mat-label, mat-form-field input{
+    font-family: "Poppins",sans-serif;
+}
+
+mat-form-field .mdc-text-field--filled:not(.mdc-text-field--disabled){
+    background-color: #D1BEB0;
+}
+
+
+
+#coords{
+    display: flex;
+    flex-direction: column;
+    gap: 5%;
+    margin: 0 4.5%;
+    align-items: center;
+}
+
+#coords p{
+    font-size: 20px;
+    font-style: italic;
+    font-family: 'Noto-Serif',sans-serif;
+    width: max-content;
+}
+
+#terms{
+    margin-left: 12.5%;
+}
+
+#registrarse {
+    width: 20%;
+    margin: 0 40%;
+    border-color: black;
+    color: black;
+}
+
+@media (max-width: 500px) {
+
+    form{
+        max-width: 75%;
+        margin: 15% 2%;
+        margin-left: 7.5%;
     }
 
     form img{
-        margin-left:44%;
-        margin-bottom: 2%;
+        margin-left: 35%;
     }
 
     .center-field{
-        width: 40%;
-        margin-left: 30%;
+        margin-left: 0;
+        width: 100%;
     }
 
-    #img-registro{
-        text-align: center;
+    .form-2-fields{
+        display: flex;
+        flex-direction: column;
     }
-
-    #img-registro mat-label{
-        font-family: "Poppins",sans-serif;
-        font-size: 25px;
-    }
-
-    #img-registro input{
-        margin-top: 5%;
-    }
-
-    h1,.form-2-fields a{
-        font-family: "Noto-Serif",sans-serif;
-        font-style: italic;
-    }
-    
-    h1,h4 {
-        text-align: center;   
-    }
-
 
     .form-2-fields mat-form-field{
-        margin: 0 3.5%;
-        width: 42.5%;
+        margin: 0;
+        margin-top: 7.5%;
+        width: 100%;
     }
 
-    .links{
-        margin: 2.5% 0;
-        text-align: center;
-    }
-
-    mat-label, mat-form-field input{
-        font-family: "Poppins",sans-serif;
-    }
-
-    mat-form-field .mdc-text-field--filled:not(.mdc-text-field--disabled){
-        background-color: #D1BEB0;
-    }
-
-    #coords{
-        display: flex;
-        gap: 5%;
-        margin: 0 4.5%;
-        margin-right: 1%;
-        align-items: center;
-    }
-
-    #coords p{
-        font-size: 20px;
-        font-style: italic;
-        font-family: 'Noto-Serif',sans-serif;
-        width: max-content;
-    }
-    
     #terms{
-        margin-left: 12.5%;
+        margin-left: 0;
     }
 
     #registrarse {
-        width: 20%;
-        margin: 0 40%;
-        border-color: black;
-        color: black;
+        width: 40%;
+        margin: 0 30%;
+        margin-bottom: 10%;
     }
+    
+}
+

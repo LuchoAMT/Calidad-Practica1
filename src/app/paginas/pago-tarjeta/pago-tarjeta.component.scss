@@ -64,40 +64,11 @@ button:hover {
   padding-bottom: 50px;
 }
 
-
-.container {
-  background-color: #F0CD93;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 600px;
-  height: auto;
-  box-sizing: border-box;
-
-
-
-}
-
-.credit-card-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
 .form-group {
   display: flex;
   flex-direction: column;
 }
 
-.form-row {
-  display: flex;
-  gap: 1rem;
-}
-
-.form-row .form-group {
-  flex: 1;
-}
 
 label {
   font-size: 0.875rem;
@@ -129,27 +100,36 @@ input {
 
 /* Media queries para dispositivos más pequeños (tablets y móviles) */
 @media (max-width: 768px) {
-  .container {
-      padding: 1.5rem;
-      max-width: 100%;
-  }
-
-  .pay-button {
+  .pay-button,.receipt {
       padding: 0.75rem;
   }
 }
 
-@media (max-width: 480px) {
-  .container {
-      padding: 1rem;
-      max-width: 100%;
+@media (max-width: 500px) {
+  .deudas-container{
+    margin: 15% 0;
   }
 
-  .form-row {
-      flex-direction: column;
+  input{
+    width: 50%;
+    margin-left: 22.5%;
   }
 
-  .pay-button {
+  .qr-image{
+    width: 300px;
+    margin-left: 10%;
+  }
+
+  input[type=file] {
+    margin-left: 0;
+  }
+
+  .pay-button,.receipt  {
       padding: 0.75rem;
+  }
+
+  .receipt{
+    width: 60%;
+    margin-left: 20%;
   }
 }

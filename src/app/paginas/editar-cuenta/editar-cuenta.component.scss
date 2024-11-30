@@ -88,3 +88,39 @@
         border-color: black;
         color: black;
     }
+
+    @media (max-width: 500px) {
+
+        form{
+            max-width: 75%;
+            margin: 15% 0;
+            margin-left: 10%;
+        }
+    
+        form img{
+            margin: 15% 0;
+        }
+    
+        .center-field{
+            margin-left: 0;
+            width: 100%;
+        }
+    
+        .image-form-container,.form-2-fields{
+            display: flex;
+            flex-direction: column;
+        }
+    
+        .form-2-fields mat-form-field{
+            margin: 0;
+            margin-top: 7.5%;
+            width: 100%;
+        }
+    
+        #cambios-cuenta {
+            width: 40%;
+            margin: 0 30%;
+            margin-bottom: 10%;
+        }
+        
+    }

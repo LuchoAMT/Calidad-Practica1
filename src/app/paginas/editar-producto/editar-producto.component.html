@@ -1,7 +1,7 @@
 <h1>Editar Producto</h1>
 
 <form [formGroup]="productoForm" (ngSubmit)="onSubmit()" novalidate>
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="fill" id="nombre">
     <mat-label>Nombre</mat-label>
     <input matInput formControlName="nombre" required />
     <mat-error *ngIf="productoForm.get('nombre')?.invalid && productoForm.get('nombre')?.touched">
@@ -53,5 +53,5 @@
   </mat-form-field>
 
   <button mat-stroked-button type="submit" [disabled]="productoForm.invalid">Guardar Cambios</button>
-  <button mat-button type="button" (click)="onCancel()">Cancelar</button>
+  <button mat-button type="button" (click)="onCancel()" id="cancelar">Cancelar</button>
 </form>

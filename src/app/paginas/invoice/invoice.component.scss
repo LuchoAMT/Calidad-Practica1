@@ -1,23 +1,23 @@
 .button {
-  display: flex; /* Centrar el botón */
-  justify-content: center; /* Alineación horizontal */
-  margin: 20px 0; /* Margen superior e inferior */
+  display: flex; 
+  justify-content: center; 
+  margin: 20px 0; 
 }
 
 .button a {
-  color: #ffffff; /* Color del texto */
-  background-color: #e39578; /* Color de fondo */
-  border: 2px solid #e66e42; /* Borde del botón */
-  border-radius: 5px; /* Esquinas redondeadas */
-  padding: 10px 20px; /* Espaciado interno */
-  font-size: 16px; /* Tamaño de letra */
-  text-decoration: none; /* Eliminar subrayado */
-  transition: background-color 0.3s, color 0.3s; /* Animación suave */
+  color: #ffffff; 
+  background-color: #e39578; 
+  border: 2px solid #e66e42; 
+  border-radius: 5px; 
+  padding: 10px 20px; 
+  font-size: 16px; 
+  text-decoration: none; 
+  transition: background-color 0.3s, color 0.3s; 
 }
 
 .button a:hover {
-  background-color: #c66516; /* Color de fondo al pasar el mouse */
-  color: #ffffff; /* Asegurar el contraste en hover */
+  background-color: #c66516;
+  color: #ffffff; 
 }
 
 
@@ -93,4 +93,23 @@
 
 .generate-pdf-button:hover {
   background-color: #b34800;
+}
+
+@media (max-width: 500px) {
+
+  .button{
+    margin-top: 10%;
+  }
+
+  .invoice-container{
+    margin: 10% 5%;
+    margin-bottom: 5%;
+  }
+
+  .generate-pdf-button{
+    width: 40%;
+    margin: 0;
+    margin-bottom: 10%;
+  }
+
 }

@@ -146,3 +146,13 @@
     flex: 1;
   }
 }
+
+@media (max-width: 500px) {
+  .button-container{
+    margin: 10% 0;
+  }
+
+  .producto-card{
+    margin-bottom: 10%;
+  }
+}

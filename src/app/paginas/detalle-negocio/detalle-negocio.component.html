@@ -18,10 +18,10 @@
     <div class="detail-section">
         <div id="contact">
           <h2>Contacto del negocio: </h2>
-          <a href="{{linkQR}}" target="_blank"><qrcode [qrdata]="linkQR" [width]="300" errorCorrectionLevel="M"></qrcode></a>
+          <a href="{{linkQR}}" target="_blank"><qrcode [qrdata]="linkQR" [width]="250" errorCorrectionLevel="M"></qrcode></a>
         </div>
         <div class="detail-location">
-            <google-map [height]="'310px'" [width]="'600px'" [center]="center" [zoom]="zoom">
+            <google-map [height]="'400px'" [width]="'250px'" [center]="center" [zoom]="zoom">
                 <map-circle [center]="center" [options]="circleOptions"></map-circle>
             </google-map>
         </div>

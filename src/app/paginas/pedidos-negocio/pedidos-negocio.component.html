@@ -3,7 +3,7 @@
   <!-- Position Column -->
   <ng-container matColumnDef="id_pedido">
     <th mat-header-cell *matHeaderCellDef>Codigo Pedido</th>
-    <td mat-cell *matCellDef="let element">{{element.id_pedido}}</td>
+    <td mat-cell *matCellDef="let element" class="cod_pedido">{{element.id_pedido}}</td>
   </ng-container>
 
   <!-- Name Column -->
@@ -26,14 +26,12 @@
     <td mat-cell *matCellDef="let element">{{element.monto_total}}</td>
   </ng-container>
 
-  <ng-container matColumnDef="productos">
+  <ng-container matColumnDef="productos" >
     <th mat-header-cell *matHeaderCellDef>Acciones</th>
-    <td mat-cell *matCellDef="let element">
+    <td mat-cell *matCellDef="let element" class="acciones">
        <div *ngFor="let producto of element.productos">
       {{producto.nombre}} - Cantidad: {{producto.cantidad}}
      </div> </td>
-    <!-- <td mat-cell *matCellDef="let element"> <a routerLink= "/inicio" class="link" >Ver detalles</a></td> -->
-
 
   </ng-container>
 
