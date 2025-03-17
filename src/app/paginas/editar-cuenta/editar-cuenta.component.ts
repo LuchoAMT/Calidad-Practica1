@@ -157,51 +157,55 @@ export class EditarCuentaComponent implements OnInit {
     }
     
     async onSubmit(): Promise<void> {
-      if (this.editarCuentaForm.valid) {
-          const formData = new FormData();
-
-          const formValues = this.editarCuentaForm.value; 
-          
-          formData.append('nombre', formValues.nombre || '');
-          formData.append('correo', formValues.correo || '');
-          formData.append('contacto', formValues.contacto || '');
-          formData.append('descripcion', formValues.descripcion || '');
-          formData.append('latitud', this.selectedCoordinates.lat.toString());
-          formData.append('longitud', this.selectedCoordinates.lng.toString());
-
-          if (formValues.nuevaContraseña) {
-            formData.append('nuevaContraseña', formValues.nuevaContraseña);
-          }
-
-    
-        try {
-          if (this.userType === 'negocio') {
-            if (this.selectedImage) {
-              formData.append('foto', this.selectedImage);
-            }
-
-            await this.negociosService.updateNegocio(this.userId, formData);
-            alert('Negocio actualizado con éxito');
-            window.location.reload();
-          } else if (this.userType === 'empresa') {
-            if (this.selectedImage) {
-              formData.append('logo', this.selectedImage);
-            }
-
-            if (this.selectedImageQR) {
-              formData.append('QR_pago', this.selectedImageQR);
-            }
-
-            await this.empresasService.updateEmpresa(this.userId, formData);
-            alert('Empresa actualizada con éxito');
-            window.location.reload();
-          }
-        } catch (error) {
-          console.error('Error al actualizar:', error);
-          alert('Error al actualizar la información. Por favor, intente nuevamente.');
-        }
-      } else {
+      if (!this.editarCuentaForm.valid) {
         alert('Por favor, complete todos los campos requeridos correctamente.');
       }
+
+      const fomrData = this.buildFormData();
+
+      try {
+        await this.updateUser(fomrData);
+        alert('Usuario actualizado con éxito');
+        window.location.reload();
+      } catch (error) {
+        console.error('Error al actualizar:', error);
+        alert('Error al actualizar la información. Por favor, intente nuevamente.');
+      }
     }
+
+    private buildFormData(): FormData {
+
+    const formData = new FormData();
+    const formValues = this.editarCuentaForm.value;
+
+    formData.append('nombre', formValues.nombre || '');
+    formData.append('correo', formValues.correo || '');
+    formData.append('contacto', formValues.contacto || '');
+    formData.append('descripcion', formValues.descripcion || '');
+    formData.append('latitud', this.selectedCoordinates.lat.toString());
+    formData.append('longitud', this.selectedCoordinates.lng.toString());
+
+    if (formValues.nuevaContraseña) {
+      formData.append('nuevaContraseña', formValues.nuevaContraseña);
+    }
+
+    if (this.selectedImage) {
+      formData.append(this.userType === 'negocio' ? 'foto' : 'logo', this.selectedImage);
+    }
+    
+    if (this.userType === 'empresa' && this.selectedImageQR) {
+      formData.append('qr_pago', this.selectedImageQR);
+    }
+
+    return formData;
+  }
+
+  private async updateUser(formData: FormData): Promise<void> {
+    if (this.userType === 'negocio') {
+      await this.negociosService.updateNegocio(this.userId, formData);
+    }
+    else {
+      await this.empresasService.updateEmpresa(this.userId, formData);
+    }
+  }
 }
