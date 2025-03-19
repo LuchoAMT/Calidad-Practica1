@@ -20,7 +20,7 @@ export class InvoiceComponent implements OnInit {
   nombreCliente: string = '';
   nitCi: string = ''; // NIT o CI del cliente
 
-  constructor(private carritoService: CarritoService) {}
+  constructor(private readonly carritoService: CarritoService) {}
 
   ngOnInit(): void {
     this.productosCarrito = this.carritoService.getProductosCarrito();
@@ -45,14 +45,11 @@ export class InvoiceComponent implements OnInit {
         const imgData = canvas.toDataURL('image/png');
         const pdf = new jsPDF();
         const imgWidth = 190; // Ancho de la imagen en el PDF
-        const pageHeight = pdf.internal.pageSize.height;
         const imgHeight = (canvas.height * imgWidth) / canvas.width;
-        const heightLeft = imgHeight;
 
         let position = 10;
 
         pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
-        position += heightLeft;
 
         pdf.save('factura.pdf'); // Nombre del archivo PDF
       });

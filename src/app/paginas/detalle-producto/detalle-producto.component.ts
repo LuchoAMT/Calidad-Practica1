@@ -20,9 +20,9 @@ export class DetalleProductoComponent {
   esPropietario: boolean = false; // Bandera para indicar si el usuario es el propietario del producto
 
   constructor(
-    private route: ActivatedRoute,
-    private productoService: ProductosService,
-    private carritoService: CarritoService
+    private readonly route: ActivatedRoute,
+    private readonly productoService: ProductosService,
+    private readonly carritoService: CarritoService
   ) { }
 
   ngOnInit(): void {

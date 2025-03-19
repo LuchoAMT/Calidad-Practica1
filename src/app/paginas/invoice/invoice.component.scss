@@ -2,6 +2,8 @@
   display: flex; 
   justify-content: center; 
   margin: 20px 0; 
+  align-items: center;
+  height: 5vh;
 }
 
 .button a {
@@ -70,12 +72,6 @@
   font-size: 20px;
   font-weight: bold;
   margin-top: 20px;
-}
-.button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 5vh;
 }
 
 .generate-pdf-button {

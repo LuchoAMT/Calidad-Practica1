@@ -37,8 +37,8 @@ export class DetallesEmpresaComponent implements OnInit {
   @ViewChild(GoogleMap) map!: GoogleMap; 
 
   constructor(
-    private route: ActivatedRoute,
-    private empresasService: EmpresasService,
+    private readonly route: ActivatedRoute,
+    private readonly empresasService: EmpresasService,
   ) {}
 
   ngOnInit(): void {

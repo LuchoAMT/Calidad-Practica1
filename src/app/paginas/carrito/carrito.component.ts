@@ -19,7 +19,7 @@ export class CarritoComponent {
   productosCarrito: { producto: Producto, cantidad: number }[] = [];
   totalCarrito: number = 0;
 
-  constructor(private carritoService: CarritoService, private productoService: ProductosService) {} 
+  constructor(private readonly carritoService: CarritoService, private readonly productoService: ProductosService) {} 
 
   ngOnInit(): void {
     const idUsuario = Number(localStorage.getItem('userId'));
@@ -90,7 +90,7 @@ export class CarritoComponent {
   async confirmarPedido() {
     try {
       const idNegocio = Number(localStorage.getItem('userId'));
-      const response = await this.carritoService.crearPedido(idNegocio);
+      await this.carritoService.crearPedido(idNegocio);
       
       this.carritoService.vaciarCarrito();
       this.productosCarrito = [];

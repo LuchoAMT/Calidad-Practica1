@@ -148,13 +148,6 @@
   .footer-content span,.footer-copyright span{
     width: 27.5%;
   }
-
-  .footer-content {
-    display: flex;
-    flex-wrap: wrap;
-    padding-top: 2.5%;
-    gap: 7%;
-  }
   
   .footer-section ul{
     list-style: none;
@@ -182,10 +175,6 @@
   
   #menu-1 li {
     margin-right: 20px; 
-  }
-
-    .footer-section a{
-    transition: color 0.3s ease;
   }
 
   .footer-copyright {

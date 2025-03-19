@@ -7,12 +7,12 @@ import { Producto } from '../interfaces/producto';
 })
 
 export class CarritoService {
-  private carritoCount = new BehaviorSubject<number>(0);
+  private readonly carritoCount = new BehaviorSubject<number>(0);
   carritoCount$ = this.carritoCount.asObservable();
 
   private carritoItems: { [id_producto: number]: { producto: Producto, cantidad: number } } = {};
 
-  private apiUrl = 'http://localhost:3000';
+  private readonly apiUrl = 'http://localhost:3000';
 
   constructor() {
     this.cargarCarritoDesdeStorage();

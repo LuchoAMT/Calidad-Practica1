@@ -6,7 +6,7 @@ import { Negocio } from '../interfaces/negocio';
 })
 export class NegociosService {
 
-  private apiUrl = 'http://localhost:3000/Negocios';
+  private readonly apiUrl = 'http://localhost:3000/Negocios';
 
   constructor() { }
 

@@ -27,7 +27,7 @@ export class PagoTarjetaComponent {
   deudasPorEmpresa: { id_empresa: number, total_deuda: number, nombre: string, QR_pago: string }[] = [];
   imagenesComprobantes: { [key: number]: File } = {};
 
-  constructor(private carritoService: CarritoService, private router: Router, private empresaService: EmpresasService,  private productosService: ProductosService) {}
+  constructor(private readonly carritoService: CarritoService, private readonly router: Router, private readonly empresaService: EmpresasService,  private readonly productosService: ProductosService) {}
 
   ngOnInit(): void {
     this.productosCarrito = this.carritoService.getProductosCarrito();
@@ -109,24 +109,6 @@ export class PagoTarjetaComponent {
     }
   }
 
-  // Método para manejar el envío del formulario
-  // async realizarPago() {
-  //   try {
-  //     // Si estás usando el método de pago por tarjeta
-  //     if (this.nombreTitular) {
-  //       this.carritoService.setNombreCliente(this.nombreTitular); // Almacena el nombre en el servicio
-  //       this.carritoService.setNitCi(this.nitCi);
-  //     }
-
-  //     const idNegocio = Number(localStorage.getItem('userId'));
-  //     await this.carritoService.crearPedido(idNegocio);
-
-  //     // Redirigir a la página de factura
-  //     this.router.navigate(['/invoice']);
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // }
   // Método para manejar el envío del formulario
 async realizarPago() {
   try {

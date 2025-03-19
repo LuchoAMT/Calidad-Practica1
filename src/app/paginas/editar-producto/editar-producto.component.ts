@@ -22,10 +22,10 @@ export class EditarProductoComponent implements OnInit{
 
 
   constructor(
-    private productoService: ProductosService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private fb: FormBuilder
+    private readonly productoService: ProductosService,
+    private readonly route: ActivatedRoute,
+    private readonly router: Router,
+    private readonly fb: FormBuilder
   ) {
     this.productoForm = this.fb.group({
       nombre: [''],

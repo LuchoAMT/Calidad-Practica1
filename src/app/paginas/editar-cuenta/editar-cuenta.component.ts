@@ -45,9 +45,9 @@ export class EditarCuentaComponent implements OnInit {
     previousPassword: string | null = null;
 
     constructor(
-      private fb: FormBuilder, 
-      private empresasService: EmpresasService, 
-      private negociosService: NegociosService,
+      private readonly fb: FormBuilder, 
+      private readonly empresasService: EmpresasService, 
+      private readonly negociosService: NegociosService,
     ) {
       this.userType = localStorage.getItem('userType');
       this.userId = Number(localStorage.getItem('userId')) || 0; 

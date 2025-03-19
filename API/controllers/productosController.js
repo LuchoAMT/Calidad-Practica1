@@ -8,7 +8,7 @@ exports.crearProducto = async (req, res) => {
     const query = 'INSERT INTO productos (nombre, descripcion, precio, imagen_url, id_empresa) VALUES (?, ?, ?, ?, ?)';
 
     try {
-        const [result] = await db.query(query, [nombre, descripcion, precio, imagen_url, empresaId]);
+        await db.query(query, [nombre, descripcion, precio, imagen_url, empresaId]);
         res.status(201).json({ mensaje: 'Producto creado con éxito' });
     } catch (err) {
         return res.status(500).json({ error: err.message });
@@ -83,7 +83,7 @@ exports.eliminarProducto = async (req, res) => {
     const query = 'DELETE FROM productos WHERE id_producto = ? AND id_empresa = ?';
 
     try {
-        const [result] = await db.query(query, [productoId, req.usuarioId]);
+        await db.query(query, [productoId, req.usuarioId]);
         res.json({ mensaje: 'Producto eliminado con éxito' });
     } catch (err) {
         return res.status(500).json({ error: err.message });

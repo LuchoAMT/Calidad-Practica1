@@ -33,8 +33,8 @@ export class DetalleNegocioComponent implements OnInit {
   };
 
   constructor(
-    private route: ActivatedRoute,
-    private negociosService: NegociosService,
+    private readonly route: ActivatedRoute,
+    private readonly negociosService: NegociosService,
   ) {}
 
   ngOnInit(): void {

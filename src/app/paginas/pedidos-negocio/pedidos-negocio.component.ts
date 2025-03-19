@@ -25,8 +25,8 @@ export class PedidosNegocioComponent implements OnInit {
   @ViewChild(MatTable) table!: MatTable<Pedido>;
 
   constructor(
-    private pedidosService: PedidosService,
-    private route: ActivatedRoute // Inyectamos ActivatedRoute
+    private readonly pedidosService: PedidosService,
+    private readonly route: ActivatedRoute // Inyectamos ActivatedRoute
   ) {}
 
   ngOnInit(): void {

@@ -14,7 +14,7 @@ import { Empresa } from '../../interfaces/empresa';
 export class ListaEmpresasComponent implements OnInit {
   empresas: Empresa[] = [];
 
-  constructor(private empresaService: EmpresasService) {}
+  constructor(private readonly empresaService: EmpresasService) {}
 
   async obtenerEmpresas() {
     this.empresas = await this.empresaService.getEmpresas();

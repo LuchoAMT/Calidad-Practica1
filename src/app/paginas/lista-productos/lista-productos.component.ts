@@ -50,11 +50,11 @@ export class ListaProductosComponent implements OnInit {
 
 
   constructor(
-    private productosService: ProductosService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private snackBar: MatSnackBar,
-    private authService: AutenticacionService) {
+    private readonly productosService: ProductosService,
+    private readonly route: ActivatedRoute,
+    private readonly router: Router,
+    private readonly snackBar: MatSnackBar,
+    private readonly authService: AutenticacionService) {
     this.isAuthenticated = this.authService.isAuthenticated();
 
     this.productosFiltrados = this.mycontrol.valueChanges.pipe(

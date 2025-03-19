@@ -8,9 +8,9 @@ import { Pedido } from '../interfaces/pedido';
   providedIn: 'root'
 })
 export class PedidosService {
-  private apiUrl = 'http://localhost:3000/pedidos';  // URL de tu API
+  private readonly apiUrl = 'http://localhost:3000/pedidos';  // URL de tu API
 
-  constructor(private http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   // Obtiene los pedidos de un negocio por su id
   obtenerPedidosPorNegocio(id_negocio: number): Observable<Pedido[]> {

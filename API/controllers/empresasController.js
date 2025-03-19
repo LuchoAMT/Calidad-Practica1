@@ -15,7 +15,7 @@ exports.crearEmpresa = async (req, res) => {
 
         const query = 'INSERT INTO empresas (nombre, correo, contrasenia, descripcion, latitud, longitud, contacto, logo, QR_pago) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
-        const [result] = await db.query(query, [nombre, correo, hashedPassword, descripcion, latitud, longitud, contacto, logo, QR_pago]);
+        await db.query(query, [nombre, correo, hashedPassword, descripcion, latitud, longitud, contacto, logo, QR_pago]);
 
         // Respuesta exitosa
         res.status(201).json({ mensaje: 'Empresa creada con éxito' });
@@ -91,26 +91,51 @@ exports.actualizarEmpresa = async (req, res) => {
         let updateFields = [];
         let updateValues = [];
 
-        if (nombre) updateFields.push('nombre = ?'), updateValues.push(nombre);
+        if (nombre){
+            updateFields.push('nombre = ?');
+            updateValues.push(nombre);
+        } 
 
-        if (descripcion) updateFields.push('descripcion = ?'), updateValues.push(descripcion);
+        if (descripcion) {
+            updateFields.push('descripcion = ?');
+            updateValues.push(descripcion);
+        } 
 
-        if (correo) updateFields.push('correo = ?'), updateValues.push(correo);
+        if (correo) {
+            updateFields.push('correo = ?');
+            updateValues.push(correo);
+        } 
 
         if (contrasenia) {
             const hashedPassword = await bcrypt.hash(contrasenia, 10);
-            updateFields.push('contrasenia = ?'), updateValues.push(hashedPassword);
+            updateFields.push('contrasenia = ?');
+            updateValues.push(hashedPassword);
         }
 
-        if (latitud) updateFields.push('latitud = ?'), updateValues.push(latitud);
+        if (latitud) {
+            updateFields.push('latitud = ?'); 
+            updateValues.push(latitud);
+        } 
 
-        if (longitud) updateFields.push('longitud = ?'), updateValues.push(longitud);
+        if (longitud) {
+            updateFields.push('longitud = ?'); 
+            updateValues.push(longitud);
+        } 
 
-        if (contacto) updateFields.push('contacto = ?'), updateValues.push(contacto);
+        if (contacto) {
+            updateFields.push('contacto = ?');
+            updateValues.push(contacto);  
+        } 
 
-        if (logo) updateFields.push('logo = ?'), updateValues.push(logo);
+        if (logo) {
+            updateFields.push('logo = ?');
+            updateValues.push(logo);
+        } 
 
-        if (QR_pago) updateFields.push('QR_pago = ?'), updateValues.push(QR_pago);
+        if (QR_pago) {
+            updateFields.push('QR_pago = ?');
+            updateValues.push(QR_pago);
+        } 
         
 
         if (updateFields.length === 0) {
@@ -141,7 +166,7 @@ exports.eliminarEmpresa = async (req, res) => {
     const query = 'DELETE FROM empresas WHERE id_empresa = ? AND id = ?';
 
     try {
-        const [result] = await db.query(query, [req.usuarioId, empresaId]);
+        await db.query(query, [req.usuarioId, empresaId]);
         res.json({ mensaje: 'Empresa eliminada con éxito' });
     } catch (err) {
         return res.status(500).json({ error: err.message });

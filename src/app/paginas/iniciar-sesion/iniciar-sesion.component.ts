@@ -24,7 +24,7 @@ export class IniciarSesionComponent {
   userType = new FormControl('', [Validators.required]);
   hide = true;
 
-  constructor(private router: Router, private authService: AutenticacionService) {}
+  constructor(private readonly router: Router, private readonly authService: AutenticacionService) {}
 
   togglePasswordVisibility() {
     this.hide = !this.hide;

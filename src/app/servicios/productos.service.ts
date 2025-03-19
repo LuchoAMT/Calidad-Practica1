@@ -5,7 +5,7 @@ import { Producto } from '../interfaces/producto';
   providedIn: 'root'
 })
 export class ProductosService {
-  private apiUrl = 'http://localhost:3000/productos';
+  private readonly apiUrl = 'http://localhost:3000/productos';
 
   constructor() { }
 

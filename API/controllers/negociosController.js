@@ -13,7 +13,7 @@ exports.crearNegocio = async (req, res) => {
         const hashedPassword = await bcrypt.hash(contrasenia, saltRounds);
 
         const query = 'INSERT INTO negocios (nombre, correo, contrasenia, informacion, latitud, longitud, contacto, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
-        const [result] = await db.query(query, [nombre, correo, hashedPassword, informacion, latitud, longitud, contacto, foto]);
+        await db.query(query, [nombre, correo, hashedPassword, informacion, latitud, longitud, contacto, foto]);
         
 
         res.status(201).json({ mensaje: 'negocio creado con éxito' });
@@ -155,7 +155,7 @@ exports.eliminarNegocio = async (req, res) => {
     const query = 'DELETE FROM negocios WHERE id_negocio = ? AND id = ?';
 
     try {
-        const [result] = await db.query(query, [req.usuarioId, negocioId]);
+        await db.query(query, [req.usuarioId, negocioId]);
         res.json({ mensaje: 'negocio eliminado con éxito' });
     } catch (err) {
         return res.status(500).json({ error: err.message });

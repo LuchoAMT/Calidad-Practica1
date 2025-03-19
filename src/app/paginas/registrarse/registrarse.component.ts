@@ -48,46 +48,48 @@
     selectedFile: File | null = null;
     selectedFileQR: File | null = null;
 
-    constructor(private router: Router, private empresasService:EmpresasService, private negociosService:NegociosService) {}
+    constructor(private readonly router: Router, private readonly empresasService:EmpresasService, private readonly negociosService:NegociosService) {}
 
     onFileSelected(event: Event) {
       const input = event.target as HTMLInputElement;
-      if (input.files && input.files.length) {
-        const file = input.files[0];
-    
-        // Validar tipo y tamaño del archivo (opcional)
-        const validTypes = ['image/png', 'image/jpeg', 'image/webp'];
-        if (!validTypes.includes(file.type)) {
-          alert('Por favor, selecciona un archivo de imagen válido (png, jpg, webp).');
-          return;
-        }
-        if (file.size > 5 * 1024 * 1024) { 
-          alert('El archivo seleccionado es demasiado grande. Máximo 5MB.');
-          return;
-        }
-    
-        this.selectedFile = file;
+      const file = input.files?.[0];
+
+      if (!file) return;
+
+      // Validar tipo y tamaño del archivo (opcional)
+      const validTypes = ['image/png', 'image/jpeg', 'image/webp'];
+      if (!validTypes.includes(file.type)) {
+        alert('Por favor, selecciona un archivo de imagen válido (png, jpg, webp).');
+        return;
       }
+      if (file.size > 5 * 1024 * 1024) {
+        alert('El archivo seleccionado es demasiado grande. Máximo 5MB.');
+        return;
+      }
+
+      this.selectedFile = file;
+
     }
 
     onFileSelectedQR(event: Event) {
       const input = event.target as HTMLInputElement;
-      if (input.files && input.files.length) {
-        const fileQR = input.files[0];
-    
-        // Validar tipo y tamaño del archivo (opcional)
-        const validTypes = ['image/png', 'image/jpeg', 'image/webp'];
-        if (!validTypes.includes(fileQR.type)) {
-          alert('Por favor, selecciona un archivo de imagen válido (png, jpg, webp).');
-          return;
-        }
-        if (fileQR.size > 5 * 1024 * 1024) { 
-          alert('El archivo seleccionado es demasiado grande. Máximo 5MB.');
-          return;
-        }
-    
-        this.selectedFileQR = fileQR;
+      const fileQR = input.files?.[0];
+      
+      if (!fileQR) return;
+
+      // Validar tipo y tamaño del archivo (opcional)
+      const validTypes = ['image/png', 'image/jpeg', 'image/webp'];
+      if (!validTypes.includes(fileQR.type)) {
+        alert('Por favor, selecciona un archivo de imagen válido (png, jpg, webp).');
+        return;
       }
+      if (fileQR.size > 5 * 1024 * 1024) {
+        alert('El archivo seleccionado es demasiado grande. Máximo 5MB.');
+        return;
+      }
+
+      this.selectedFileQR = fileQR;
+
     }
 
     togglePasswordVisibility() {
@@ -156,7 +158,7 @@
         formData.append('QR_pago', this.selectedFileQR!);
     
         try {
-          const empresaCreada = await this.empresasService.crearEmpresa(formData);
+          await this.empresasService.crearEmpresa(formData);
           alert('Registro de empresa exitoso');
           this.router.navigate(['/inicio']);
         } catch (error) {
@@ -186,7 +188,7 @@
         formData.append('foto', this.selectedFile!);
       
         try {
-          const negocioCreado = await this.negociosService.crearNegocio(formData);
+          await this.negociosService.crearNegocio(formData);
           alert('Registro de negocio exitoso');
           this.router.navigate(['/inicio']);
         } catch (error) {

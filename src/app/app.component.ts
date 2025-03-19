@@ -24,10 +24,10 @@ export class AppComponent implements OnInit {
   userId: string | null = null;
 
   constructor(
-    private carritoService: CarritoService,
-    private authService: AutenticacionService,
-    private router: Router,
-    private snackBar: MatSnackBar
+    private readonly carritoService: CarritoService,
+    private readonly authService: AutenticacionService,
+    private readonly router: Router,
+    private readonly snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {

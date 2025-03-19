@@ -13,12 +13,12 @@ interface AuthResponse {
   providedIn: 'root'
 })
 export class AutenticacionService {
-  private apiUrl = 'http://localhost:3000';
+  private readonly apiUrl = 'http://localhost:3000';
 
-  private isAuthenticatedSubject = new BehaviorSubject<boolean>(this.isAuthenticated());
+  private readonly isAuthenticatedSubject = new BehaviorSubject<boolean>(this.isAuthenticated());
   isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   async iniciarSesion(email: string, password: string, userType: string): Promise<AuthResponse> {
     try {
