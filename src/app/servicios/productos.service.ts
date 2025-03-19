@@ -66,9 +66,7 @@ export class ProductosService {
 
     if (!resp.ok) {
       throw new Error('Error al eliminar el producto');
-    }
-
-    return;  // No se espera ninguna respuesta del servidor al eliminar
+    }  
   }
 
   async getProductosPorEmpresa(idEmpresa: number): Promise<Producto[]> {

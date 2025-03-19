@@ -1,5 +1,5 @@
   import { ChangeDetectionStrategy, Component} from '@angular/core';
-  import { Router,RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+  import { Router,RouterLink, RouterLinkActive } from '@angular/router';
   import { CommonModule } from '@angular/common'; 
   import {FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
   //Angular Material
@@ -154,8 +154,8 @@
         formData.append('latitud', this.selectedCoordinates.lat.toString());
         formData.append('longitud', this.selectedCoordinates.lng.toString());
         formData.append('contacto', this.contacto.value);
-        formData.append('logo', this.selectedFile!);
-        formData.append('QR_pago', this.selectedFileQR!);
+        formData.append('logo', this.selectedFile);
+        formData.append('QR_pago', this.selectedFileQR);
     
         try {
           await this.empresasService.crearEmpresa(formData);
@@ -185,7 +185,7 @@
         formData.append('latitud', this.selectedCoordinates.lat.toString());
         formData.append('longitud', this.selectedCoordinates.lng.toString());
         formData.append('contacto', this.contacto.value);
-        formData.append('foto', this.selectedFile!);
+        formData.append('foto', this.selectedFile);
       
         try {
           await this.negociosService.crearNegocio(formData);

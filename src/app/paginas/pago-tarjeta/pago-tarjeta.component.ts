@@ -78,10 +78,12 @@ export class PagoTarjetaComponent {
     for (const id of idsUnicos) {
       try {
         const empresa: Empresa = await this.empresaService.getEmpresa(id);
-        if (empresa && empresa.QR_pago) {
-          this.qrPagos.push(empresa.QR_pago);
-          this.empresas.push(empresa);
-        }
+        const qrPago = empresa?.QR_pago ?? null; 
+
+            if (qrPago) {
+                this.qrPagos.push(qrPago);
+                this.empresas.push(empresa);
+            }
       } catch (error) {
         console.error('Error al obtener la empresa:', error);
       }

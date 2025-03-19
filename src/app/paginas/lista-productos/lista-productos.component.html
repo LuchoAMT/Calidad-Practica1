@@ -27,7 +27,7 @@
       <mat-card-title>{{ producto.nombre }}</mat-card-title>
     </mat-card-header>
     <div class="container-img">
-      <img mat-card-image [src]="producto.imagen_url" alt="Imagen del producto">
+      <img mat-card-image [src]="producto.imagen_url" alt="{{ producto.nombre }}">
     </div>
     <mat-card-content id="descripcion">
       <p>{{ limitarDescripcion(producto.descripcion, 15) }}</p>

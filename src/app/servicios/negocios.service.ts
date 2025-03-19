@@ -79,9 +79,7 @@ export class NegociosService {
 
     if (!resp.ok) {
       throw new Error('Error al eliminar la Negocio');
-    }
-
-    return;  
+    }  
   }
 
 }

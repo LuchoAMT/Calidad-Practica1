@@ -1,4 +1,4 @@
-import { Routes,RouterModule } from '@angular/router';
+import { Routes } from '@angular/router';
 import { InicioComponent } from './paginas/inicio/inicio.component'; // Componente inicio
 import { ListaProductosComponent } from './paginas/lista-productos/lista-productos.component';
 import { ListaEmpresasComponent } from './paginas/lista-empresas/lista-empresas.component';

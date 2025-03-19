@@ -80,9 +80,7 @@ export class EmpresasService {
 
     if (!resp.ok) {
       throw new Error('Error al eliminar la empresa');
-    }
-
-    return; 
+    } 
   }
 
 }

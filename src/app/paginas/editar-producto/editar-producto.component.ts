@@ -37,7 +37,11 @@ export class EditarProductoComponent implements OnInit{
     });
   }
 
-   async ngOnInit(): Promise<void> {
+  ngOnInit(): void {
+    this.cargarProducto();
+  }
+
+  private async cargarProducto(): Promise<void> {
     const productoId = Number(this.route.snapshot.paramMap.get('id'));
     try {
       this.producto = await this.productoService.getProductoPorId(productoId);
@@ -63,7 +67,7 @@ export class EditarProductoComponent implements OnInit{
           etiqueta: this.productoForm.value.etiqueta === '' ? null : this.productoForm.value.etiqueta // Cambiar a null si es 'Ninguna'
         };
 
-        await this.productoService.actualizarProducto(this.producto.id_producto!, productoActualizado);
+        await this.productoService.actualizarProducto(this.producto.id_producto, productoActualizado);
         this.router.navigate(['/productos']); // Redirige a la lista de productos después de editar
       } catch (error) {
         console.error('Error al actualizar el producto:', error);

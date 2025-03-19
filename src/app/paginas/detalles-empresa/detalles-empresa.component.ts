@@ -5,8 +5,7 @@ import { EmpresasService } from '../../servicios/empresas.service';
 import {MatButtonModule} from '@angular/material/button';
 
 import { CommonModule } from '@angular/common';
-import { GoogleMapsModule } from '@angular/google-maps';
-import { GoogleMap } from '@angular/google-maps';
+import { GoogleMapsModule, GoogleMap } from '@angular/google-maps';
 
 import { QRCodeModule } from 'angularx-qrcode';
 

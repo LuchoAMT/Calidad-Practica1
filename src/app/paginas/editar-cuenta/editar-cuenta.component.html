@@ -4,7 +4,7 @@
           <h1>Editar Cuenta</h1>
           <div class="image-link">
             <div class="image-form-container">
-              <img *ngIf="imageUrl;" [src]="imageUrl" loading="lazy" alt="Imagen actual del negocio o empresa" style="width: 250px;" />            
+              <img *ngIf="imageUrl;" [src]="imageUrl" loading="lazy" alt="Logo - Foto actual del negocio o empresa" style="width: 250px;" />            
               <div id="img-edicion" class="center-field">
                 <mat-label>Edita tu imagen</mat-label>
                 <input type="file" accept=".png,.jpeg,.webp" (change)="onImageSelected($event)">
@@ -14,7 +14,7 @@
           
           <div *ngIf="userType === 'empresa'" class="image-link">
             <div class="image-form-container">
-              <img *ngIf="imageQR" [src]="imageQR" loading="lazy" alt="Imagen actual del QR" style="width: 250px;" />            
+              <img *ngIf="imageQR" [src]="imageQR" loading="lazy" alt="Código QR actual" style="width: 250px;" />            
               <div id="img-edicion" class="center-field">
                 <mat-label>Edita tu QR de pago</mat-label>
                 <input type="file" accept=".png,.jpeg,.webp" (change)="onImageSelectedQR($event)">
