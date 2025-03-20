@@ -1,9 +1,17 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
+app.disable('x-powered-by');
 const port = 3000;
 
-app.use(cors());
+const corsOptions = {
+    origin: ['http://localhost:4200', 'merkabo.netlify.app'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
+};
+
+app.use(cors(corsOptions));
 // Middleware
 app.use(express.json());
 

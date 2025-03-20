@@ -2,7 +2,24 @@ const express = require('express');
 const multer = require('multer');
 const { verificarToken } = require('../middleware/auth'); 
 
-const upload = multer(); // Configuración básica de multer
+const storage = multer.memoryStorage(); 
+const upload = multer({
+    storage: storage,
+    limits: {
+        fileSize: 2 * 1024 * 1024 // Limitar el tamaño del archivo a 2 MB
+    },
+    fileFilter: (req, file, cb) => {
+        const filetypes = /jpeg|jpg|png|gif/; // Tipos de archivo permitidos
+        const mimetype = filetypes.test(file.mimetype);
+        const extname = filetypes.test(file.originalname.split('.').pop().toLowerCase());
+
+        if (mimetype && extname) {
+            return cb(null, true);
+        } else {
+            cb(new Error('Error: Tipo de archivo no permitido. Solo se permiten imágenes.'));
+        }
+    }
+}); 
 
 // Controladores
 const { crearNegocio, obtenerNegocios, obtenerNegocioPorId, eliminarNegocio, actualizarNegocio } = require('../controllers/negociosController');
